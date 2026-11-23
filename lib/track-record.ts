@@ -11,8 +11,8 @@ export interface TrackRecordWeek {
 
 export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
   {
-    id: "2026-w09",
-    week: "2026 · W09 (Feb 23 – Mar 01)",
+    id: "2026-w44",
+    week: "2026 · W44 (Oct 26 – Nov 01)",
     environment: "Demo",
     instrument: "Volatility 75 (1s) · Rise/Fall",
     trades: 142,
@@ -21,8 +21,8 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     notes: "Seed: Demo baseline. Cool-off triggered twice on Wednesday chop.",
   },
   {
-    id: "2026-w10",
-    week: "2026 · W10 (Mar 02 – Mar 08)",
+    id: "2026-w45",
+    week: "2026 · W45 (Nov 02 – Nov 08)",
     environment: "Demo",
     instrument: "Volatility 75 (1s) · Rise/Fall",
     trades: 118,
@@ -31,8 +31,8 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     notes: "Seed: Demo. Daily loss cap ($1.00) hit on Tuesday and Friday. Halted cleanly.",
   },
   {
-    id: "2026-w11",
-    week: "2026 · W11 (Mar 09 – Mar 15)",
+    id: "2026-w46",
+    week: "2026 · W46 (Nov 09 – Nov 15)",
     environment: "Demo",
     instrument: "Volatility 100 (1s) · Higher/Lower",
     trades: 164,
@@ -41,8 +41,8 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     notes: "Seed: Demo. Flat $0.35 stake throughout; zero 5-step ladder breaches.",
   },
   {
-    id: "2026-w12",
-    week: "2026 · W12 (Mar 16 – Mar 22)",
+    id: "2026-w47",
+    week: "2026 · W47 (Nov 16 – Nov 22)",
     environment: "Demo",
     instrument: "Volatility 75 (1s) · Rise/Fall",
     trades: 96,

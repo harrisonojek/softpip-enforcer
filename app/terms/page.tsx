@@ -28,7 +28,7 @@ export default function TermsPage() {
           <h1 className="type-h1 m-0">Terms of Service.</h1>
 
           <p className="type-body text-[var(--text-70)] m-0 prose-col">
-            Effective Date: November 2025. Last updated: January 2026.
+            Effective Date: November 2025. Last updated: November 2026.
           </p>
         </Reveal>
 
@@ -37,7 +37,7 @@ export default function TermsPage() {
           <Reveal delayMs={0} className="flex flex-col gap-3">
             <h2 className="type-h3 text-[var(--text)] m-0">1. Acceptance of Terms</h2>
             <p className="m-0">
-              By accessing the website at softpip.org, downloading educational materials, cloning or running The Enforcer software repository, or participating in the SoftPip Telegram community, you agree to be bound by these Terms of Service. If you do not agree with any of these terms, you are prohibited from using or accessing this site.
+              By accessing the website at softpip.com, downloading educational materials, cloning or running The Enforcer software repository, or participating in the SoftPip Telegram community, you agree to be bound by these Terms of Service. If you do not agree with any of these terms, you are prohibited from using or accessing this site.
             </p>
           </Reveal>
 

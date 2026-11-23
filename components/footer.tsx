@@ -29,7 +29,7 @@ const REFERENCE_ROUTES = [
 
 export function Footer() {
   return (
-    <footer className="hairline-t bg-[var(--void)] pt-16 pb-16 max-[879px]:pb-28">
+    <footer className="relative z-10 block w-full hairline-t bg-[var(--void)] pt-16 pb-16 max-[879px]:pb-28">
       <div className="container-shell">
         {/* Four columns, stacked mobile */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-14 hairline-b">

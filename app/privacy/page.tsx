@@ -28,7 +28,7 @@ export default function PrivacyPage() {
           <h1 className="type-h1 m-0">Privacy Policy.</h1>
 
           <p className="type-body text-[var(--text-70)] m-0 prose-col">
-            Effective Date: November 2025. Last updated: January 2026.
+            Effective Date: November 2025. Last updated: November 2026.
           </p>
         </Reveal>
 

@@ -29,14 +29,23 @@ export function buildMetadata({
   path: string;
 }): Metadata {
   const canonicalUrl = `${SITE_URL}${path === "/" ? "" : path}`;
+  const cleanTitle = title
+    .replace(/\s*\|\s*SoftPip(\s+Curriculum)?$/i, "")
+    .replace(/\s*—\s*SoftPip(\s+Curriculum)?$/i, "")
+    .replace(/^SoftPip\s*—\s*/i, "")
+    .trim();
+  const fullTitle = `${cleanTitle} | ${SITE_NAME}`;
+
   return {
-    title,
+    title: {
+      absolute: fullTitle,
+    },
     description,
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title,
+      title: fullTitle,
       description,
       url: canonicalUrl,
       siteName: SITE_NAME,
@@ -47,13 +56,13 @@ export function buildMetadata({
           url: "/og-default.png",
           width: 1200,
           height: 630,
-          alt: `${SITE_NAME} — ${title}`,
+          alt: fullTitle,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: fullTitle,
       description,
       images: ["/og-default.png"],
     },

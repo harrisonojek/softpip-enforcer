@@ -93,14 +93,14 @@ export function CountUpNumber({
   const isInView = useInView(ref, { once: true, margin: "-20px" });
   const shouldReduceMotion = useReducedMotion();
   const [value, setValue] = useState<number>(target);
-  const hasAnimated = useRef(false);
+  const hasCompleted = useRef(false);
 
   useEffect(() => {
-    if (!isInView || hasAnimated.current) return;
-    hasAnimated.current = true;
+    if (!isInView || hasCompleted.current) return;
 
-    if (shouldReduceMotion) {
+    if (shouldReduceMotion || document.visibilityState !== "visible") {
       setValue(target);
+      hasCompleted.current = true;
       return;
     }
 
@@ -108,7 +108,10 @@ export function CountUpNumber({
     let rafId: number;
 
     const step = (timestamp: number) => {
-      if (startTimestamp === null) startTimestamp = timestamp;
+      if (startTimestamp === null) {
+        startTimestamp = timestamp;
+        setValue(0);
+      }
       const elapsed = timestamp - startTimestamp;
       const progress = Math.min(elapsed / durationMs, 1);
       // cubic-bezier(.22,1,.36,1) approximation
@@ -119,14 +122,15 @@ export function CountUpNumber({
         rafId = window.requestAnimationFrame(step);
       } else {
         setValue(target);
+        hasCompleted.current = true;
       }
     };
 
-    setValue(0);
     rafId = window.requestAnimationFrame(step);
 
     return () => {
       if (rafId) window.cancelAnimationFrame(rafId);
+      setValue(target);
     };
   }, [isInView, shouldReduceMotion, target, durationMs]);
 

@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: ModulePageProps) {
 
   if (!moduleData) {
     return {
-      title: "Module Not Found — SoftPip",
+      title: "Module Not Found",
     };
   }
 
@@ -244,71 +244,77 @@ export default async function CurriculumDetailPage({ params }: ModulePageProps) 
 
         {/* 64ch MDX Content Body */}
         <div className="pt-6 hairline-t">
-          <Reveal delayMs={140}>
-            <div className="prose-col">
-              <MDXRemote
-                source={content}
-                components={mdxComponents}
-                options={{
-                  mdxOptions: {
-                    remarkPlugins: [remarkGfm],
-                  },
-                }}
-              />
-            </div>
-          </Reveal>
+          <div className="prose-col">
+            <MDXRemote
+              source={content}
+              components={mdxComponents}
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                },
+              }}
+            />
+          </div>
         </div>
 
         {/* Prev / Next Pagination Links */}
         <div className="pt-10 hairline-t">
-          <Reveal>
-            <nav
-              aria-label="Module pagination"
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-[800px]"
-            >
-              {prevModule ? (
-                <Link
-                  href={`/curriculum/${prevModule.slug}`}
-                  className="surface-card-interactive p-5 flex flex-col gap-1.5 no-underline group"
-                >
-                  <span className="type-micro text-[var(--text-45)] group-hover:text-[var(--mint-text)] transition-colors">
-                    ← Previous · Module {prevModule.index}
-                  </span>
-                  <span className="type-small text-[var(--text)] font-medium group-hover:text-[var(--mint-text)] transition-colors">
-                    {prevModule.title}
-                  </span>
-                </Link>
-              ) : (
-                <div className="hidden sm:block" />
-              )}
+          <nav
+            aria-label="Module pagination"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-[800px]"
+          >
+            {prevModule ? (
+              <Link
+                href={`/curriculum/${prevModule.slug}`}
+                className="surface-card-interactive p-5 flex flex-col gap-1.5 no-underline group"
+              >
+                <span className="type-micro text-[var(--text-45)] group-hover:text-[var(--mint-text)] transition-colors">
+                  ← Previous · Module {prevModule.index}
+                </span>
+                <span className="type-small text-[var(--text)] font-medium group-hover:text-[var(--mint-text)] transition-colors">
+                  {prevModule.title}
+                </span>
+              </Link>
+            ) : (
+              <Link
+                href="/curriculum"
+                className="surface-card-interactive p-5 flex flex-col gap-1.5 no-underline group"
+              >
+                <span className="type-micro text-[var(--text-45)] group-hover:text-[var(--mint-text)] transition-colors">
+                  ← Previous · Curriculum Index
+                </span>
+                <span className="type-small text-[var(--text)] font-medium group-hover:text-[var(--mint-text)] transition-colors">
+                  All 10 curriculum modules
+                </span>
+              </Link>
+            )}
 
-              {nextModule ? (
-                <Link
-                  href={`/curriculum/${nextModule.slug}`}
-                  className="surface-card-interactive p-5 flex flex-col sm:items-end sm:text-right gap-1.5 no-underline group"
-                >
-                  <span className="type-micro text-[var(--text-45)] group-hover:text-[var(--mint-text)] transition-colors">
-                    Next · Module {nextModule.index} →
-                  </span>
-                  <span className="type-small text-[var(--text)] font-medium group-hover:text-[var(--mint-text)] transition-colors">
-                    {nextModule.title}
-                  </span>
-                </Link>
-              ) : (
-                <Link
-                  href="/bot"
-                  className="surface-card-interactive p-5 flex flex-col sm:items-end sm:text-right gap-1.5 no-underline group"
-                >
-                  <span className="type-micro text-[var(--mint-text)] font-medium">
-                    Curriculum Complete →
-                  </span>
-                  <span className="type-small text-[var(--text)] font-medium group-hover:text-[var(--mint-text)] transition-colors">
-                    Examine The Enforcer Bot
-                  </span>
-                </Link>
-              )}
-            </nav>
-          </Reveal>
+            {nextModule ? (
+              <Link
+                href={`/curriculum/${nextModule.slug}`}
+                className="surface-card-interactive p-5 flex flex-col sm:items-end sm:text-right gap-1.5 no-underline group"
+              >
+                <span className="type-micro text-[var(--text-45)] group-hover:text-[var(--mint-text)] transition-colors">
+                  Next · Module {nextModule.index} →
+                </span>
+                <span className="type-small text-[var(--text)] font-medium group-hover:text-[var(--mint-text)] transition-colors">
+                  {nextModule.title}
+                </span>
+              </Link>
+            ) : (
+              <Link
+                href="/bot"
+                className="surface-card-interactive p-5 flex flex-col sm:items-end sm:text-right gap-1.5 no-underline group"
+              >
+                <span className="type-micro text-[var(--mint-text)] font-medium">
+                  Next · The Enforcer →
+                </span>
+                <span className="type-small text-[var(--text)] font-medium group-hover:text-[var(--mint-text)] transition-colors">
+                  Examine The Enforcer Bot
+                </span>
+              </Link>
+            )}
+          </nav>
         </div>
 
         {/* Account Setup Callout */}

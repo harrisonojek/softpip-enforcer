@@ -46,27 +46,29 @@ export function HeroHeadline() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <h1 className="type-display m-0 max-w-[16ch] flex flex-wrap gap-x-[0.3em]">
+    <h1 className="type-display m-0 max-w-[16ch]">
       {HEADLINE_WORDS.map((word, index) => (
-        <motion.span
-          key={index}
-          initial={{
-            opacity: 0,
-            y: shouldReduceMotion ? 0 : 12,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.5,
-            delay: index * 0.04,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="inline-block"
-        >
-          {word}
-        </motion.span>
+        <React.Fragment key={index}>
+          <motion.span
+            initial={{
+              opacity: 0,
+              y: shouldReduceMotion ? 0 : 12,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.5,
+              delay: index * 0.04,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="inline-block"
+          >
+            {word}
+          </motion.span>
+          {index < HEADLINE_WORDS.length - 1 ? " " : ""}
+        </React.Fragment>
       ))}
     </h1>
   );

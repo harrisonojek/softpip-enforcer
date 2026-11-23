@@ -39,7 +39,7 @@ export default async function CurriculumIndexPage() {
         {/* Module Rows (Ten modules, nothing locked) */}
         <div className="flex flex-col gap-3">
           {modules.map((m, idx) => (
-            <Reveal key={m.slug} delayMs={idx * 50}>
+            <Reveal key={m.slug} delayMs={Math.min(idx, 4) * 60}>
               <Link
                 href={`/curriculum/${m.slug}`}
                 className="surface-card-interactive p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-underline group"

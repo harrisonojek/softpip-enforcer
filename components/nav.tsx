@@ -29,12 +29,11 @@ export function IconMark({ size = 28 }: { size?: number }) {
   return (
     <img
       src="/icon-192.png"
-      alt=""
+      alt="SoftPip"
       width={size}
       height={size}
       className="rounded-[22%] object-cover shrink-0"
       style={{ width: `${size}px`, height: `${size}px` }}
-      aria-hidden="true"
     />
   );
 }

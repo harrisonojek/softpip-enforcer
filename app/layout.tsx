@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "SoftPip — Trade with rules, not feelings.",
+    default: "Trade with rules, not feelings. | SoftPip",
     template: "%s | SoftPip",
   },
   description:
