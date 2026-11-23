@@ -123,11 +123,11 @@ export function Nav() {
           WebkitBackdropFilter: "blur(16px)",
         }}
       >
-        <div className="container-shell flex items-center justify-between h-16">
+        <div className="container-shell flex items-center justify-between h-16 gap-3">
           {/* Brand Left */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2.5 min-h-[44px] text-[var(--text)] no-underline"
+            className="inline-flex items-center gap-2.5 min-h-[44px] text-[var(--text)] no-underline shrink-0"
             aria-label="SoftPip Home"
           >
             <IconMark size={28} />
@@ -142,10 +142,10 @@ export function Nav() {
             </span>
           </Link>
 
-          {/* Desktop Center/Right Links (≥880px) */}
+          {/* Desktop Center/Right Inline Links (≥880px only) */}
           <nav
             aria-label="Primary"
-            className="hidden min-[880px]:flex items-center gap-7"
+            className="nav-desktop-links items-center gap-7"
           >
             {PRIMARY_NAV_ITEMS.map((item) => {
               const isActive =
@@ -167,60 +167,59 @@ export function Nav() {
             })}
           </nav>
 
-          {/* Far Right CTA (≥880px) */}
-          <div className="hidden min-[880px]:flex items-center">
+          {/* Far Right: Mint Pill + (<880px) Hamburger */}
+          <div className="flex items-center gap-2.5 shrink-0">
             <a
               href={DERIV_AFFILIATE_URL}
               rel="sponsored noopener"
               target="_blank"
-              className="btn-mint"
+              className="btn-mint max-[420px]:px-3 max-[420px]:text-xs"
             >
               Open $10 account
             </a>
-          </div>
 
-          {/* Hamburger Button (<880px) */}
-          <button
-            ref={toggleBtnRef}
-            type="button"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-nav-overlay"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="inline-flex min-[880px]:hidden items-center justify-center min-w-[44px] min-h-[44px] rounded-[14px] border border-[var(--line)] text-[var(--text)] bg-[var(--navy)]"
-          >
-            {menuOpen ? (
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M4 4L14 14M14 4L4 14"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            ) : (
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M2.5 5.5H15.5M2.5 9H15.5M2.5 12.5H15.5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            )}
-          </button>
+            <button
+              ref={toggleBtnRef}
+              type="button"
+              onClick={() => setMenuOpen((prev) => !prev)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav-overlay"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              className="nav-mobile-only items-center justify-center min-w-[44px] min-h-[44px] rounded-[14px] border border-[var(--line)] text-[var(--text)] bg-[var(--navy)] shrink-0"
+            >
+              {menuOpen ? (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4 4L14 14M14 4L4 14"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2.5 5.5H15.5M2.5 9H15.5M2.5 12.5H15.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -232,7 +231,7 @@ export function Nav() {
           role="dialog"
           aria-modal="true"
           aria-label="Site navigation"
-          className="fixed inset-0 z-50 min-[880px]:hidden flex flex-col justify-between bg-[var(--void)] overflow-y-auto"
+          className="nav-mobile-overlay fixed inset-0 z-50 flex flex-col justify-between bg-[var(--void)] overflow-y-auto"
         >
           <div className="container-shell flex items-center justify-between h-16 hairline-b shrink-0">
             <Link
@@ -317,7 +316,7 @@ export function Nav() {
 
       {/* Sticky mobile bottom bar, 60px, mint pill, same link (<880px) */}
       <div
-        className="fixed bottom-0 inset-x-0 z-40 min-[880px]:hidden h-[60px] hairline-t flex items-center px-4"
+        className="nav-mobile-only fixed bottom-0 inset-x-0 z-40 h-[60px] hairline-t items-center px-4"
         style={{
           backgroundColor: "rgba(8, 11, 15, 0.92)",
           backdropFilter: "blur(16px)",

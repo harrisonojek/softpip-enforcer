@@ -57,7 +57,7 @@ export const GUARDIAN_SPECS: GuardianRuleItem[] = [
 export function SpecCard() {
   return (
     <div className="surface-card overflow-hidden">
-      <div className="px-6 py-4 hairline-b flex flex-wrap items-center justify-between gap-2 bg-[var(--slate)]">
+      <div className="px-5 sm:px-6 py-4 hairline-b flex flex-wrap items-center justify-between gap-2 bg-[var(--slate)]">
         <div className="flex items-center gap-2.5">
           <span
             className="inline-block w-2 h-2 rounded-full bg-[var(--mint)]"
@@ -76,11 +76,15 @@ export function SpecCard() {
         {GUARDIAN_SPECS.map((item, idx) => (
           <div
             key={item.parameter}
-            className={`p-5 sm:p-6 flex flex-col gap-1 border-b border-[var(--rule)] ${
+            className={`min-h-[44px] px-5 py-4 sm:p-6 flex flex-col justify-center gap-1 border-b border-[var(--rule)] ${
               idx % 3 !== 0 ? "lg:border-l lg:border-[var(--rule)]" : ""
-            } ${idx % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-[var(--rule)]" : ""}`}
+            } ${
+              idx % 2 !== 0
+                ? "sm:max-lg:border-l sm:max-lg:border-[var(--rule)]"
+                : ""
+            }`}
           >
-            <span className="type-micro uppercase text-[var(--text-45)]">
+            <span className="type-micro uppercase text-[var(--text-45)] block">
               {item.parameter}
             </span>
             <p className="type-h3 m-0 text-[var(--text)] tabular-nums">
@@ -106,10 +110,7 @@ export function RustCaveatCard() {
       }}
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <p
-          className="type-h3 m-0"
-          style={{ color: "var(--rust)" }}
-        >
+        <p className="type-h3 m-0" style={{ color: "var(--rust)" }}>
           No edge over the market. An edge over you.
         </p>
         <span

@@ -27,6 +27,12 @@
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --section-pad: clamp(7rem, 15vh, 13rem);
+  }
+}
+
 @theme inline {
   --color-void: var(--void);
   --color-navy: var(--navy);
@@ -240,7 +246,7 @@ body {
   background-color: rgba(20, 27, 35, 0.6);
 }
 
-/* Icon Mark (28px radius token) */
+/* Icon Mark (28px rounded mint icon mark) */
 .icon-mark {
   display: inline-flex;
   align-items: center;
@@ -248,10 +254,43 @@ body {
   width: 28px;
   height: 28px;
   border-radius: var(--radius-icon);
-  background-color: rgba(123, 232, 196, 0.12);
-  border: 1px solid rgba(123, 232, 196, 0.35);
-  color: var(--mint-text);
+  background-color: var(--mint);
+  color: var(--void);
   flex-shrink: 0;
+}
+
+/* Nav 880px breakpoint rules */
+.nav-desktop-links {
+  display: none;
+}
+
+.nav-mobile-only {
+  display: inline-flex;
+}
+
+.nav-mobile-overlay {
+  display: flex;
+}
+
+@media (min-width: 880px) {
+  .nav-desktop-links {
+    display: flex;
+  }
+
+  .nav-mobile-only,
+  .nav-mobile-overlay {
+    display: none;
+  }
+}
+
+/* Hero min-height 82vh at 1024px and up */
+@media (min-width: 1024px) {
+  .hero-section {
+    min-height: 82vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 /* Hairline rule */

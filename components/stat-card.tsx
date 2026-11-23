@@ -42,22 +42,26 @@ const DEFAULT_HOME_STATS: StatCell[] = [
 export function StatRow({ stats = DEFAULT_HOME_STATS }: { stats?: StatCell[] }) {
   return (
     <div className="surface-card overflow-hidden">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4">
         {stats.map((cell, idx) => {
           const borderClasses = [
-            idx > 0 ? "border-t border-[var(--rule)]" : "",
-            idx % 2 === 1 ? "sm:border-l sm:border-[var(--rule)]" : "",
-            idx < 2 ? "sm:border-t-0" : "",
-            idx > 0 ? "lg:border-t-0 lg:border-l lg:border-[var(--rule)]" : "",
+            idx % 2 === 1 ? "border-l border-[var(--rule)]" : "",
+            idx >= 2 ? "max-lg:border-t max-lg:border-[var(--rule)]" : "",
+            idx === 2 ? "lg:border-l lg:border-[var(--rule)]" : "",
           ]
             .filter(Boolean)
             .join(" ");
 
           return (
-            <div key={cell.label} className={`p-6 sm:p-7 flex flex-col gap-1.5 ${borderClasses}`}>
+            <div
+              key={cell.label}
+              className={`min-h-[96px] min-w-0 p-4 sm:p-6 lg:p-7 flex flex-col justify-between gap-2 ${borderClasses}`}
+            >
               <p
-                className={`type-h2 m-0 tabular-nums ${
-                  cell.highlightMint ? "text-[var(--mint-text)]" : "text-[var(--text)]"
+                className={`type-h2 m-0 tabular-nums break-words whitespace-normal ${
+                  cell.highlightMint
+                    ? "text-[var(--mint-text)]"
+                    : "text-[var(--text)]"
                 }`}
               >
                 <CountUpNumber
@@ -66,11 +70,11 @@ export function StatRow({ stats = DEFAULT_HOME_STATS }: { stats?: StatCell[] }) 
                   suffix={cell.suffix}
                   durationMs={500}
                 />{" "}
-                <span className="type-h3 text-[var(--text)] font-medium">
+                <span className="type-h3 text-[var(--text)] font-medium break-words whitespace-normal">
                   {cell.label}
                 </span>
               </p>
-              <p className="type-small text-[var(--text-70)] m-0">
+              <p className="type-small text-[var(--text-70)] m-0 break-words whitespace-normal">
                 {cell.detail}
               </p>
             </div>

@@ -73,15 +73,10 @@ export default function HomePage() {
   return (
     <div>
       {/* 1. Hero & 2. Two CTAs & 3. Stat row */}
-      <section className="section-pad mint-glow hairline-b">
+      <section className="hero-section section-pad mint-glow hairline-b">
         <div className="container-shell flex flex-col gap-12">
           <Reveal className="flex flex-col items-start gap-6">
-            <div className="inline-flex items-center gap-3">
-              <IconMark size={28} />
-              <span className="type-micro uppercase text-[var(--mint-text)]">
-                Autopsy · Curriculum · Risk Governor
-              </span>
-            </div>
+            <IconMark size={28} />
 
             <h1 className="type-display m-0 max-w-[16ch]">
               Trade with rules, not feelings.
