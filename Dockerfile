@@ -5,6 +5,9 @@ WORKDIR /app
 COPY requirements.txt* ./
 RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
 
-COPY governor.py config.example.yaml ./
+COPY governor.py main.py journal.py watchdog.py config.example.yaml ./
+COPY deriv/ ./deriv/
+COPY telegram/ ./telegram/
+COPY sim/ ./sim/
 
-CMD ["python", "governor.py"]
+CMD ["python", "main.py", "--dry-run", "--config", "/app/config.yaml"]

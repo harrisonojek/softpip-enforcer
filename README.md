@@ -73,8 +73,8 @@ cp config.example.yaml config.yaml
 # 4. Edit credentials
 nano config.yaml  # Enter your Deriv API token and Telegram parameters
 
-# 5. Run the governor
-python governor.py
+# 5. Run the dry-run simulator first (or live after 200 clean demo trades)
+python main.py --dry-run --config config.yaml
 ```
 
 ### Option 3: Docker Container
