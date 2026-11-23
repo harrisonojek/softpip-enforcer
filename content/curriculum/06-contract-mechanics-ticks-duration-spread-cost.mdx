@@ -4,26 +4,36 @@ slug: "06-contract-mechanics-ticks-duration-spread-cost"
 title: "Contract mechanics: ticks, duration, spread cost"
 outcome: "Calculate the mathematical barrier of 5-tick contract expiries and implied dealer edge."
 duration: "17 min"
-failureCorrects: "Trading ultra-short duration contracts without factoring in the 5% to 8% built-in house advantage on binary options."
+failureCorrects: "Trading ultra-short duration contracts without calculating the dealer edge and embedded spread friction."
 ---
 
-Every contract offered on the Deriv platform has structural mechanics that govern its mathematical payout and edge. When you click `Higher` or `Lower`, you are entering an agreement with predefined expiration conditions. If you do not calculate the implied dealer edge embedded in those conditions, you are trading with a built-in statistical deficit before the first tick registers.
+Every derivative contract offered on the Deriv platform has structural mechanics that dictate its mathematical payout and expected value. When you click `Higher` or `Lower`, you are not buying an underlying asset; you are entering a bilateral contract with predefined expiration boundaries and asymmetric payout terms. If you do not calculate the implied dealer edge embedded in those conditions, you are trading with a statistical deficit before the first tick registers.
 
 ### How tick contracts expire
 
-A tick contract on Deriv is measured in discrete price ticks rather than seconds. For Volatility 75 (1s), one tick is generated every second. For standard Volatility 75, one tick is generated every two seconds.
+A tick contract on Deriv is measured in discrete price ticks rather than clock seconds. For Volatility 75 (1s), one tick is generated every second. For standard Volatility 75, one tick is generated every two seconds.
 
-On a 5-tick Rise contract:
+On a standard 5-tick Rise contract:
 1. **Purchase price**: Staked capital (e.g., $0.35).
 2. **Entry tick**: The spot price at the millisecond your proposal is accepted by the Deriv server.
 3. **Evaluation tick**: The spot price exactly 5 ticks later.
 4. **Win condition**: `Spot_5 > Spot_entry`. If `Spot_5 <= Spot_entry`, the contract is an absolute loss.
 
-Notice that a dead flat outcome (`Spot_5 = Spot_entry`) is treated as a loss for both Rise and Fall buyers unless you are trading an `Equals` contract.
+Notice that a dead flat outcome (`Spot_5 = Spot_entry`) is treated as a loss for both Rise and Fall buyers unless you purchase a specialized `Equals` contract with heavily reduced payout odds. On ultra-short 5-tick durations, micro-oscillations around the entry tick create significant noise variance.
 
-### Calculating the broker edge
+### Duration and variance compression
 
-Deriv does not charge a visible transaction commission on binary options. Instead, the commission is embedded directly into the asymmetric payout ratio.
+Contract duration directly governs the statistical signal-to-noise ratio:
+
+- **1-tick to 5-tick durations**: Dominated by high-frequency white noise. Price movement within 5 ticks resembles an unbiased coin toss. Technical indicators, moving averages, and support levels have virtually zero predictive correlation across a 5-tick horizon.
+- **1-minute to 5-minute durations**: Allows micro-trends and order flow momentum to assert directional bias over random tick jitter.
+- **Extended durations (15m+)**: Shifts the probability distribution away from random tick noise toward structural mean-reversion, but locks capital in market exposure for longer intervals.
+
+When you select a 5-tick contract, you are trading in the regime of maximum randomness. The only reason retail traders select 5-tick contracts is psychological impatience: they want instant resolution.
+
+### Calculating the embedded spread cost and dealer edge
+
+Deriv does not charge a visible transaction commission on options. Instead, the commission is embedded directly into the asymmetric payout ratio.
 
 Consider a Rise/Fall contract offering a 90% payout on a 50/50 proposition:
 - Win outcome: +$0.315 profit on a $0.35 stake.
@@ -32,15 +42,31 @@ Consider a Rise/Fall contract offering a 90% payout on a 50/50 proposition:
 Your expected value (`EV`) per trade with an un-edged 50% win probability is:
 
 ```
-EV = (0.50 × +$0.315) + (0.50 × -$0.350) = +$0.1575 - $0.1750 = -$0.0175
+EV = (0.50 × +$0.315) + (0.50 × -$0.350)
+EV = +$0.1575 - $0.1750 = -$0.0175 per trade
 ```
 
-On every $0.35 contract you execute, you forfeit an expected $0.0175 to the dealer edge. As a percentage of stake:
+On every $0.35 contract you execute, you forfeit an expected $0.0175 to the dealer edge. Expressed as a percentage of your staked capital:
 
 ```
 Dealer Edge = $0.0175 / $0.35 = 5.00%
 ```
 
-If you execute 40 contracts in an hour, you are paying approximately $0.70 in dealer friction to the broker. On a $10 account, that represents 7% of your bankroll surrendered to transaction friction every hour of continuous execution.
+If the payout drops to 85% (common during high market volatility), the dealer edge expands:
 
-Understanding this math makes it clear why high-frequency execution on small accounts is self-destructive. You must minimize trade volume and enforce strict session caps.
+```
+EV = (0.50 × +$0.2975) + (0.50 × -$0.350) = -$0.02625
+Dealer Edge = $0.02625 / $0.35 = 7.50%
+```
+
+### Cumulative friction on a $10 bankroll
+
+If you execute 40 contracts in a single afternoon session with an un-edged strategy at 90% payout, your cumulative expected loss to friction alone is:
+
+```
+Friction = 40 trades × $0.0175 = $0.70
+```
+
+On a $10 bankroll, $0.70 represents **7.0% of your total capital** surrendered purely to the dealer edge, irrespective of market direction. If you trade 200 contracts a week, you surrender $3.50—over one-third of your entire account—to transaction friction.
+
+This mathematical reality establishes why high-frequency execution on small accounts is mathematically fatal. The Enforcer enforces a hard ceiling of 20 trades per session to prevent dealer friction from consuming your account.
