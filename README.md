@@ -92,13 +92,12 @@ When configured with a Telegram bot token, The Enforcer can be monitored and com
 
 | Command | Description |
 | :--- | :--- |
-| `/status` | Returns current balance, open position, session duration, and active ladder step. |
-| `/daily` | Displays today's executed trades, win/loss ratio, and net P&L vs daily loss limit. |
-| `/ladder` | Shows the active stake progression level and cumulative exposure. |
-| `/stop` | Immediately pauses trade execution and places the WebSocket socket in idle mode. |
-| `/resume` | Resumes automated trade scanning if all risk circuit breakers are clear. |
-| `/kill` | Emergency process termination; disconnects socket and exits container immediately. |
-| `/help` | Lists available commands and active risk governor configuration parameters. |
+| `/start` | Launch execution session and connect to Deriv WebSocket. |
+| `/stop` | Immediately halt trading, close active proposals, and drop socket. |
+| `/pause` | Temporarily pause new order dispatch without resetting session stats. |
+| `/status` | Inspect live account balance, current socket state, and uptime. |
+| `/stats` | Display daily session P/L, trade count, and peak drawdown. |
+| `/ladder` | Query current position in the 1.3× recovery ladder and next stake. |
 
 ---
 

@@ -3,7 +3,7 @@
 # Never commit config.yaml to version control.
 
 deriv:
-  app_id: 1089 # Replace with your registered Deriv app_id or use default 1089
+  app_id: 1089 # 1089 is Deriv's shared test app ID — replace with your own from developers.deriv.com
   api_token: "YOUR_DERIV_API_TOKEN" # Deriv API token with 'Read' and 'Trade' scopes
   endpoint: "wss://ws.derivws.com/websockets/v3"
 
