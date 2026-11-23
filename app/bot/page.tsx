@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { SpecCard, RustCaveatCard } from "@/components/spec-card";
+import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL, GITHUB_REPO_URL, SITE_URL } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -15,7 +16,7 @@ const TELEGRAM_COMMANDS = [
   {
     command: "/start",
     description: "Launch execution session and connect to Deriv WebSocket.",
-    output: "Governor active · Stake $0.35 · Daily loss ceiling $1.00",
+    output: `Governor active · Stake $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} · Daily loss floor $${GOVERNOR_SPEC.daily_loss_limit_floor_usd.toFixed(2)} (${Math.round(GOVERNOR_SPEC.daily_loss_limit_pct_of_equity * 100)}%)`,
   },
   {
     command: "/stop",
@@ -35,12 +36,12 @@ const TELEGRAM_COMMANDS = [
   {
     command: "/stats",
     description: "Display daily session P/L, trade count, and peak drawdown.",
-    output: "Session: 18 trades · Net: +$0.42 · Max DD: 4.8% · Remaining: 22 trades",
+    output: `Session: 18 trades · Net: +$0.42 · Max DD: 4.8% · Remaining: ${GOVERNOR_SPEC.max_session_trades - 18} trades`,
   },
   {
     command: "/ladder",
-    description: "Query current position in the 1.3× recovery ladder and next stake.",
-    output: "Ladder step: 1 of 5 · Next stake: $0.35 · Reset at win or step 5",
+    description: `Query current position in the ${GOVERNOR_SPEC.multiplier}× recovery ladder and next stake.`,
+    output: `Ladder step: 1 of ${GOVERNOR_SPEC.max_ladder_steps} · Next stake: $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} · Reset at win, cool-off, or step ${GOVERNOR_SPEC.max_ladder_steps}`,
   },
 ];
 
@@ -168,9 +169,9 @@ export default function BotPage() {
             <span className="type-micro uppercase text-[var(--text-45)]">
               Core Architecture
             </span>
-            <h2 className="type-h2 m-0">The Nine Guardian Controls</h2>
+            <h2 className="type-h2 m-0">Guardian Controls: Stake, Time, and Capital</h2>
             <p className="type-small text-[var(--text-70)] m-0 prose-col">
-              Hardcoded risk constraints enforced inside `can_trade()` before any contract proposal is dispatched.
+              Hardcoded risk constraints enforced inside <code>can_trade()</code> before any contract proposal is dispatched.
             </p>
           </div>
           <SpecCard />
@@ -184,7 +185,7 @@ export default function BotPage() {
             </span>
             <h2 className="type-h2 m-0">Stake Ladder Comparison</h2>
             <p className="type-small text-[var(--text-70)] m-0 prose-col">
-              Capital consumption and survival limits across a starting $10 bankroll.
+              Capital consumption and survival limits across a starting ${GOVERNOR_SPEC.min_live_balance_usd} bankroll.
             </p>
           </div>
 
@@ -203,25 +204,25 @@ export default function BotPage() {
               <tbody className="divide-y divide-[var(--rule)]">
                 <tr className="hover:bg-[var(--slate)]/40 transition-colors">
                   <td className="px-5 py-4 font-medium text-[var(--text)]">Flat Stake</td>
-                  <td className="px-5 py-4 tabular-nums text-[var(--text-70)]">$0.35</td>
+                  <td className="px-5 py-4 tabular-nums text-[var(--text-70)]">${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}</td>
                   <td className="px-5 py-4 text-[var(--text-70)]">None (flat throughout)</td>
-                  <td className="px-5 py-4 tabular-nums text-[var(--text-70)]">$0.35 per trade</td>
+                  <td className="px-5 py-4 tabular-nums text-[var(--text-70)]">${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} per trade</td>
                   <td className="px-5 py-4 font-medium text-[var(--text)] tabular-nums">28 trades before exhaustion</td>
                   <td className="px-5 py-4 text-[var(--text-70)]">Sane baseline</td>
                 </tr>
                 <tr className="hover:bg-[var(--slate)]/40 transition-colors">
-                  <td className="px-5 py-4 font-medium text-[var(--mint-text)]">1.3× Ladder (The Enforcer)</td>
-                  <td className="px-5 py-4 tabular-nums text-[var(--mint-text)]">$0.35</td>
-                  <td className="px-5 py-4 text-[var(--text-70)]">1.3× capped at 5 steps</td>
-                  <td className="px-5 py-4 tabular-nums text-[var(--mint-text)] font-medium">$3.17 across 5 steps</td>
+                  <td className="px-5 py-4 font-medium text-[var(--mint-text)]">{GOVERNOR_SPEC.multiplier}× Ladder (The Enforcer)</td>
+                  <td className="px-5 py-4 tabular-nums text-[var(--mint-text)]">${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}</td>
+                  <td className="px-5 py-4 text-[var(--text-70)]">{GOVERNOR_SPEC.multiplier}× capped at {GOVERNOR_SPEC.max_ladder_steps} steps</td>
+                  <td className="px-5 py-4 tabular-nums text-[var(--mint-text)] font-medium">${GOVERNOR_SPEC.ladder_total_risk_usd.toFixed(2)} across {GOVERNOR_SPEC.max_ladder_steps} steps</td>
                   <td className="px-5 py-4 font-medium text-[var(--mint-text)]">Survives (preserves 68% equity)</td>
                   <td className="px-5 py-4 text-[var(--mint-text)] font-medium">Controlled recovery</td>
                 </tr>
                 <tr className="bg-[var(--rust)]/5 hover:bg-[var(--rust)]/10 transition-colors border-l-2 border-[var(--rust)]">
                   <td className="px-5 py-4 font-medium text-[var(--rust)]">2.0× Martingale</td>
-                  <td className="px-5 py-4 tabular-nums text-[var(--rust)]">$0.35</td>
+                  <td className="px-5 py-4 tabular-nums text-[var(--rust)]">${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}</td>
                   <td className="px-5 py-4 text-[var(--rust)]">2.0× doubling after loss</td>
-                  <td className="px-5 py-4 tabular-nums text-[var(--rust)] font-medium">$10.85 across 5 steps</td>
+                  <td className="px-5 py-4 tabular-nums text-[var(--rust)] font-medium">${GOVERNOR_SPEC.martingale_total_risk_usd.toFixed(2)} across {GOVERNOR_SPEC.max_ladder_steps} steps</td>
                   <td className="px-5 py-4 font-medium text-[var(--rust)]">0% survival (exceeds balance)</td>
                   <td className="px-5 py-4 text-[var(--rust)] font-semibold">✕ Account Ruin</td>
                 </tr>
@@ -336,13 +337,13 @@ export default function BotPage() {
 
             <div className="prose-col flex flex-col gap-4 type-body text-[var(--text-70)] leading-relaxed">
               <p className="m-0">
-                The Enforcer was engineered specifically around the hard constraints of a $10 bankroll. On Deriv synthetic indices, the minimum allowable contract stake on Volatility 75 Rise/Fall is $0.35. That means on trade one, an operator is forced to risk exactly <strong>3.5% of their total equity</strong>.
+                The Enforcer was engineered specifically around the hard constraints of a $10 bankroll. On Deriv synthetic indices, the minimum allowable contract stake on Volatility 75 Rise/Fall is ${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}. That means on trade one, an operator is forced to risk exactly <strong>3.5% of their total equity</strong>.
               </p>
               <p className="m-0">
-                At a 3.5% floor, conventional risk management (risking 1% per trade) is mathematically impossible. A single 18-trade losing streak wipes out 63% of the account. This is why The Enforcer eliminates 2.0× Martingale doubling entirely and enforces a hard daily loss ceiling of $1.00 (3 consecutive losses), terminating the process to prevent emotional blowups.
+                At a 3.5% floor, conventional risk management (risking 1% per trade) is mathematically impossible. A single 18-trade losing streak wipes out 63% of the account. This is why The Enforcer eliminates 2.0× Martingale doubling entirely, triggers a {Math.round(GOVERNOR_SPEC.cool_off_seconds / 60)}-minute cool-off after {GOVERNOR_SPEC.max_consecutive_losses} consecutive losses (${GOVERNOR_SPEC.pre_cooloff_ladder_risk_usd.toFixed(2)} cumulative, resetting the ladder to step 1), and enforces a daily loss ceiling of {Math.round(GOVERNOR_SPEC.daily_loss_limit_pct_of_equity * 100)}% of equity with a ${GOVERNOR_SPEC.daily_loss_limit_floor_usd.toFixed(2)} floor.
               </p>
               <p className="m-0">
-                <strong>Why CFDs are unusable on a $10 account:</strong> On MetaTrader 5 (MT5), contracts for difference (CFDs) require minimum lot sizes (e.g. 0.01 lot on Volatility 75). At standard leverage, opening a single 0.01 lot requires $2.50 to $4.00 in required margin—consuming 25% to 40% of a $10 account immediately. A single 1-second price jump of 35 points creates a floating loss of $3.50, triggering an automatic broker stop-out and account wipeout. Options contracts on binary ticks, while carrying dealer friction, allow a precise, bounded $0.35 risk cap that protects against negative balance liquidation.
+                <strong>Why CFDs are unusable on a $10 account:</strong> On MetaTrader 5 (MT5), contracts for difference (CFDs) require minimum lot sizes (e.g. 0.01 lot on Volatility 75). At standard leverage, opening a single 0.01 lot requires $2.50 to $4.00 in required margin—consuming 25% to 40% of a $10 account immediately. A single 1-second price jump of 35 points creates a floating loss of $3.50, triggering an automatic broker stop-out and account wipeout. Options contracts on binary ticks, while carrying dealer friction, allow a precise, bounded ${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} risk cap that protects against negative balance liquidation.
               </p>
             </div>
 

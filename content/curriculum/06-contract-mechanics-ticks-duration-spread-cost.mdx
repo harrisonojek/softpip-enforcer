@@ -69,4 +69,4 @@ Friction = 40 trades × $0.0175 = $0.70
 
 On a $10 bankroll, $0.70 represents **7.0% of your total capital** surrendered purely to the dealer edge, irrespective of market direction. If you trade 200 contracts a week, you surrender $3.50—over one-third of your entire account—to transaction friction.
 
-This mathematical reality establishes why high-frequency execution on small accounts is mathematically fatal. The Enforcer enforces a hard ceiling of 20 trades per session to prevent dealer friction from consuming your account.
+This mathematical reality establishes why unlimited high-frequency execution on small accounts is mathematically fatal. The Enforcer enforces a hard ceiling of <SpecVal k="max_session_trades" /> trades per session alongside the <SpecVal k="cool_off_minutes" />-minute cool-off brake and <SpecVal k="daily_loss_limit_floor_usd" /> daily loss floor to prevent dealer friction from consuming your account.

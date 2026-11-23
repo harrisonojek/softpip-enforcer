@@ -2,6 +2,7 @@
 
 import React from "react";
 import { CountUpNumber } from "@/components/reveal";
+import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 
 export interface StatCell {
   prefix?: string;
@@ -24,12 +25,12 @@ const DEFAULT_HOME_STATS: StatCell[] = [
   {
     target: 28,
     label: "trades a $10 account survives",
-    detail: "At the $0.35 minimum stake floor with zero wins.",
+    detail: `At the $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} minimum stake floor with zero wins.`,
   },
   {
-    target: 5,
+    target: GOVERNOR_SPEC.max_ladder_steps,
     label: "steps martingale can't complete",
-    detail: "A 2× ladder demands $10.85 by step five.",
+    detail: `A 2× ladder demands $${GOVERNOR_SPEC.martingale_total_risk_usd.toFixed(2)} by step ${GOVERNOR_SPEC.max_ladder_steps}.`,
   },
   {
     target: 40,

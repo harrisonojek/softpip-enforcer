@@ -35,23 +35,19 @@ If your total starting capital is $10.00, you cannot even place the Step 5 contr
 
 ### The comparative stake ladder table
 
-The table below contrasts the capital consumption and survival probability of three distinct sizing frameworks deployed on a $10 account:
+The table below contrasts the capital consumption and survival probability of three distinct sizing frameworks deployed on a $10 account, driven directly from our centralized risk config:
 
-| Strategy | Base Stake | Escalation Rule | Total Risked | Survival on $10 | Result |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Flat Stake** | $0.35 | None (flat throughout) | $0.35 per trade | **28 trades** before exhaustion | Sane baseline |
-| **1.3× Ladder (The Enforcer)** | $0.35 | 1.3× capped at 5 steps | **$3.17** across 5 steps | **Survives** (preserves 68% equity) | Controlled recovery |
-| **2.0× Martingale** | $0.35 | 2.0× doubling after loss | **$10.85** across 5 steps | **0% survival** (exceeds balance) | <span className="text-[var(--rust)] font-semibold">✕ Account Ruin</span> |
+<StakeLadderTable />
 
-### Why The Enforcer caps at 1.3× and 5 steps
+### Why The Enforcer caps at <SpecVal k="multiplier" /> and <SpecVal k="max_ladder_steps" /> steps
 
-In The Enforcer risk governor, we replaced 2.0× doubling with a 1.3× ladder strictly capped at five steps:
+In The Enforcer risk governor, we replaced 2.0× doubling with a <SpecVal k="multiplier" /> ladder strictly capped at <SpecVal k="max_ladder_steps" /> steps:
 - Step 1: $0.35
 - Step 2: $0.46
 - Step 3: $0.59
 - Step 4: $0.77
 - Step 5: $1.00
 
-Total capital risked across all five steps combined is **$3.17**. 
+Total capital risked across all <SpecVal k="max_ladder_steps" /> steps combined is **<SpecVal k="ladder_total_risk_usd" />**. 
 
-If Step 5 loses, the algorithm does not escalate to Step 6. It immediately triggers a hard reset back to the $0.35 baseline stake and engages a mandatory 15-minute cool-off period. Your $10 account still retains $6.83 in capital. You have absorbed a controlled drawdown instead of experiencing total liquidation.
+If <SpecVal k="max_consecutive_losses" /> consecutive losses occur mid-session (<SpecVal k="pre_cooloff_ladder_risk_usd" /> cumulative risk), the governor triggers a mandatory <SpecVal k="cool_off_minutes" />-minute cool-off and resets the ladder to Step 1 (`reset_ladder_on_cooloff: true`) before hitting the daily loss floor (<SpecVal k="daily_loss_limit_floor_usd" />). If all <SpecVal k="max_ladder_steps" /> steps lose sequentially in non-cooloff boundaries, it resets cleanly back to <SpecVal k="base_stake_usd" />. Your $10 account still retains $6.83 in capital rather than experiencing total liquidation.

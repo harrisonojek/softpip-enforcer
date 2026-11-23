@@ -10,6 +10,7 @@ import {
 import { RustCaveatCard, SpecCard } from "@/components/spec-card";
 import { HeroBloom, HeroHeadline } from "@/components/hero-headline";
 import { CtaSpotlight } from "@/components/cta-spotlight";
+import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import {
   TRACK_RECORD_WEEKS,
   formatNairaSigned,
@@ -43,7 +44,7 @@ const HOW_IT_WORKS_STEPS = [
   {
     number: "03",
     title: "Follow the guardian limits",
-    body: "Run The Enforcer on demo first. Let the $0.35 flat floor, $1.00 daily loss cap, and 15-minute cool-off lock out revenge trades.",
+    body: `Run The Enforcer on demo first. Let the $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} flat floor, $${GOVERNOR_SPEC.daily_loss_limit_floor_usd.toFixed(2)} daily loss floor (${Math.round(GOVERNOR_SPEC.daily_loss_limit_pct_of_equity * 100)}% of equity), and ${Math.round(GOVERNOR_SPEC.cool_off_seconds / 60)}-minute cool-off lock out revenge trades.`,
     ctaLabel: "Inspect the bot →",
     ctaHref: "/bot",
     external: false,

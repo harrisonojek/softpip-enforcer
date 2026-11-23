@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
+import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import {
   TRACK_RECORD_WEEKS,
   formatNairaSigned,
@@ -140,10 +141,10 @@ export default function TrackRecordPage() {
                 <strong>2. Demo rows clearly labelled:</strong> Every row in this initial ledger is generated from forward-testing on a Deriv Virtual account running identical WebSocket protocol contracts. Demo forward-testing proves the execution rules, the socket kill switch, and the daily drawdown limit without capital risk before live deployment.
               </p>
               <p className="m-0">
-                <strong>3. Nothing is a forecast:</strong> Past performance on synthetic indices has zero predictive power over future performance. The PRNG feed generates independent ticks with zero memory. If someone guarantees you weekly returns on Deriv, they are lying. The sole purpose of this ledger is to prove that The Enforcer limits losses to $1.00 per session when negative regimes strike.
+                <strong>3. Nothing is a forecast:</strong> Past performance on synthetic indices has zero predictive power over future performance. The PRNG feed generates independent ticks with zero memory. If someone guarantees you weekly returns on Deriv, they are lying. The sole purpose of this ledger is to prove that The Enforcer limits losses to ${GOVERNOR_SPEC.daily_loss_limit_floor_usd.toFixed(2)} ({Math.round(GOVERNOR_SPEC.daily_loss_limit_pct_of_equity * 100)}% of equity above $20) per UTC day when negative regimes strike.
               </p>
               <p className="m-0">
-                <strong>4. Seed weeks:</strong> The four seed weeks documented above demonstrate both green weeks (+₦6,400, +₦9,200) and red weeks (-₦4,800, -₦2,150) under the exact $1.00 daily loss and 15-minute cool-off rules.
+                <strong>4. Seed weeks:</strong> The four seed weeks documented above demonstrate both green weeks (+₦6,400, +₦9,200) and red weeks (-₦4,800, -₦2,150) under strict daily loss and {Math.round(GOVERNOR_SPEC.cool_off_seconds / 60)}-minute cool-off rules.
               </p>
             </div>
 

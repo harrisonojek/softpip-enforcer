@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -132,7 +133,7 @@ export default function AboutPage() {
             </p>
 
             <p className="type-body text-[var(--text-70)] m-0 leading-relaxed">
-              I wrote <strong>The Enforcer</strong> in Python to serve as an uncompromising risk container. It enforces hard process-level constraints: a flat $0.35 stake floor, a maximum 1.3× ladder capped strictly at 5 steps ($3.17 total risk), an absolute daily loss cap of $1.00 on a $10 account, an automated 15-minute socket cool-off after three consecutive losses, and a 60-minute session kill switch. When the limit is reached, the process exits. There is no manual override button.
+              I wrote <strong>The Enforcer</strong> in Python to serve as an uncompromising risk container. It enforces hard process-level constraints: a flat ${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} stake floor, a maximum {GOVERNOR_SPEC.multiplier}× ladder capped strictly at {GOVERNOR_SPEC.max_ladder_steps} steps (${GOVERNOR_SPEC.ladder_total_risk_usd.toFixed(2)} total risk), a {Math.round(GOVERNOR_SPEC.daily_loss_limit_pct_of_equity * 100)}% daily loss cap with a ${GOVERNOR_SPEC.daily_loss_limit_floor_usd.toFixed(2)} floor, an automated {Math.round(GOVERNOR_SPEC.cool_off_seconds / 60)}-minute socket cool-off after {GOVERNOR_SPEC.max_consecutive_losses} consecutive losses, and a {Math.round(GOVERNOR_SPEC.session_timeout_seconds / 60)}-minute session kill switch. When the limit is reached, the process exits. There is no manual override button.
             </p>
 
             <p className="type-body text-[var(--text-70)] m-0 leading-relaxed">

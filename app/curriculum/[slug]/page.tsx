@@ -9,6 +9,7 @@ import {
   getAllCurriculumModules,
   getCurriculumModuleBySlug,
 } from "@/lib/content";
+import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL, SITE_URL } from "@/lib/seo";
 
 interface ModulePageProps {
@@ -136,6 +137,67 @@ const mdxComponents = {
       className="p-5 my-6 rounded-[14px] bg-[var(--slate)] border border-[var(--line)] overflow-x-auto text-xs font-mono text-[var(--text)] leading-relaxed"
       {...props}
     />
+  ),
+  SpecVal: ({ k }: { k: string }) => {
+    const map: Record<string, string> = {
+      base_stake_usd: `$${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}`,
+      multiplier: `${GOVERNOR_SPEC.multiplier}×`,
+      max_ladder_steps: String(GOVERNOR_SPEC.max_ladder_steps),
+      ladder_total_risk_usd: `$${GOVERNOR_SPEC.ladder_total_risk_usd.toFixed(2)}`,
+      pre_cooloff_ladder_risk_usd: `$${GOVERNOR_SPEC.pre_cooloff_ladder_risk_usd.toFixed(2)}`,
+      martingale_total_risk_usd: `$${GOVERNOR_SPEC.martingale_total_risk_usd.toFixed(2)}`,
+      daily_loss_limit_floor_usd: `$${GOVERNOR_SPEC.daily_loss_limit_floor_usd.toFixed(2)}`,
+      daily_loss_limit_pct: `${Math.round(GOVERNOR_SPEC.daily_loss_limit_pct_of_equity * 100)}%`,
+      balance_floor_usd: `$${GOVERNOR_SPEC.balance_floor_usd.toFixed(2)}`,
+      max_session_trades: String(GOVERNOR_SPEC.max_session_trades),
+      cool_off_minutes: String(Math.round(GOVERNOR_SPEC.cool_off_seconds / 60)),
+      cool_off_seconds: String(GOVERNOR_SPEC.cool_off_seconds),
+      max_consecutive_losses: String(GOVERNOR_SPEC.max_consecutive_losses),
+      min_live_balance_usd: `$${GOVERNOR_SPEC.min_live_balance_usd.toFixed(2)}`,
+    };
+    return <span className="tabular-nums font-medium">{map[k] ?? k}</span>;
+  },
+  StakeLadderTable: () => (
+    <div className="my-8 overflow-x-auto surface-card p-0 rounded-[14px]">
+      <table className="w-full text-left border-collapse text-sm">
+        <thead className="bg-[var(--slate)] hairline-b text-[var(--text)]">
+          <tr>
+            <th className="px-4 py-3.5 type-micro uppercase font-medium text-[var(--text-70)]">Strategy</th>
+            <th className="px-4 py-3.5 type-micro uppercase font-medium text-[var(--text-70)]">Base Stake</th>
+            <th className="px-4 py-3.5 type-micro uppercase font-medium text-[var(--text-70)]">Escalation Rule</th>
+            <th className="px-4 py-3.5 type-micro uppercase font-medium text-[var(--text-70)]">Total Risked</th>
+            <th className="px-4 py-3.5 type-micro uppercase font-medium text-[var(--text-70)]">Survival on $10</th>
+            <th className="px-4 py-3.5 type-micro uppercase font-medium text-[var(--text-70)]">Result</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-[var(--rule)]">
+          <tr className="hover:bg-[var(--slate)]/40 transition-colors">
+            <td className="px-4 py-3.5 font-medium text-[var(--text)]">Flat Stake</td>
+            <td className="px-4 py-3.5 tabular-nums text-[var(--text-70)]">${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}</td>
+            <td className="px-4 py-3.5 text-[var(--text-70)]">None (flat throughout)</td>
+            <td className="px-4 py-3.5 tabular-nums text-[var(--text-70)]">${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} per trade</td>
+            <td className="px-4 py-3.5 font-medium text-[var(--text)] tabular-nums">28 trades before exhaustion</td>
+            <td className="px-4 py-3.5 text-[var(--text-70)]">Sane baseline</td>
+          </tr>
+          <tr className="hover:bg-[var(--slate)]/40 transition-colors">
+            <td className="px-4 py-3.5 font-medium text-[var(--mint-text)]">{GOVERNOR_SPEC.multiplier}× Ladder (The Enforcer)</td>
+            <td className="px-4 py-3.5 tabular-nums text-[var(--mint-text)]">${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}</td>
+            <td className="px-4 py-3.5 text-[var(--text-70)]">{GOVERNOR_SPEC.multiplier}× capped at {GOVERNOR_SPEC.max_ladder_steps} steps</td>
+            <td className="px-4 py-3.5 tabular-nums text-[var(--mint-text)] font-medium">${GOVERNOR_SPEC.ladder_total_risk_usd.toFixed(2)} across {GOVERNOR_SPEC.max_ladder_steps} steps</td>
+            <td className="px-4 py-3.5 font-medium text-[var(--mint-text)]">Survives (preserves 68% equity)</td>
+            <td className="px-4 py-3.5 text-[var(--mint-text)] font-medium">Controlled recovery</td>
+          </tr>
+          <tr className="bg-[var(--rust)]/5 hover:bg-[var(--rust)]/10 transition-colors">
+            <td className="px-4 py-3.5 font-medium text-[var(--rust)]">2.0× Martingale</td>
+            <td className="px-4 py-3.5 tabular-nums text-[var(--rust)]">${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}</td>
+            <td className="px-4 py-3.5 text-[var(--rust)]">2.0× doubling after loss</td>
+            <td className="px-4 py-3.5 tabular-nums text-[var(--rust)] font-medium">${GOVERNOR_SPEC.martingale_total_risk_usd.toFixed(2)} across {GOVERNOR_SPEC.max_ladder_steps} steps</td>
+            <td className="px-4 py-3.5 font-medium text-[var(--rust)]">0% survival (exceeds balance)</td>
+            <td className="px-4 py-3.5 text-[var(--rust)] font-semibold">✕ Account Ruin</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   ),
 };
 

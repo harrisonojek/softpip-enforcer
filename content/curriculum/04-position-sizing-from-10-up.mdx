@@ -34,10 +34,10 @@ At a 3.5% initial risk floor:
 
 ### Operating within the constraint
 
-Because you cannot reduce your stake below $0.35, you must adjust your operational framework:
+Because you cannot reduce your stake below <SpecVal k="base_stake_usd" />, you must adjust your operational framework:
 
-1. **Flat stake discipline**: Keep the stake at exactly $0.35. Do not increase the stake after a win, and do not increase the stake after a loss until your account balance reaches at least $50.
-2. **Session loss cut-off ($1.00)**: Limit your daily loss to $1.00. This represents approximately 3 losing contracts ($1.05 total loss). When you hit $1.00 in cumulative losses for the day, the session terminates. You preserve $9.00 of your capital to trade on another day.
-3. **Session duration cap (40 trades)**: Do not allow a bot to run indefinitely. The longer an account trades at a 3.5% risk floor, the higher the mathematical certainty of encountering an extended losing streak. Enforce a hard 40-trade cap per session.
+1. **Flat stake discipline**: Keep the stake at <SpecVal k="base_stake_usd" /> (`sizing_mode: fixed`). Do not switch to `percent` sizing until equity crosses $100 where 1% exceeds the <SpecVal k="base_stake_usd" /> floor.
+2. **Cool-off & daily loss limit (<SpecVal k="daily_loss_limit_floor_usd" /> floor / <SpecVal k="daily_loss_limit_pct" /> equity)**: After <SpecVal k="max_consecutive_losses" /> consecutive losses (<SpecVal k="pre_cooloff_ladder_risk_usd" /> cumulative risk), the governor triggers a mandatory <SpecVal k="cool_off_minutes" />-minute cool-off and resets the ladder to step 1 before the daily cap of max(<SpecVal k="daily_loss_limit_floor_usd" />, <SpecVal k="daily_loss_limit_pct" />) fires. Your hard account preservation stop remains active above <SpecVal k="balance_floor_usd" />.
+3. **Session duration cap (<SpecVal k="max_session_trades" /> trades)**: Do not allow a bot to run indefinitely. The longer an account trades at a 3.5% risk floor, the higher the mathematical certainty of encountering an extended losing streak. Enforce a hard <SpecVal k="max_session_trades" />-trade cap per session.
 
-Accepting that $0.35 is 3.5% of your account is the first step toward disciplined risk governance.
+Accepting that <SpecVal k="base_stake_usd" /> is 3.5% of your account is the first step toward disciplined risk governance.
