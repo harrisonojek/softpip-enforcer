@@ -37,6 +37,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_URL,
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-32.png", type: "image/png", sizes: "32x32" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "SoftPip — Trade with rules, not feelings.",
     description:
@@ -47,7 +58,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/og-default.png",
+        url: "/og-default.png",
         width: 1200,
         height: 630,
         alt: "SoftPip — Free trading autopsy, curriculum, and risk bot",
@@ -59,7 +70,7 @@ export const metadata: Metadata = {
     title: "SoftPip — Trade with rules, not feelings.",
     description:
       "In 2025 I lost ₦32M trading. The full autopsy, ten-module curriculum, and open-source risk governor bot are free.",
-    images: ["/images/og-default.png"],
+    images: ["/og-default.png"],
   },
 };
 

@@ -61,7 +61,7 @@ export default function TrackRecordPage() {
                 {TRACK_RECORD_WEEKS.map((w) => {
                   const isPositive = w.netNaira >= 0;
                   return (
-                    <tr key={w.id} className="hover:bg-[var(--slate)]/40 transition-colors">
+                    <tr key={w.id} className="track-record-row hover:bg-[var(--slate)]/40 transition-colors">
                       <td className="px-5 py-4 font-mono text-xs text-[var(--text)] whitespace-nowrap">
                         {w.week}
                       </td>

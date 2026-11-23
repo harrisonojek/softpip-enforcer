@@ -99,3 +99,51 @@ export function CountUpNumber({
     </span>
   );
 }
+
+interface RevealGroupProps {
+  children: React.ReactNode;
+  className?: string;
+  staggerMs?: number;
+  maxStagger?: number;
+}
+
+export function RevealGroup({
+  children,
+  className,
+  staggerMs = 60,
+  maxStagger = 5,
+}: RevealGroupProps) {
+  const shouldReduceMotion = useReducedMotion();
+  const childArray = React.Children.toArray(children);
+
+  return (
+    <div className={className}>
+      {childArray.map((child, index) => {
+        const cappedIndex = Math.min(index, maxStagger - 1);
+        const delay = (cappedIndex * staggerMs) / 1000;
+        return (
+          <motion.div
+            key={index}
+            initial={{
+              opacity: 0,
+              y: shouldReduceMotion ? 0 : 12,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{
+              duration: 0.6,
+              delay,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            {child}
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
+

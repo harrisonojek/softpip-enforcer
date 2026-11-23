@@ -127,19 +127,24 @@ export function Nav() {
           {/* Brand Left */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2.5 min-h-[44px] text-[var(--text)] no-underline shrink-0"
+            className="inline-flex items-center min-h-[44px] text-[var(--text)] no-underline shrink-0"
             aria-label="SoftPip Home"
           >
-            <IconMark size={28} />
-            <span
-              className="text-base tracking-tight text-[var(--text)]"
-              style={{
-                fontFamily: "var(--font-geist), system-ui, sans-serif",
-                fontWeight: 600,
-              }}
-            >
-              SoftPip
-            </span>
+            {/* Icon alone below 480px */}
+            <img
+              src="/brand/nav-icon.png"
+              alt="SoftPip"
+              width={26}
+              height={26}
+              className="h-[26px] w-[26px] rounded-[22%] object-contain min-[480px]:hidden"
+            />
+            {/* Full lockup above 480px */}
+            <img
+              src="/brand/nav-lockup.png"
+              alt="SoftPip"
+              height={26}
+              className="h-[26px] w-auto object-contain hidden min-[480px]:block"
+            />
           </Link>
 
           {/* Desktop Center/Right Inline Links (≥880px only) */}
@@ -173,9 +178,10 @@ export function Nav() {
               href={DERIV_AFFILIATE_URL}
               rel="sponsored noopener"
               target="_blank"
-              className="btn-mint max-[420px]:px-3 max-[420px]:text-xs"
+              className="btn-mint max-[399px]:px-2.5 max-[399px]:py-1.5 max-[399px]:text-xs max-[399px]:min-h-[36px]"
             >
-              Open $10 account
+              <span className="hidden min-[400px]:inline">Open $10 account</span>
+              <span className="inline min-[400px]:hidden">$10 account</span>
             </a>
 
             <button
@@ -237,18 +243,15 @@ export function Nav() {
             <Link
               href="/"
               onClick={() => setMenuOpen(false)}
-              className="inline-flex items-center gap-2.5 min-h-[44px] text-[var(--text)] no-underline"
+              className="inline-flex items-center min-h-[44px] text-[var(--text)] no-underline"
+              aria-label="SoftPip Home"
             >
-              <IconMark size={28} />
-              <span
-                className="text-base tracking-tight text-[var(--text)]"
-                style={{
-                  fontFamily: "var(--font-geist), system-ui, sans-serif",
-                  fontWeight: 600,
-                }}
-              >
-                SoftPip
-              </span>
+              <img
+                src="/brand/nav-lockup.png"
+                alt="SoftPip"
+                height={26}
+                className="h-[26px] w-auto object-contain"
+              />
             </Link>
             <button
               type="button"
@@ -314,13 +317,14 @@ export function Nav() {
         </div>
       )}
 
-      {/* Sticky mobile bottom bar, 60px, mint pill, same link (<880px) */}
+      {/* Sticky mobile bottom bar, 72px (+12px extra), mint pill, same link (<880px) */}
       <div
-        className="nav-mobile-only fixed bottom-0 inset-x-0 z-40 h-[60px] hairline-t items-center px-4"
+        className="nav-mobile-only fixed bottom-0 inset-x-0 z-40 h-[72px] hairline-t items-center px-4"
         style={{
           backgroundColor: "rgba(8, 11, 15, 0.92)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
+          paddingBottom: "env(safe-area-inset-bottom, 0px)",
         }}
       >
         <a

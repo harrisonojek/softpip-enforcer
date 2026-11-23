@@ -8,9 +8,10 @@
   --text: #E6EAEE;
   --text-70: #9AA6B2;
   --text-45: #6B7885;
-  --mint: #7BE8C4;
-  --mint-text: #5FD9B4;
-  --mint-deep: #3FC7A0;
+  --mint: #8AF5CE;
+  --mint-text: #6FE8BE;
+  --teal: #2E9E8F;
+  --deep: #1E4B57;
   --rust: #E8735A;
   --rule: rgba(230, 234, 238, 0.10);
 
@@ -43,7 +44,8 @@
   --color-text-45: var(--text-45);
   --color-mint: var(--mint);
   --color-mint-text: var(--mint-text);
-  --color-mint-deep: var(--mint-deep);
+  --color-teal: var(--teal);
+  --color-deep: var(--deep);
   --color-rust: var(--rust);
   --color-rule: var(--rule);
 
@@ -189,17 +191,74 @@ body {
   box-shadow: var(--shadow-card);
 }
 
-/* Single Radial Mint Glow at 6% */
+/* Radial Mint Glow at 8% */
 .mint-glow {
   background-image: radial-gradient(
     55% 60% at 30% 0%,
-    rgba(123, 232, 196, 0.06) 0%,
+    rgba(138, 245, 206, 0.08) 0%,
     rgba(8, 11, 15, 0) 100%
   );
 }
 
+/* Hero Mint Bloom Keyframes */
+@keyframes heroBloomDrift {
+  0% {
+    transform: translate3d(-20px, -10px, 0);
+  }
+  100% {
+    transform: translate3d(20px, 10px, 0);
+  }
+}
+
+.hero-bloom-drift {
+  animation: heroBloomDrift 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Card & Table Row hover 2px mint left rule */
+.surface-card,
+.surface-card-interactive,
+tbody tr {
+  position: relative;
+}
+
+.surface-card::before,
+.surface-card-interactive::before,
+tbody tr::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--mint);
+  border-top-left-radius: inherit;
+  border-bottom-left-radius: inherit;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 200ms var(--ease-out-expo);
+  pointer-events: none;
+  z-index: 10;
+}
+
+@media (hover: hover) {
+  .surface-card:hover::before,
+  .surface-card-interactive:hover::before,
+  tbody tr:hover::before {
+    transform: scaleY(1);
+  }
+
+  .track-record-row {
+    transition: background-color 200ms var(--ease-out-expo);
+  }
+  .track-record-row:hover {
+    background-color: rgba(138, 245, 206, 0.06);
+  }
+}
+
 /* Buttons */
-.btn-mint {
+.btn-mint,
+.btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -216,9 +275,37 @@ body {
   border: 1px solid transparent;
   transition: filter 300ms var(--ease-out-expo), border-color 300ms var(--ease-out-expo);
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-mint:hover {
+.btn-mint::after,
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(138, 245, 206, 0.30) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  transition: transform 500ms var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  .btn-mint:hover::after,
+  .btn-primary:hover::after {
+    transform: translateX(200%);
+  }
+}
+
+.btn-mint:hover,
+.btn-primary:hover {
   filter: brightness(1.08);
 }
 
@@ -329,7 +416,19 @@ body {
   .surface-card-interactive:hover,
   .btn-mint,
   .btn-ghost {
-    transform: none;
-    transition: opacity 200ms linear;
+    transform: none !important;
+    transition: opacity 200ms linear !important;
+  }
+
+  .hero-bloom-drift {
+    animation: none !important;
+  }
+
+  .btn-mint::after,
+  .btn-primary::after,
+  .surface-card::before,
+  .surface-card-interactive::before,
+  tbody tr::before {
+    display: none !important;
   }
 }

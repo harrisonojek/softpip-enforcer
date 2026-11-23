@@ -38,14 +38,20 @@ export function Footer() {
           <div className="flex flex-col gap-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2.5 min-h-[44px] text-[var(--text)] no-underline w-fit"
+              className="inline-flex items-center gap-2 min-h-[44px] text-[var(--text-70)] hover:text-[var(--text)] transition-colors no-underline w-fit"
+              aria-label="SoftPip Home"
             >
-              <IconMark size={28} />
+              <img
+                src="/brand/nav-icon.png"
+                alt="SoftPip"
+                width={20}
+                height={20}
+                className="h-[20px] w-[20px] rounded-[22%] object-contain opacity-80"
+              />
               <span
-                className="text-base tracking-tight text-[var(--text)]"
+                className="text-[16px] tracking-tight font-semibold text-[var(--text-70)]"
                 style={{
                   fontFamily: "var(--font-geist), system-ui, sans-serif",
-                  fontWeight: 600,
                 }}
               >
                 SoftPip

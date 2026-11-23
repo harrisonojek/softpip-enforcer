@@ -44,7 +44,7 @@ export function buildMetadata({
       type: "website",
       images: [
         {
-          url: "/images/og-default.png",
+          url: "/og-default.png",
           width: 1200,
           height: 630,
           alt: `${SITE_NAME} — ${title}`,
@@ -55,7 +55,7 @@ export function buildMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/og-default.png"],
+      images: ["/og-default.png"],
     },
   };
 }

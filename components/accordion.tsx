@@ -61,11 +61,17 @@ export function Accordion({ items }: { items: AccordionItem[] }) {
               id={panelId}
               role="region"
               aria-labelledby={buttonId}
-              hidden={!isOpen}
-              className={`px-6 sm:px-7 pb-6 sm:pb-7 pt-1 ${isOpen ? "block" : "hidden"}`}
+              className="grid transition-[grid-template-rows] duration-[260ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+              style={{
+                gridTemplateRows: isOpen ? "1fr" : "0fr",
+              }}
             >
-              <div className="type-body text-[var(--text-70)] prose-col leading-relaxed">
-                {item.answer}
+              <div className="overflow-hidden" aria-hidden={!isOpen}>
+                <div className="px-6 sm:px-7 pb-6 sm:pb-7 pt-1">
+                  <div className="type-body text-[var(--text-70)] prose-col leading-relaxed">
+                    {item.answer}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

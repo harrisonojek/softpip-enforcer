@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { Reveal } from "@/components/reveal";
+import { ScrollProgress } from "@/components/scroll-progress";
 import {
   getAllCurriculumModules,
   getCurriculumModuleBySlug,
@@ -164,6 +165,7 @@ export default async function CurriculumDetailPage({ params }: ModulePageProps) 
 
   return (
     <article className="section-pad min-h-screen">
+      <ScrollProgress />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -4,6 +4,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { GateForm } from "@/components/gate-form";
 import { Reveal } from "@/components/reveal";
+import { ScrollProgress } from "@/components/scroll-progress";
 import { getAutopsyContent } from "@/lib/content";
 import { buildMetadata, DERIV_AFFILIATE_URL } from "@/lib/seo";
 
@@ -110,6 +111,7 @@ export default async function AutopsyPage() {
 
   return (
     <div className="section-pad min-h-screen">
+      <ScrollProgress />
       <div className="container-shell flex flex-col gap-12">
         {/* Header section */}
         <Reveal className="flex flex-col gap-5 max-w-[800px]">

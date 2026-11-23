@@ -8,6 +8,8 @@ import {
   ModuleRow,
 } from "@/components/module-row";
 import { RustCaveatCard, SpecCard } from "@/components/spec-card";
+import { HeroBloom, HeroHeadline } from "@/components/hero-headline";
+import { CtaSpotlight } from "@/components/cta-spotlight";
 import {
   TRACK_RECORD_WEEKS,
   formatNairaSigned,
@@ -73,14 +75,13 @@ export default function HomePage() {
   return (
     <div>
       {/* 1. Hero & 2. Two CTAs & 3. Stat row */}
-      <section className="hero-section section-pad mint-glow hairline-b">
-        <div className="container-shell flex flex-col gap-12">
+      <section className="hero-section section-pad mint-glow hairline-b relative overflow-hidden">
+        <HeroBloom />
+        <div className="container-shell flex flex-col gap-12 relative z-10">
           <Reveal className="flex flex-col items-start gap-6">
             <IconMark size={28} />
 
-            <h1 className="type-display m-0 max-w-[16ch]">
-              Trade with rules, not feelings.
-            </h1>
+            <HeroHeadline />
 
             <p className="type-body text-[var(--text-70)] m-0 prose-col">
               In 2025 I lost ₦32M trading. The full autopsy is free. So is the
@@ -343,7 +344,7 @@ export default function HomePage() {
       <section className="section-pad">
         <div className="container-shell">
           <Reveal>
-            <div className="surface-card mint-glow p-8 sm:p-12 lg:p-14 flex flex-col items-start gap-6">
+            <CtaSpotlight className="mint-glow p-8 sm:p-12 lg:p-14 flex flex-col items-start gap-6">
               <span className="type-micro uppercase text-[var(--mint-text)]">
                 Eight pages · Dates and figures · Free
               </span>
@@ -368,7 +369,7 @@ export default function HomePage() {
                   Open $10 account
                 </a>
               </div>
-            </div>
+            </CtaSpotlight>
           </Reveal>
         </div>
       </section>

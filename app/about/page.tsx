@@ -37,7 +37,7 @@ export default function AboutPage() {
               className="w-full aspect-[16/9] sm:aspect-[21/9] rounded-[16px] bg-[var(--slate)] border border-[var(--line)] flex items-center justify-center relative overflow-hidden"
               style={{
                 backgroundImage:
-                  "radial-gradient(circle at 50% 50%, rgba(123, 232, 196, 0.08) 0%, rgba(20, 27, 35, 0.95) 100%)",
+                  "radial-gradient(circle at 50% 50%, rgba(138, 245, 206, 0.08) 0%, rgba(20, 27, 35, 0.95) 100%)",
               }}
             >
               {/* Minimal geometric graphic representing risk governor */}
