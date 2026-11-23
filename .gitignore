@@ -12,3 +12,6 @@ journal.db
 screenshots/*-viewport.png
 __pycache__/
 *.pyc
+
+.vercel
+.env*
