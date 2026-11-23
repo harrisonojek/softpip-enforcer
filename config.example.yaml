@@ -1,0 +1,39 @@
+# SoftPip The Enforcer — Configuration Template
+# Copy this file to config.yaml and populate your private API credentials.
+# Never commit config.yaml to version control.
+
+deriv:
+  app_id: 1089 # Replace with your registered Deriv app_id or use default 1089
+  api_token: "YOUR_DERIV_API_TOKEN" # Deriv API token with 'Read' and 'Trade' scopes
+  endpoint: "wss://ws.derivws.com/websockets/v3"
+
+contract:
+  symbol: "R_10" # Volatility 10 Index (or R_75, R_100)
+  contract_type: "CALL" # CALL (Rise) or PUT (Fall)
+  duration: 5 # Contract duration in units
+  duration_unit: "t" # 't' for ticks, 'm' for minutes
+  currency: "USD" # Account base currency
+
+risk:
+  base_stake: 0.35 # Minimum contract stake on $10 balance ($0.35 floor = 3.5%)
+  multiplier: 1.3 # Controlled progression multiplier (replaces 2x martingale)
+  max_ladder_steps: 5 # Maximum loss steps allowed before reset ($3.17 cumulative)
+  max_consecutive_losses: 3 # Trigger cooling off period after consecutive losses
+  cool_off_seconds: 900 # 15-minute socket disconnect on tilt trigger
+  daily_loss_limit: 1.00 # Maximum daily loss cap ($1.00 on $10 account = 10%)
+  balance_floor: 9.00 # Absolute balance protection floor
+  session_timeout_seconds: 3600 # 60-minute hard session kill switch
+  max_session_trades: 20 # Maximum contract executions per continuous session
+
+signal:
+  strategy: "tick_momentum" # Entry signal generator
+  lookback_ticks: 10 # Number of price ticks to analyze
+  min_trend_strength: 0.60 # Required directional threshold to execute
+  anti_spike_filter: true # Disallow entries during extreme single-tick spikes
+
+journal:
+  db_path: "journal.db" # SQLite local database for trade execution logs
+  log_level: "INFO" # DEBUG, INFO, WARNING, ERROR
+  telegram_alerts: false # Enable live execution notifications
+  telegram_bot_token: "" # Telegram bot token from @BotFather
+  telegram_chat_id: "" # Your private Telegram chat ID

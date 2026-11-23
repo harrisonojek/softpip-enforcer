@@ -7,6 +7,8 @@ dist/
 .vercel
 *.tsbuildinfo
 next-env.d.ts
-.superpowers/
+config.yaml
+journal.db
+screenshots/*-viewport.png
 __pycache__/
 *.pyc
