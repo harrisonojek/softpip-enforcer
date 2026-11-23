@@ -66,7 +66,7 @@ export function Accordion({ items }: { items: AccordionItem[] }) {
                 gridTemplateRows: isOpen ? "1fr" : "0fr",
               }}
             >
-              <div className="overflow-hidden" aria-hidden={!isOpen}>
+              <div className="min-h-0 overflow-hidden" aria-hidden={!isOpen}>
                 <div className="px-6 sm:px-7 pb-6 sm:pb-7 pt-1">
                   <div className="type-body text-[var(--text-70)] prose-col leading-relaxed">
                     {item.answer}

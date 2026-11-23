@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { IconMark } from "@/components/nav";
 import {
   CONTACT_EMAIL,
   DERIV_AFFILIATE_URL,
@@ -42,11 +41,11 @@ export function Footer() {
               aria-label="SoftPip Home"
             >
               <img
-                src="/brand/nav-icon.png"
+                src="/icon-192.png"
                 alt="SoftPip"
                 width={20}
                 height={20}
-                className="h-[20px] w-[20px] rounded-[22%] object-contain opacity-80"
+                className="h-[20px] w-[20px] rounded-[22%] object-cover opacity-85"
               />
               <span
                 className="text-[16px] tracking-tight font-semibold text-[var(--text-70)]"

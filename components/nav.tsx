@@ -27,28 +27,15 @@ const OVERLAY_NAV_ITEMS = [
 
 export function IconMark({ size = 28 }: { size?: number }) {
   return (
-    <span
-      className="icon-mark"
+    <img
+      src="/icon-192.png"
+      alt=""
+      width={size}
+      height={size}
+      className="rounded-[22%] object-cover shrink-0"
       style={{ width: `${size}px`, height: `${size}px` }}
       aria-hidden="true"
-    >
-      <svg
-        width={Math.round(size * 0.5)}
-        height={Math.round(size * 0.5)}
-        viewBox="0 0 14 14"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M2 10.5L5.5 7L8 9.5L12 3.5"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <circle cx="12" cy="3.5" r="1.4" fill="currentColor" />
-      </svg>
-    </span>
+    />
   );
 }
 
@@ -132,11 +119,11 @@ export function Nav() {
           >
             {/* Icon alone below 480px */}
             <img
-              src="/brand/nav-icon.png"
+              src="/icon-192.png"
               alt="SoftPip"
               width={26}
               height={26}
-              className="h-[26px] w-[26px] rounded-[22%] object-contain min-[480px]:hidden"
+              className="h-[26px] w-[26px] rounded-[22%] object-cover min-[480px]:hidden"
             />
             {/* Full lockup above 480px */}
             <img
@@ -178,7 +165,7 @@ export function Nav() {
               href={DERIV_AFFILIATE_URL}
               rel="sponsored noopener"
               target="_blank"
-              className="btn-mint max-[399px]:px-2.5 max-[399px]:py-1.5 max-[399px]:text-xs max-[399px]:min-h-[36px]"
+              className="btn-mint max-[399px]:px-2.5 max-[399px]:py-1 max-[399px]:text-xs max-[399px]:min-h-[38px]"
             >
               <span className="hidden min-[400px]:inline">Open $10 account</span>
               <span className="inline min-[400px]:hidden">$10 account</span>
@@ -317,13 +304,14 @@ export function Nav() {
         </div>
       )}
 
-      {/* Sticky mobile bottom bar, 72px (+12px extra), mint pill, same link (<880px) */}
+      {/* Sticky mobile bottom bar, 72px (+12px extra) + safe area bottom, mint pill (<880px) */}
       <div
-        className="nav-mobile-only fixed bottom-0 inset-x-0 z-40 h-[72px] hairline-t items-center px-4"
+        className="nav-mobile-only fixed bottom-0 inset-x-0 z-40 min-h-[72px] hairline-t items-center px-4"
         style={{
           backgroundColor: "rgba(8, 11, 15, 0.92)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
+          height: "calc(72px + env(safe-area-inset-bottom, 0px))",
           paddingBottom: "env(safe-area-inset-bottom, 0px)",
         }}
       >

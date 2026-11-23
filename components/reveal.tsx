@@ -7,10 +7,49 @@ interface RevealProps {
   children: React.ReactNode;
   delayMs?: number;
   className?: string;
+  staggerChildren?: boolean;
 }
 
-export function Reveal({ children, delayMs = 0, className }: RevealProps) {
+export function Reveal({
+  children,
+  delayMs = 0,
+  className,
+  staggerChildren = false,
+}: RevealProps) {
   const shouldReduceMotion = useReducedMotion();
+  const cappedDelayMs = delayMs > 0 ? Math.min(Math.round(delayMs / 60), 4) * 60 : 0;
+
+  if (staggerChildren) {
+    const childArray = React.Children.toArray(children);
+    return (
+      <div className={className}>
+        {childArray.map((child, index) => {
+          const itemDelayMs = cappedDelayMs + Math.min(index, 4) * 60;
+          return (
+            <motion.div
+              key={index}
+              initial={{
+                opacity: 0,
+                y: shouldReduceMotion ? 0 : 12,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{
+                duration: 0.6,
+                delay: itemDelayMs / 1000,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              {child}
+            </motion.div>
+          );
+        })}
+      </div>
+    );
+  }
 
   return (
     <motion.div
@@ -25,7 +64,7 @@ export function Reveal({ children, delayMs = 0, className }: RevealProps) {
       viewport={{ once: true, margin: "-40px" }}
       transition={{
         duration: 0.6,
-        delay: delayMs / 1000,
+        delay: cappedDelayMs / 1000,
         ease: [0.22, 1, 0.36, 1],
       }}
       className={className}

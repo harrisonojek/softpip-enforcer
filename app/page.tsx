@@ -75,32 +75,34 @@ export default function HomePage() {
   return (
     <div>
       {/* 1. Hero & 2. Two CTAs & 3. Stat row */}
-      <section className="hero-section section-pad mint-glow hairline-b relative overflow-hidden">
+      <section className="hero-section section-pad mint-glow hairline-b relative isolate overflow-hidden">
         <HeroBloom />
         <div className="container-shell flex flex-col gap-12 relative z-10">
-          <Reveal className="flex flex-col items-start gap-6">
+          <div className="flex flex-col items-start gap-6">
             <IconMark size={28} />
 
             <HeroHeadline />
 
-            <p className="type-body text-[var(--text-70)] m-0 prose-col">
-              In 2025 I lost ₦32M trading. The full autopsy is free. So is the
-              ten-module curriculum and the risk bot. You need $10 to start.
-            </p>
+            <Reveal delayMs={60} className="flex flex-col items-start gap-6">
+              <p className="type-body text-[var(--text-70)] m-0 prose-col">
+                In 2025 I lost ₦32M trading. The full autopsy is free. So is the
+                ten-module curriculum and the risk bot. You need $10 to start.
+              </p>
 
-            {/* 2. Two CTAs */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
-              <Link href="/autopsy" className="btn-mint">
-                Start with the autopsy
-              </Link>
-              <Link href="/bot" className="btn-ghost">
-                See the bot
-              </Link>
-            </div>
-          </Reveal>
+              {/* 2. Two CTAs */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                <Link href="/autopsy" className="btn-mint">
+                  Start with the autopsy
+                </Link>
+                <Link href="/bot" className="btn-ghost">
+                  See the bot
+                </Link>
+              </div>
+            </Reveal>
+          </div>
 
           {/* 3. Stat row */}
-          <Reveal delayMs={70}>
+          <Reveal delayMs={120}>
             <StatRow />
           </Reveal>
         </div>
@@ -109,7 +111,7 @@ export default function HomePage() {
       {/* 4. How it works */}
       <section className="section-pad hairline-b">
         <div className="container-shell flex flex-col gap-10">
-          <Reveal className="flex flex-col gap-3">
+          <Reveal staggerChildren className="flex flex-col gap-3">
             <span className="type-micro uppercase text-[var(--text-45)]">
               01 · Architecture
             </span>
@@ -122,7 +124,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {HOW_IT_WORKS_STEPS.map((step, idx) => (
-              <Reveal key={step.number} delayMs={idx * 70}>
+              <Reveal key={step.number} delayMs={Math.min(idx, 4) * 60}>
                 <div className="surface-card-interactive p-6 sm:p-7 h-full flex flex-col justify-between gap-6">
                   <div className="flex flex-col gap-3">
                     <span
@@ -166,7 +168,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <Reveal delayMs={210}>
+          <Reveal delayMs={180}>
             <p className="type-small text-[var(--text-45)] m-0 prose-col">
               Nothing is charged. I earn commission from Deriv, disclosed in the
               footer.
@@ -201,7 +203,7 @@ export default function HomePage() {
 
           <div className="flex flex-col gap-3">
             {CURRICULUM_MODULES_PREVIEW.map((mod, idx) => (
-              <Reveal key={mod.slug} delayMs={idx * 70}>
+              <Reveal key={mod.slug} delayMs={Math.min(idx, 4) * 60}>
                 <ModuleRow module={mod} />
               </Reveal>
             ))}
@@ -233,11 +235,11 @@ export default function HomePage() {
             </Link>
           </Reveal>
 
-          <Reveal delayMs={70}>
+          <Reveal delayMs={60}>
             <RustCaveatCard />
           </Reveal>
 
-          <Reveal delayMs={140}>
+          <Reveal delayMs={120}>
             <SpecCard />
           </Reveal>
         </div>
@@ -269,8 +271,8 @@ export default function HomePage() {
             {TRACK_RECORD_WEEKS.map((item, idx) => {
               const isPositive = item.netNaira >= 0;
               return (
-                <Reveal key={item.id} delayMs={idx * 70}>
-                  <div className="surface-card p-6 h-full flex flex-col justify-between gap-4">
+                <Reveal key={item.id} delayMs={Math.min(idx, 4) * 60}>
+                  <div className="surface-card track-record-row p-6 h-full flex flex-col justify-between gap-4">
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center justify-between gap-2">
                         <span className="type-micro text-[var(--text-45)]">
@@ -311,7 +313,7 @@ export default function HomePage() {
       {/* 8. Testimonials */}
       <section className="section-pad hairline-b">
         <div className="container-shell flex flex-col gap-10">
-          <Reveal className="flex flex-col gap-3">
+          <Reveal staggerChildren className="flex flex-col gap-3">
             <span className="type-micro uppercase text-[var(--text-45)]">
               05 · Field notes
             </span>
@@ -320,7 +322,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {TESTIMONIALS.map((t, idx) => (
-              <Reveal key={t.author} delayMs={idx * 70}>
+              <Reveal key={t.author} delayMs={Math.min(idx, 4) * 60}>
                 <div className="surface-card p-6 sm:p-7 h-full flex flex-col justify-between gap-6">
                   <p className="type-body text-[var(--text)] m-0">
                     “{t.quote}”

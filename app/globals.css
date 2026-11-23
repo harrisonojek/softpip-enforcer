@@ -218,13 +218,13 @@ body {
 /* Card & Table Row hover 2px mint left rule */
 .surface-card,
 .surface-card-interactive,
-tbody tr {
+tbody tr > td:first-child {
   position: relative;
 }
 
 .surface-card::before,
 .surface-card-interactive::before,
-tbody tr::before {
+tbody tr > td:first-child::before {
   content: "";
   position: absolute;
   left: 0;
@@ -244,7 +244,7 @@ tbody tr::before {
 @media (hover: hover) {
   .surface-card:hover::before,
   .surface-card-interactive:hover::before,
-  tbody tr:hover::before {
+  tbody tr:hover > td:first-child::before {
     transform: scaleY(1);
   }
 
@@ -279,36 +279,6 @@ tbody tr::before {
   overflow: hidden;
 }
 
-.btn-mint::after,
-.btn-primary::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(138, 245, 206, 0.30) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
-  transition: transform 500ms var(--ease-out-expo);
-}
-
-@media (hover: hover) {
-  .btn-mint:hover::after,
-  .btn-primary:hover::after {
-    transform: translateX(200%);
-  }
-}
-
-.btn-mint:hover,
-.btn-primary:hover {
-  filter: brightness(1.08);
-}
-
 .btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -326,24 +296,50 @@ tbody tr::before {
   border: 1px solid var(--line);
   transition: border-color 300ms var(--ease-out-expo), background-color 300ms var(--ease-out-expo);
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-mint::after,
+.btn-primary::after,
+.btn-ghost::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(138, 245, 206, 0.30) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  transition: transform 500ms var(--ease-out-expo);
+}
+
+.btn-mint::after,
+.btn-primary::after {
+  mix-blend-mode: plus-lighter;
+}
+
+@media (hover: hover) {
+  .btn-mint:hover::after,
+  .btn-primary:hover::after,
+  .btn-ghost:hover::after {
+    transform: translateX(200%);
+  }
+}
+
+.btn-mint:hover,
+.btn-primary:hover {
+  filter: brightness(1.08);
 }
 
 .btn-ghost:hover {
   border-color: rgba(230, 234, 238, 0.28);
   background-color: rgba(20, 27, 35, 0.6);
-}
-
-/* Icon Mark (28px rounded mint icon mark) */
-.icon-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-icon);
-  background-color: var(--mint);
-  color: var(--void);
-  flex-shrink: 0;
 }
 
 /* Nav 880px breakpoint rules */
@@ -426,9 +422,10 @@ tbody tr::before {
 
   .btn-mint::after,
   .btn-primary::after,
+  .btn-ghost::after,
   .surface-card::before,
   .surface-card-interactive::before,
-  tbody tr::before {
+  tbody tr > td:first-child::before {
     display: none !important;
   }
 }

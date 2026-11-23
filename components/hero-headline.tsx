@@ -25,7 +25,7 @@ export function HeroBloom() {
   return (
     <div
       aria-hidden="true"
-      className="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] max-w-[90vw] h-[450px] pointer-events-none -z-10 overflow-visible"
+      className="absolute top-6 left-1/2 w-[760px] max-w-[95vw] h-[460px] pointer-events-none z-0 overflow-visible"
       style={{
         transform: `translate3d(-50%, ${parallaxY}px, 0)`,
         transition: shouldReduceMotion ? "none" : "transform 75ms linear",
@@ -35,8 +35,7 @@ export function HeroBloom() {
         className="w-full h-full hero-bloom-drift rounded-full"
         style={{
           background:
-            "radial-gradient(50% 50% at 50% 50%, rgba(138, 245, 206, 0.08) 0%, rgba(8, 11, 15, 0) 100%)",
-          filter: "blur(40px)",
+            "radial-gradient(closest-side, rgba(138, 245, 206, 0.08) 0%, rgba(138, 245, 206, 0.035) 55%, rgba(8, 11, 15, 0) 100%)",
         }}
       />
     </div>

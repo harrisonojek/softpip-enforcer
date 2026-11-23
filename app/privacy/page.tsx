@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
+import { ScrollProgress } from "@/components/scroll-progress";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -13,6 +14,7 @@ export const metadata = buildMetadata({
 export default function PrivacyPage() {
   return (
     <div className="section-pad min-h-screen">
+      <ScrollProgress />
       <div className="container-shell flex flex-col gap-12">
         {/* Header */}
         <Reveal className="flex flex-col gap-5 max-w-[800px]">

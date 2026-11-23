@@ -36,23 +36,34 @@ export function CtaSpotlight({ children, className = "" }: CtaSpotlightProps) {
     setCoords(null);
   };
 
-  const spotlightStyle: React.CSSProperties =
-    coords && isDesktop && !shouldReduceMotion
-      ? {
-          backgroundImage: `radial-gradient(550px circle at ${coords.x}px ${coords.y}px, rgba(138, 245, 206, 0.10) 0%, rgba(8, 11, 15, 0) 70%)`,
-          transition: "background-image 400ms ease",
-        }
-      : {};
+  const isVisible = Boolean(coords && isDesktop && !shouldReduceMotion);
 
   return (
     <div
       ref={containerRef}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
-      className={`relative surface-card overflow-hidden ${className}`}
-      style={spotlightStyle}
+      className={`relative surface-card isolate overflow-hidden ${className}`}
     >
-      {children}
+      {isDesktop && !shouldReduceMotion && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 top-0 h-[640px] w-[640px] rounded-full z-0"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(138, 245, 206, 0.10) 0%, rgba(8, 11, 15, 0) 70%)",
+            transform: coords
+              ? `translate3d(${coords.x - 320}px, ${coords.y - 320}px, 0)`
+              : "translate3d(-320px, -320px, 0)",
+            opacity: isVisible ? 1 : 0,
+            transition:
+              "transform 400ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease",
+          }}
+        />
+      )}
+      <div className="relative z-10 flex flex-col items-start gap-6 w-full">
+        {children}
+      </div>
     </div>
   );
 }
