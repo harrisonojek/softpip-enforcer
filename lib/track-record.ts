@@ -18,7 +18,7 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     trades: 142,
     netNaira: 6400,
     maxDrawdownPct: 8.4,
-    notes: "Demo baseline. Cool-off triggered twice on Wednesday chop.",
+    notes: "Seed: Demo baseline. Cool-off triggered twice on Wednesday chop.",
   },
   {
     id: "2026-w10",
@@ -28,7 +28,7 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     trades: 118,
     netNaira: -4800,
     maxDrawdownPct: 14.2,
-    notes: "Demo. Daily loss cap ($1.00) hit on Tuesday and Friday. Halted cleanly.",
+    notes: "Seed: Demo. Daily loss cap ($1.00) hit on Tuesday and Friday. Halted cleanly.",
   },
   {
     id: "2026-w11",
@@ -38,7 +38,7 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     trades: 164,
     netNaira: 9200,
     maxDrawdownPct: 7.1,
-    notes: "Demo. Flat $0.35 stake throughout; zero 5-step ladder breaches.",
+    notes: "Seed: Demo. Flat $0.35 stake throughout; zero 5-step ladder breaches.",
   },
   {
     id: "2026-w12",
@@ -48,7 +48,7 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     trades: 96,
     netNaira: -2150,
     maxDrawdownPct: 11.0,
-    notes: "Demo. Session timer stopped execution at 60m during Thursday volatility spike.",
+    notes: "Seed: Demo. Session timer stopped execution at 60m during Thursday volatility spike.",
   },
 ];
 
