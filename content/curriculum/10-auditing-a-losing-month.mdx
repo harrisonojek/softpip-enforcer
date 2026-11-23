@@ -1,0 +1,39 @@
+---
+index: "10"
+slug: "10-auditing-a-losing-month"
+title: "Auditing a losing month"
+outcome: "Conduct weekly post-mortems using trade logs, drawdown duration, and regime shift metrics."
+duration: "21 min"
+failureCorrects: "Abandoning systematic records after losing weeks or tweaking system parameters in the middle of a drawdown."
+---
+
+Losing weeks and losing months are a standard statistical feature of any non-fraudulent trading system. If a promoter tells you their system produces green weeks 52 weeks a year, they are either fabricating results or running a hidden Martingale ladder that has not yet encountered its fatal liquidation streak.
+
+The purpose of a risk governor is not to prevent losing weeks; it is to ensure that a losing week consumes a predictable, controlled fraction of equity rather than your entire account.
+
+### The 4 metrics of an objective audit
+
+When you conduct a weekly or monthly review of your trade logs, ignore how you felt during the sessions. Calculate these four objective mathematical metrics:
+
+1. **Maximum Drawdown (Max DD %)**:
+   ```
+   Max DD = (Peak Balance - Trough Balance) / Peak Balance × 100%
+   ```
+   Under The Enforcer's default limits on a $10 account, maximum daily drawdown should never exceed 20% ($2.00). If your Max DD crossed 25%, you breached system limits.
+2. **Longest Losing Streak**: Count the maximum number of consecutive contract losses. If your worst streak was 4 losses, your 1.3× ladder performed within tolerance. If your streak reached 8 losses, verify whether the ladder properly reset to $0.35 on step five as specified by the governor.
+3. **Execution Compliance Ratio**: Divide the number of trades where your actual stake matched the governor's calculated stake by the total number of trades executed:
+   ```
+   Compliance Ratio = Sanctioned Trades / Total Executed Trades
+   ```
+   This number must be exactly 100%. If it is 98%, you manually interfered with two orders, introducing emotional variance into the system.
+4. **Average Cost per Win vs Cost per Loss**: In Rise/Fall options, your average payout on a win should be between 85% and 92% of stake. Verify that you did not trade lower-payout contract variants (e.g., contracts paying only 40% to 60%) that distort system expectancy.
+
+### Post-mortem protocol for red weeks
+
+When you complete a red week (such as Week 10 in our public track record where the demo account closed down ₦4,800):
+
+- **Do not alter the risk parameters**: Do not increase the daily loss cap to $2.00 to make the loss back faster.
+- **Do not switch instruments**: Jumping from Volatility 75 to Volatility 100 because V75 had a losing week is an impulse reaction, not an engineering adaptation.
+- **Verify halt execution**: Confirm that the bot successfully terminated when the $1.00 daily loss cap was hit, rather than continuing to trade.
+
+If the governor halted cleanly and your losses were bounded, the system functioned correctly. A red week where rules were followed is an engineering success. A green week where rules were violated is a delayed catastrophe.

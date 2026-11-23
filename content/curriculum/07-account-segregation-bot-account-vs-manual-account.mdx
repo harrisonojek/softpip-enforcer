@@ -1,0 +1,36 @@
+---
+index: "07"
+slug: "07-account-segregation-bot-account-vs-manual-account"
+title: "Account segregation: bot account vs manual account"
+outcome: "Isolate automated risk governor execution from discretionary human trading."
+duration: "14 min"
+failureCorrects: "Co-mingling automated capital with manual trading funds in a shared wallet pool, draining margin."
+---
+
+One of the primary catalysts behind the ₦32M autopsy was the absence of account segregation. Automated algorithms and manual discretionary trades operated out of a single aggregated Deriv CR wallet. When manual CFD trades incurred floating drawdowns, the margin buffer required by automated option proposals was eliminated. When automated scripts hit a streak of losses, discretionary trades were prematurely liquidated by broker margin calls.
+
+### The principle of physical separation
+
+You cannot enforce risk rules if automated and discretionary capital share the same bankroll. The two domains must be physically separated at the broker account level.
+
+In the Deriv ecosystem, you are permitted to open multiple sub-accounts under your primary identity:
+
+1. **The Automated Governor Account (CR-Bot)**:
+   - Dedicated solely to The Enforcer risk governor or sanctioned automated scripts.
+   - Funded with exactly $10 (or up to $50 as you progress through milestones).
+   - Zero manual trades placed via the Deriv web terminal or mobile app.
+   - API tokens scoped exclusively to this account ID.
+2. **The Discretionary Manual Account (CR-Manual)**:
+   - Dedicated to manual chart inspection, demo practice, or MT5 CFD positions.
+   - Distinct balance pool and credentials.
+   - Drawdowns on this account cannot affect the margin or execution of your automated governor.
+
+### Operational rules for account segregation
+
+To maintain strict boundaries between accounts:
+
+- **Never transfer funds during an active session**: If your bot account incurs a $1.00 daily loss and halts, do not transfer $1.00 from your manual account to "keep the bot running." The halt was triggered for risk containment; overriding it via internal transfers defeats the governor.
+- **Isolate API token scopes**: When generating an API token for your bot, verify that the token is bound strictly to the designated bot sub-account CR number. Never use a master token that can access your primary cash balance.
+- **Maintain a zero-balance reserve wallet**: Keep long-term trading profits in a separate, unlinked bank account or cold crypto wallet. Capital sitting idle in an active trading wallet creates psychological temptation to expand position sizing during emotional drawdowns.
+
+Account segregation transforms risk management from an exercise in personal willpower into an architectural constraint enforced by software.

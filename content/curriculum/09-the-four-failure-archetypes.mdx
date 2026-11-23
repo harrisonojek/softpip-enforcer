@@ -1,0 +1,40 @@
+---
+index: "09"
+slug: "09-the-four-failure-archetypes"
+title: "The four failure archetypes"
+outcome: "Diagnose Revenge Scalping, Martingale Chasing, Stop Removal, and API Disconnect Spikers."
+duration: "19 min"
+failureCorrects: "Repeating the four psychological and mechanical traps that account for 94% of retail synthetic blowups."
+---
+
+After analyzing hundreds of wiped Deriv accounts and reviewing the ₦32M autopsy, account blowups consistently resolve into four predictable archetypes. They are not random occurrences; they are specific behavioral and software loops that repeat with mechanical precision.
+
+### Archetype 1: The Revenge Scalper
+
+- **Trigger**: Experiencing three or four consecutive losing trades within a 10-minute window.
+- **Behavior**: The trader feels an acute emotional injury. Instead of stepping away, they increase trade frequency, switching from 1-minute analysis to 1-second ticks. Position sizes are increased from $0.35 to $1.50 or $3.00 to "recover" the deficit before closing the app.
+- **Mechanism**: The trader operates with high cortisol levels, bypassing all technical rules and submitting random orders based on candle color.
+- **Enforcer correction**: Mandatory 15-minute cool-off period triggered automatically after three consecutive losses. The socket blocks order dispatch, physically preventing revenge trades.
+
+### Archetype 2: The Martingale Chaser
+
+- **Trigger**: A belief that a losing streak must end because "it can't possibly keep falling."
+- **Behavior**: Doubling stakes after every loss ($0.35 → $0.70 → $1.40 → $2.80 → $5.60).
+- **Mechanism**: Geometric progression rapidly outstrips account equity. On a $10 account, step five requires $10.85 in cumulative risk, guaranteeing margin liquidation.
+- **Enforcer correction**: 1.3× maximum ladder capped strictly at 5 steps, totaling $3.17, followed by a hard reset to $0.35 flat.
+
+### Archetype 3: The Stop Remover
+
+- **Trigger**: A manual MT5 CFD position moves within 5 points of the designated stop-loss price.
+- **Behavior**: The trader drags the stop loss further down, telling themselves that giving the position "more breathing room" will allow it to bounce back to breakeven.
+- **Mechanism**: A controlled, planned $2.00 risk allowance expands into an uncontrolled $8.00 loss that erodes 80% of account equity.
+- **Enforcer correction**: Orders are evaluated exclusively at contract inception with fixed expirations. No dynamic discretionary modifications are supported by the governor.
+
+### Archetype 4: The API Disconnect Spiker
+
+- **Trigger**: Network connection drops between the client script and Deriv WebSocket servers.
+- **Behavior**: Naive bot scripts fail to catch socket timeout exceptions. On reconnection, unhandled queues re-dispatch previous pending proposals simultaneously.
+- **Mechanism**: Multiple contracts execute in milliseconds, exhausting available margin in a single burst.
+- **Enforcer correction**: Heartbeat validation, local proposal state verification before order re-submission, and hard script termination on token or socket errors.
+
+Identify which archetype you fall into before you deploy capital.

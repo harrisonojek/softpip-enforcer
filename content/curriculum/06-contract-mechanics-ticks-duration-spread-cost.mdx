@@ -1,0 +1,46 @@
+---
+index: "06"
+slug: "06-contract-mechanics-ticks-duration-spread-cost"
+title: "Contract mechanics: ticks, duration, spread cost"
+outcome: "Calculate the mathematical barrier of 5-tick contract expiries and implied dealer edge."
+duration: "17 min"
+failureCorrects: "Trading ultra-short duration contracts without factoring in the 5% to 8% built-in house advantage on binary options."
+---
+
+Every contract offered on the Deriv platform has structural mechanics that govern its mathematical payout and edge. When you click `Higher` or `Lower`, you are entering an agreement with predefined expiration conditions. If you do not calculate the implied dealer edge embedded in those conditions, you are trading with a built-in statistical deficit before the first tick registers.
+
+### How tick contracts expire
+
+A tick contract on Deriv is measured in discrete price ticks rather than seconds. For Volatility 75 (1s), one tick is generated every second. For standard Volatility 75, one tick is generated every two seconds.
+
+On a 5-tick Rise contract:
+1. **Purchase price**: Staked capital (e.g., $0.35).
+2. **Entry tick**: The spot price at the millisecond your proposal is accepted by the Deriv server.
+3. **Evaluation tick**: The spot price exactly 5 ticks later.
+4. **Win condition**: `Spot_5 > Spot_entry`. If `Spot_5 <= Spot_entry`, the contract is an absolute loss.
+
+Notice that a dead flat outcome (`Spot_5 = Spot_entry`) is treated as a loss for both Rise and Fall buyers unless you are trading an `Equals` contract.
+
+### Calculating the broker edge
+
+Deriv does not charge a visible transaction commission on binary options. Instead, the commission is embedded directly into the asymmetric payout ratio.
+
+Consider a Rise/Fall contract offering a 90% payout on a 50/50 proposition:
+- Win outcome: +$0.315 profit on a $0.35 stake.
+- Loss outcome: -$0.350 loss on a $0.35 stake.
+
+Your expected value (`EV`) per trade with an un-edged 50% win probability is:
+
+```
+EV = (0.50 × +$0.315) + (0.50 × -$0.350) = +$0.1575 - $0.1750 = -$0.0175
+```
+
+On every $0.35 contract you execute, you forfeit an expected $0.0175 to the dealer edge. As a percentage of stake:
+
+```
+Dealer Edge = $0.0175 / $0.35 = 5.00%
+```
+
+If you execute 40 contracts in an hour, you are paying approximately $0.70 in dealer friction to the broker. On a $10 account, that represents 7% of your bankroll surrendered to transaction friction every hour of continuous execution.
+
+Understanding this math makes it clear why high-frequency execution on small accounts is self-destructive. You must minimize trade volume and enforce strict session caps.
