@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { TELEGRAM_COMMUNITY_URL, WEB3FORMS_ACCESS_KEY } from "@/lib/seo";
+import { AUTOPSEY_PDF_READY } from "@/lib/site";
 
 export function GateForm() {
   const [email, setEmail] = useState("");
@@ -88,11 +89,11 @@ export function GateForm() {
 
         <p className="type-small text-[var(--text-70)] m-0">
           Your details have been received. You can read the complete report in
-          full on this page, download the offline PDF summary, and join the
-          private Telegram channel.
+          full below and join the private Telegram risk channel.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 pt-2">
+          {/* Scroll to autopsy body link */}
           <a
             href="#report-body"
             className="btn-mint inline-flex items-center gap-2"
@@ -101,6 +102,22 @@ export function GateForm() {
             <span aria-hidden="true">↓</span>
           </a>
 
+          {/* 
+            Autopsy PDF download button (gated by AUTOPSEY_PDF_READY in lib/site.ts).
+            When enabled, drops in from: public/downloads/autopsy.pdf
+          */}
+          {AUTOPSEY_PDF_READY && (
+            <a
+              href="/downloads/autopsy.pdf"
+              download="SoftPip-Autopsy-Report.pdf"
+              className="btn-ghost inline-flex items-center gap-2"
+            >
+              <span>Download PDF</span>
+              <span aria-hidden="true">↓</span>
+            </a>
+          )}
+
+          {/* Telegram private community link */}
           <a
             href={TELEGRAM_COMMUNITY_URL}
             rel="noopener noreferrer"
