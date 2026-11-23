@@ -1,0 +1,118 @@
+---
+title: "₦32M: the full autopsy."
+subtitle: "Every position, every mistake, dates and amounts. Eight pages. Free."
+author: "Oghenerioborue Harrison Ekuetafia"
+date: "2026-01-10"
+lossTotal: "₦32,450,000"
+timeframe: "January 14, 2025 – October 28, 2025"
+---
+
+## The setup
+
+Between January 14, 2025, and October 28, 2025, I lost ₦32,450,000 across Deriv synthetic index Options contracts and MT5 CFD positions. At the average exchange rate of ₦1,520 per USD across that period, the cumulative loss was approximately $21,350.
+
+The accounts were funded through three local bank wires:
+- January 14, 2025: ₦4,500,000 ($2,960) initial principal to Deriv account CR3928104.
+- July 16, 2025: ₦11,200,000 ($7,368) reload following an unhedged liquidation event.
+- October 22, 2025: ₦16,750,000 ($11,020) final deposit during a 7-day attempt to recover the drawdown before month-end accounting.
+
+I was trading high-volatility synthetic indices: primarily Volatility 75 (1s), Volatility 100, and Jump 50. Synthetic indices run on cryptographic pseudo-random number generators with constant volatility. Unlike foreign exchange or equities, there are no bank holidays, no earnings releases, and no central bank interventions. The price feed does not mean-revert because there is no fundamental asset beneath it.
+
+I treated synthetics as if they possessed structural memory. I assumed that seven consecutive bearish 1-second candles increased the mathematical probability of a bullish tick on candle eight. That assumption was mathematically false, and it formed the foundation of every subsequent error.
+
+---
+
+## Position sizing
+
+My initial sizing plan in January 2025 specified risking no more than 1.5% of total equity per trade. On an initial capital base of ₦4,500,000, that meant a maximum stake of ₦67,500 ($44) per contract.
+
+For the first eight weeks, I complied with the rule. By March 28, 2025, account equity had reached ₦9,180,000 ($6,040) across 382 logged positions. Win rate sat at 58.4% on 5-tick Rise/Fall contracts.
+
+The breakdown began when I adjusted the sizing model:
+1. **Dynamic ratchet without downward adjustment**: When equity reached ₦9.18M, I increased the base stake from $44 to $150. When equity subsequently dropped to ₦7.4M in April, I refused to reduce the stake back to $44, arguing that smaller stakes would delay the recovery of the drawdown.
+2. **Capital aggregation**: I maintained trading capital, reserve capital, and operating funds in a single Deriv wallet. The bot and my manual MT5 terminal drew from the same balance pool. A drawdown on manual trades directly impaired the margin headroom of automated scripts.
+3. **The 3.5% trap**: On smaller secondary accounts I ran simultaneously, I funded $10 to test strategies. Deriv's minimum contract stake for Volatility 75 Rise/Fall is $0.35. A $0.35 stake on a $10 account is 3.5% of total capital on trade one. At that ratio, a streak of just 18 consecutive losses wipes 63% of the account, rendering recovery statistically improbable without excessive risk.
+
+---
+
+## The missing stops
+
+On Deriv Options contracts (Rise/Fall, Higher/Lower, Matches/Differs), there is no conventional trailing stop or discretionary mid-trade exit once a tick contract is accepted by the server. Your risk is fixed at the stake amount, but your risk exposure per unit of time is extreme.
+
+On the MT5 CFD side (Volatility 75 and Volatility 100 1s lots), stops were technically available but systematically omitted:
+- **Mental stops instead of hard server orders**: Over 84% of manual positions entered between June and October were submitted without a hard `Stop Loss` price. I monitored positions manually on mobile, intending to close when the loss reached $200.
+- **Slippage during volatility spikes**: On Volatility 75, a single 1-second price jump can span 45 points. When manual market orders were submitted to exit a losing position, execution slipped by an average of 4.2% beyond the intended exit threshold.
+- **Removing stops when tested**: In 27 logged instances, hard stops that were initially placed were manually dragged lower as the price approached the trigger level, converting a planned $180 loss into an eventual $1,400 liquidation.
+
+The absence of hard, automated, non-negotiable stops at the API layer guaranteed that any tail-risk event would consume the entire account rather than a predetermined risk slice.
+
+---
+
+## The unaudited tooling
+
+In May 2025, I transitioned from manual execution to an automated Node.js WebSocket script connecting to `wss://ws.derivws.com/websockets/v3?app_id=...`.
+
+The script was intended to enforce rules. Instead, it accelerated losses due to four architectural flaws:
+
+1. **Unchecked WebSocket reconnect loops**: When the local internet connection dropped in Warri, the client re-established the socket connection but lost local state. On reconnection, it re-sent the pending order payload without verifying whether the previous order had already been filled on Deriv's server. On July 12, this caused 14 duplicate $200 contracts to execute within 800 milliseconds.
+2. **Martingale multiplier hardcoded in memory**: To recover from losing trades, the script implemented a 2.0× stake multiplier on consecutive losses. A sequence of 5 losses escalated the stake from $25 to $50, $100, $200, $400, and $800. The cumulative capital risked across those 6 steps was $1,575.
+3. **Lack of account balance validation**: The script calculated stake sizes relative to the initial session balance rather than polling live equity before dispatching a proposal. When equity fell below the required margin, Deriv rejected contracts, but the script entered a spin loop that exhausted API rate limits and blocked emergency manual intervention.
+4. **No local kill switch**: There was no external heartbeat monitor, no balance floor check, and no daily loss cap. The script continued firing until the Deriv API returned error code `InsufficientBalance`.
+
+The tool was never backtested across 10,000 ticks. It was tested across 40 ticks on a Saturday afternoon, declared functional, and connected to live capital on Monday morning.
+
+---
+
+## The exact sequence
+
+The terminal drawdown occurred over six distinct phases in 2025:
+
+| Phase | Dates | Instrument | Action | Net P/L (₦) | Cumulative (₦) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **01. Initial Run** | Jan 14 – Mar 28 | V75 (1s) Options | Manual 5-tick Rise/Fall, $44 flat | +₦4,680,000 | +₦4,680,000 |
+| **02. Drift** | Apr 02 – May 18 | V75, V100 CFDs | Discretionary lot sizing, mental stops | -₦3,850,000 | +₦830,000 |
+| **03. Script Launch** | Jun 01 – Jul 14 | V75 (1s) Bot | 2.0× Martingale, socket loop errors | -₦9,450,000 | -₦8,620,000 |
+| **04. First Reload** | Jul 16 – Aug 30 | V100, Jump 50 | ₦11.2M reload, mixed bot/manual | -₦6,200,000 | -₦14,820,000 |
+| **05. Revenge Scalp** | Sep 05 – Oct 19 | V75 (1s) CFDs | High-leverage manual positions | -₦3,380,000 | -₦18,200,000 |
+| **06. Terminal Wipe** | Oct 22 – Oct 28 | V75 Options | ₦16.75M final reload, 19 loss streak | -₦14,250,000 | -₦32,450,000 |
+
+On October 27, 2025, between 18:42 UTC and 01:15 UTC, the bot encountered a 19-trade losing streak on Volatility 75 (1s) Rise/Fall contracts. 
+
+Because the stake ladder multiplied by 2.0× every step, the script attempted to stake $3,200 on step eight. With only $2,840 remaining in the wallet, the stake was manually overridden to all-in. The contract expired out of the money at 01:14:48 UTC.
+
+The account balance stood at $1.42. The loss was total.
+
+---
+
+## What it cost beyond money
+
+₦32.45M is an objective financial figure. What the spreadsheets omit is the non-financial toll:
+
+- **14 months of wasted engineering effort**: The time spent fighting losing trades, building unaudited bots, and staring at 1-second price candles was time taken from client contracts, software products, and family.
+- **Physical degradation**: Chronic sleep deprivation, insomnia from overnight positions running on VPS, high resting heart rate, and severe focus deficit.
+- **Opportunity cost**: That capital was designated for establishing an independent software development studio in 2025. Losing it reset my business trajectory by at least three years.
+- **Psychological distortion**: When you trade without a risk governor, you lose the ability to evaluate risk objectively in daily life. You treat ₦500,000 as "just five contracts" instead of recognizing it as several months of living expenses.
+
+The experience permanently destroyed any belief in trading intuition, chart patterns on synthetic RNG feeds, or recovery ladders that double stakes after losses.
+
+---
+
+## What changed
+
+SoftPip exists because I refused to hide the loss or pretend it was bad luck. It was not bad luck. It was structural incompetence combined with unaudited tooling and emotional revenge trading.
+
+To prevent this failure pattern from ever repeating, I built **The Enforcer** and wrote the ten-module curriculum around four non-negotiable engineering principles:
+
+1. **Hard daily loss cap ($1.00 on $10)**: The risk governor process terminates execution immediately when the cumulative session loss reaches $1.00. No manual override is permitted until the 00:00 UTC rollover.
+2. **Elimination of 2× Martingale**: The Enforcer caps any recovery ladder at 1.3× base stake, strictly limited to 5 steps ($0.35 → $0.46 → $0.59 → $0.77 → $1.00). If step five fails, the ladder resets to $0.35 flat. Total risk across all five steps is $3.17, preserving 68% of a $10 account.
+3. **Mandatory 15-minute cool-off**: Following three consecutive losses, the bot pauses all order dispatch for 900 seconds. This physically removes the trader from the market during choppy regime shifts.
+4. **Account segregation**: Trading bots run on a dedicated Deriv sub-account with no more than $10 funded. Discretionary trading on the bot account is prohibited.
+
+If you are trading on Deriv without hard limits, you are one bad evening away from repeating this sequence.
+
+---
+
+### Where to go from here
+
+- **Read the curriculum**: Work through all ten modules to understand why synthetic indices behave the way they do, how drawdown math works, and how to size positions on small accounts: [Explore the ten modules](/curriculum).
+- **Inspect the bot**: Review the open-source Python risk governor, verify the guardian rules in `governor.py`, and run it on demo before risking live capital: [Examine The Enforcer](/bot).

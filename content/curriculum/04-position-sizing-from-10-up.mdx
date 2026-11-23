@@ -1,0 +1,43 @@
+---
+index: "04"
+slug: "04-position-sizing-from-10-up"
+title: "Position sizing, from $10 up"
+outcome: "Work around the $0.35 minimum stake constraint when your starting equity is $10."
+duration: "16 min"
+failureCorrects: "Treating a $0.35 stake as 'small money' without realizing it consumes 3.5% of a $10 bankroll on trade one."
+---
+
+Professional risk management literature recommends risking no more than 1% to 2% of total equity on any single trading idea. In conventional equity or forex markets with fractional micro-lots, an account with $5,000 capital can easily risk 1% ($50) with appropriate stop-loss placement.
+
+When you fund a $10 test account on Deriv, that conventional guidance breaks down immediately against hard broker constraints.
+
+### The $0.35 broker floor constraint
+
+On Deriv synthetic index Options contracts (specifically Volatility 75 Rise/Fall), the broker enforces a hard minimum stake floor of $0.35 per contract. You cannot stake $0.10, $0.05, or $0.01.
+
+Calculate the percentage of your capital risked on trade one:
+
+```
+Risk per Trade = $0.35 / $10.00 = 3.50%
+```
+
+On your very first trade, you are forced to risk 3.50% of your entire capital base. If you experience two consecutive losses, your balance drops to $9.30, and your third $0.35 stake now represents:
+
+```
+Adjusted Risk = $0.35 / $9.30 ≈ 3.76%
+```
+
+At a 3.5% initial risk floor:
+- 10 consecutive losses reduce your account to $6.50 (a 35% drawdown).
+- 20 consecutive losses reduce your account to $3.00 (a 70% drawdown).
+- 28 consecutive losses completely exhaust your equity down to $0.20, at which point the broker rejects the next contract due to `InsufficientBalance`.
+
+### Operating within the constraint
+
+Because you cannot reduce your stake below $0.35, you must adjust your operational framework:
+
+1. **Flat stake discipline**: Keep the stake at exactly $0.35. Do not increase the stake after a win, and do not increase the stake after a loss until your account balance reaches at least $50.
+2. **Session loss cut-off ($1.00)**: Limit your daily loss to $1.00. This represents approximately 3 losing contracts ($1.05 total loss). When you hit $1.00 in cumulative losses for the day, the session terminates. You preserve $9.00 of your capital to trade on another day.
+3. **Session duration cap (40 trades)**: Do not allow a bot to run indefinitely. The longer an account trades at a 3.5% risk floor, the higher the mathematical certainty of encountering an extended losing streak. Enforce a hard 40-trade cap per session.
+
+Accepting that $0.35 is 3.5% of your account is the first step toward disciplined risk governance.
