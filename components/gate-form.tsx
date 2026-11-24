@@ -1,22 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
-import { TELEGRAM_COMMUNITY_URL, WEB3FORMS_ACCESS_KEY } from "@/lib/seo";
-import { AUTOPSEY_PDF_READY } from "@/lib/site";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { TELEGRAM_COMMUNITY_URL } from "@/lib/seo";
 
-export function GateForm() {
+export function GateForm({ isUnlocked = false }: { isUnlocked?: boolean }) {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [confirmedAccount, setConfirmedAccount] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [unlockedState, setUnlockedState] = useState(isUnlocked);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check localStorage fallback
+    if (!unlockedState && typeof window !== "undefined") {
+      if (localStorage.getItem("softpip_unlocked") === "1") {
+        setUnlockedState(true);
+      }
+    }
+  }, [unlockedState]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage(null);
 
-    // Client-side validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.trim() || !emailRegex.test(email.trim())) {
       setErrorMessage("Please enter a valid email address.");
@@ -30,102 +39,69 @@ export function GateForm() {
     }
 
     if (!confirmedAccount) {
-      setErrorMessage("You must confirm you have or will fund a $10 account through the link.");
+      setErrorMessage("Please confirm you have or will fund a $10 account through the link.");
       return;
     }
 
     setSubmitting(true);
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/subscribe", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          subject: "New autopsy lead",
-          from_name: "SoftPip Autopsy Gate",
           email: email.trim(),
           whatsapp: whatsapp.trim(),
-          confirmed_ten_dollar_account: confirmedAccount ? "Yes" : "No",
+          confirmed_account: confirmedAccount,
         }),
       });
 
       const data = await response.json();
 
       if (response.ok && data.success) {
-        setSubmitted(true);
+        // Set client-side cookies and storage
+        document.cookie = "softpip_unlocked=1; path=/; max-age=31536000; SameSite=Lax";
+        if (typeof window !== "undefined") {
+          localStorage.setItem("softpip_unlocked", "1");
+        }
+        setUnlockedState(true);
+        router.refresh();
       } else {
-        setErrorMessage(data.message || "Failed to submit. Please check your connection and retry.");
+        setErrorMessage(data.message || "Failed to unlock. Please check connection and retry.");
       }
     } catch {
-      setErrorMessage("Network error occurred. Please check your internet connection and try again.");
+      setErrorMessage("Network error occurred. Please try again.");
     } finally {
       setSubmitting(false);
     }
   };
 
-  if (submitted) {
+  if (unlockedState) {
     return (
       <div
-        className="surface-card p-6 sm:p-8 flex flex-col gap-5 border-[var(--mint)]"
+        className="surface-card p-6 sm:p-7 rounded-2xl border border-[var(--mint)]/40 bg-[var(--mint)]/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
         aria-live="polite"
       >
-        <div className="flex items-center gap-2.5">
-          <span
-            className="w-2.5 h-2.5 rounded-full bg-[var(--mint)]"
-            aria-hidden="true"
-          />
-          <span className="type-micro uppercase text-[var(--mint-text)]">
-            Access unlocked
-          </span>
+        <div className="flex items-center gap-3">
+          <span className="w-2.5 h-2.5 rounded-full bg-[var(--mint)] shrink-0" aria-hidden="true" />
+          <div>
+            <span className="font-mono text-xs uppercase text-[var(--mint-text)] font-semibold block">
+              Forensic Report Unlocked
+            </span>
+            <span className="text-xs text-[var(--text-70)] block mt-0.5">
+              Sections 5–7 (The exact sequence, psychological costs, and rules that changed) are active below.
+            </span>
+          </div>
         </div>
 
-        <h3 className="type-h3 m-0 text-[var(--text)]">
-          The full autopsy is ready below.
-        </h3>
-
-        <p className="type-small text-[var(--text-70)] m-0">
-          Your details have been received. You can read the complete report in
-          full below and join the private Telegram risk channel.
-        </p>
-
-        <div className="flex flex-wrap items-center gap-3 pt-2">
-          {/* Scroll to autopsy body link */}
-          <a
-            href="#report-body"
-            className="btn-mint inline-flex items-center gap-2"
-          >
-            <span>Read 8-page autopsy</span>
-            <span aria-hidden="true">↓</span>
-          </a>
-
-          {/* 
-            Autopsy PDF download button (gated by AUTOPSEY_PDF_READY in lib/site.ts).
-            When enabled, drops in from: public/downloads/autopsy.pdf
-          */}
-          {AUTOPSEY_PDF_READY && (
-            <a
-              href="/downloads/autopsy.pdf"
-              download="SoftPip-Autopsy-Report.pdf"
-              className="btn-ghost inline-flex items-center gap-2"
-            >
-              <span>Download PDF</span>
-              <span aria-hidden="true">↓</span>
-            </a>
-          )}
-
-          {/* Telegram private community link */}
+        <div className="flex items-center gap-3 self-start sm:self-auto shrink-0">
           <a
             href={TELEGRAM_COMMUNITY_URL}
-            rel="noopener noreferrer"
             target="_blank"
-            className="btn-ghost inline-flex items-center gap-2"
+            rel="noopener noreferrer"
+            className="btn-mint text-xs py-2 px-3.5"
           >
-            <span>Join Telegram community</span>
-            <span aria-hidden="true">→</span>
+            Join Telegram Channel →
           </a>
         </div>
       </div>
@@ -133,28 +109,23 @@ export function GateForm() {
   }
 
   return (
-    <div className="surface-card p-6 sm:p-8 flex flex-col gap-6">
+    <div className="surface-card p-6 sm:p-8 rounded-2xl border border-[var(--rule)] flex flex-col gap-6">
       <div className="flex flex-col gap-1.5">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[var(--mint)]" aria-hidden="true" />
-          <span className="type-micro uppercase text-[var(--mint-text)]">
-            Instant Access
+          <span className="w-2 h-2 rounded-full bg-[var(--rust)]" aria-hidden="true" />
+          <span className="type-micro uppercase text-[var(--rust)]">
+            Sections 5–7 Gated
           </span>
         </div>
         <h3 className="type-h3 m-0 text-[var(--text)]">
-          Download the autopsy and join the group
+          Unlock the final 3 sections &amp; join the Telegram channel
         </h3>
         <p className="type-small text-[var(--text-70)] m-0">
-          Enter your contact details to access the full 8-page breakdown and private telegram risk channel.
+          Sections 1–4 are readable above. Enter your details to reveal the raw terminal sequence, the psychological costs, and the governance rules that stopped it.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-        {/* Hidden Web3Forms parameters */}
-        <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
-        <input type="hidden" name="subject" value="New autopsy lead" />
-        <input type="hidden" name="from_name" value="SoftPip Autopsy Gate" />
-
         {/* Email Field */}
         <div className="flex flex-col gap-1.5">
           <label htmlFor="autopsy-email" className="type-micro uppercase text-[var(--text-70)]">
@@ -169,6 +140,7 @@ export function GateForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@domain.com"
+            aria-describedby="autopsy-error"
             className="w-full min-h-[44px] px-3.5 py-2.5 rounded-[10px] bg-[var(--slate)] border border-[var(--line)] text-[var(--text)] type-small placeholder:text-[var(--text-45)] focus:border-[var(--mint)] focus:outline-none"
           />
         </div>
@@ -187,11 +159,12 @@ export function GateForm() {
             value={whatsapp}
             onChange={(e) => setWhatsapp(e.target.value)}
             placeholder="+234 800 000 0000"
+            aria-describedby="autopsy-error"
             className="w-full min-h-[44px] px-3.5 py-2.5 rounded-[10px] bg-[var(--slate)] border border-[var(--line)] text-[var(--text)] type-small placeholder:text-[var(--text-45)] focus:border-[var(--mint)] focus:outline-none"
           />
         </div>
 
-        {/* Required Confirmation Checkbox */}
+        {/* Confirmation Checkbox */}
         <div className="pt-1">
           <label className="flex items-start gap-3 cursor-pointer select-none">
             <input
@@ -208,8 +181,9 @@ export function GateForm() {
           </label>
         </div>
 
-        {/* aria-live error notice */}
+        {/* Error Notice */}
         <div
+          id="autopsy-error"
           role="alert"
           aria-live="polite"
           className={`type-small text-[var(--rust)] ${errorMessage ? "block pt-1" : "sr-only"}`}
@@ -228,7 +202,7 @@ export function GateForm() {
               <span>Unlocking autopsy...</span>
             ) : (
               <>
-                <span>Unlock the full autopsy</span>
+                <span>Unlock Sections 5–7 Now</span>
                 <span aria-hidden="true">→</span>
               </>
             )}
@@ -236,7 +210,7 @@ export function GateForm() {
         </div>
 
         <p className="type-micro text-[var(--text-45)] m-0 text-center pt-1">
-          No spam. Only the autopsy download and community link.
+          No spam. Unlocks instant access on this device and sets a persistent access cookie.
         </p>
       </form>
     </div>

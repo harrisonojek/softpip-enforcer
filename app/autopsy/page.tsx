@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { GateForm } from "@/components/gate-form";
@@ -59,8 +60,7 @@ const mdxComponents = {
       return (
         <Link
           href={href}
-          className="text-[var(--mint-text)] font-medium hover:underline inline-flex items-center gap-1"
-          {...props}
+          className="text-[var(--mint-text)] hover:underline inline-flex items-center gap-1 font-medium"
         >
           {children}
         </Link>
@@ -69,35 +69,38 @@ const mdxComponents = {
     return (
       <a
         href={href}
-        rel="noopener noreferrer"
+        rel="sponsored noopener"
         target="_blank"
-        className="text-[var(--mint-text)] font-medium hover:underline inline-flex items-center gap-1"
+        className="text-[var(--mint-text)] hover:underline inline-flex items-center gap-1 font-medium"
         {...props}
       >
         {children}
       </a>
     );
   },
-  hr: () => <hr className="my-10 border-0 hairline-b" />,
-  table: (props: React.TableHTMLAttributes<HTMLTableElement>) => (
-    <div className="my-8 overflow-x-auto surface-card p-0 rounded-[14px]">
+  table: (props: React.HTMLAttributes<HTMLTableElement>) => (
+    <div className="overflow-x-auto my-6 surface-card p-0 rounded-[14px]">
       <table className="w-full text-left border-collapse text-sm" {...props} />
     </div>
   ),
-  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
-    <thead className="bg-[var(--slate)] hairline-b text-[var(--text)]" {...props} />
-  ),
-  tbody: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
-    <tbody className="divide-y divide-[var(--rule)]" {...props} />
-  ),
-  tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
-    <tr className="hover:bg-[var(--slate)]/40 transition-colors" {...props} />
-  ),
   th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (
-    <th className="px-4 py-3.5 type-micro uppercase font-medium text-[var(--text-70)]" {...props} />
+    <th
+      className="px-4 py-3 bg-[var(--slate)] hairline-b font-mono text-xs uppercase text-[var(--text-70)]"
+      {...props}
+    />
   ),
   td: (props: React.TdHTMLAttributes<HTMLTableCellElement>) => (
-    <td className="px-4 py-3.5 type-small text-[var(--text-70)] tabular-nums" {...props} />
+    <td
+      className="px-4 py-3 hairline-b type-small text-[var(--text-70)] font-mono"
+      {...props}
+    />
+  ),
+  hr: () => <hr className="my-10 border-0 hairline-b" />,
+  blockquote: (props: React.HTMLAttributes<HTMLQuoteElement>) => (
+    <blockquote
+      className="border-l-2 border-[var(--mint)] pl-4 my-6 italic text-[var(--text-70)] prose-col"
+      {...props}
+    />
   ),
   code: (props: React.HTMLAttributes<HTMLElement>) => (
     <code
@@ -108,7 +111,9 @@ const mdxComponents = {
 };
 
 export default async function AutopsyPage() {
-  const { content } = await getAutopsyContent();
+  const cookieStore = await cookies();
+  const isUnlockedCookie = cookieStore.get("softpip_unlocked")?.value === "1";
+  const { content, isUnlocked } = await getAutopsyContent(isUnlockedCookie);
 
   return (
     <div className="section-pad min-h-screen">
@@ -136,14 +141,16 @@ export default async function AutopsyPage() {
             <span>·</span>
             <span>8 min read</span>
           </div>
+
+          {/* If unlocked, render access notice at top */}
+          {isUnlocked && (
+            <div className="pt-2">
+              <GateForm isUnlocked={true} />
+            </div>
+          )}
         </Reveal>
 
-        {/* Gate Form */}
-        <Reveal delayMs={70} className="max-w-[640px]">
-          <GateForm />
-        </Reveal>
-
-        {/* Full MDX Body */}
+        {/* MDX Content (Sections 1-4 when locked, Sections 1-7 when unlocked) */}
         <div id="report-body" className="pt-6 hairline-t">
           <Reveal delayMs={140}>
             <div className="prose-col">
@@ -159,6 +166,15 @@ export default async function AutopsyPage() {
             </div>
           </Reveal>
         </div>
+
+        {/* If locked, mount the GateForm right at the end of Section 4 */}
+        {!isUnlocked && (
+          <div className="py-6 hairline-t max-w-[640px]">
+            <Reveal delayMs={160}>
+              <GateForm isUnlocked={false} />
+            </Reveal>
+          </div>
+        )}
 
         {/* Author Proof Block */}
         <Reveal delayMs={160} className="max-w-[800px]">

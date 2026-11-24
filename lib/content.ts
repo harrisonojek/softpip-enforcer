@@ -17,6 +17,9 @@ export interface AutopsyMetadata {
 export interface AutopsyContent {
   metadata: AutopsyMetadata;
   content: string;
+  isUnlocked: boolean;
+  totalSections: number;
+  servedSections: number;
 }
 
 export interface CurriculumMetadata {
@@ -35,14 +38,32 @@ export interface CurriculumModuleDetail {
   nextModule: { slug: string; title: string; index: string } | null;
 }
 
-export async function getAutopsyContent(): Promise<AutopsyContent> {
+export async function getAutopsyContent(isUnlocked: boolean = false): Promise<AutopsyContent> {
   const filePath = path.join(CONTENT_DIR, "autopsy.mdx");
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
 
+  if (!isUnlocked) {
+    // Truncate strictly after Section 4: "## The exact sequence"
+    const splitToken = "## The exact sequence";
+    const splitIndex = content.indexOf(splitToken);
+    const gatedContent = splitIndex !== -1 ? content.slice(0, splitIndex).trim() : content;
+
+    return {
+      metadata: data as AutopsyMetadata,
+      content: gatedContent,
+      isUnlocked: false,
+      totalSections: 7,
+      servedSections: 4,
+    };
+  }
+
   return {
     metadata: data as AutopsyMetadata,
     content,
+    isUnlocked: true,
+    totalSections: 7,
+    servedSections: 7,
   };
 }
 
