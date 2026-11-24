@@ -30,11 +30,11 @@ class GovernorConfig:
     multiplier: float = 1.3
     max_ladder_steps: int = 5
     ladder_steps_usd: Tuple[float, ...] = LADDER_STEPS_USD
-    max_consecutive_losses: int = 3
+    max_consecutive_losses: int = 2
     cool_off_seconds: int = 900
     reset_ladder_on_cooloff: bool = True
     daily_loss_limit_pct_of_equity: float = 0.10
-    daily_loss_limit_floor_usd: float = 2.00
+    daily_loss_limit_floor_usd: float = 1.00
     max_drawdown_pct_of_peak: float = 0.20
     balance_floor_usd: float = 2.00
     max_session_trades: int = 40
@@ -42,7 +42,7 @@ class GovernorConfig:
 
     @property
     def ladder_total_risk(self) -> float:
-        """Total risk before cool-off fires (3-step burst = $1.40 by default)."""
+        """Total risk before cool-off fires (2-step burst = $0.81 by default)."""
         n = min(self.max_consecutive_losses, self.max_ladder_steps, len(self.ladder_steps_usd))
         if (
             self.base_stake_usd == 0.35

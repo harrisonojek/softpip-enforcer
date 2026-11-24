@@ -22,8 +22,8 @@ class TestGovernor(unittest.TestCase):
         self.assertEqual(self.config.base_stake_usd, 0.35)
         self.assertEqual(self.config.multiplier, 1.3)
         self.assertEqual(self.config.max_ladder_steps, 5)
-        self.assertEqual(self.config.max_consecutive_losses, 3)
-        self.assertEqual(self.config.daily_loss_limit_floor_usd, 2.00)
+        self.assertEqual(self.config.max_consecutive_losses, 2)
+        self.assertEqual(self.config.daily_loss_limit_floor_usd, 1.00)
 
     def test_invalid_config_raises(self):
         """Ensure invalid configurations fail validation."""
@@ -41,7 +41,7 @@ class TestGovernor(unittest.TestCase):
         self.assertEqual(stake, 0.0)
 
     def test_evaluation_order_step_2_cool_off_active(self):
-        """Cool-off triggers after 3 consecutive losses ($1.40 risk < $2.00 daily cap)."""
+        """Cool-off triggers after 2 consecutive losses ($0.81 risk < $1.00 daily cap)."""
         # Loss 1: stake 0.35
         self.gov.record("c1", 0.35, -0.35, now=self.t0 + timedelta(seconds=10))
         self.assertEqual(self.gov.current_step, 2)
@@ -50,13 +50,9 @@ class TestGovernor(unittest.TestCase):
         self.gov.record("c2", 0.46, -0.46, now=self.t0 + timedelta(seconds=20))
         self.assertEqual(self.gov.current_step, 3)
 
-        # Loss 3: stake 0.59
-        self.gov.record("c3", 0.59, -0.59, now=self.t0 + timedelta(seconds=30))
-        self.assertEqual(self.gov.current_step, 4)
-
-        # Total loss = 0.35 + 0.46 + 0.59 = 1.40. Balance = 8.60.
-        # Now check can_trade at t=40s: must be COOL_OFF_ACTIVE (not DAILY_LOSS_LIMIT)
-        reason, stake = self.gov.can_trade(balance=8.60, now=self.t0 + timedelta(seconds=40))
+        # Total loss = 0.35 + 0.46 = 0.81. Balance = 9.19.
+        # Now check can_trade at t=30s: must be COOL_OFF_ACTIVE (not DAILY_LOSS_LIMIT)
+        reason, stake = self.gov.can_trade(balance=9.19, now=self.t0 + timedelta(seconds=30))
         self.assertEqual(reason, "COOL_OFF_ACTIVE")
         self.assertEqual(stake, 0.0)
 
@@ -64,11 +60,10 @@ class TestGovernor(unittest.TestCase):
         """Once 15-minute cool-off expires, ladder resets to step 1."""
         self.gov.record("c1", 0.35, -0.35, now=self.t0 + timedelta(seconds=10))
         self.gov.record("c2", 0.46, -0.46, now=self.t0 + timedelta(seconds=20))
-        self.gov.record("c3", 0.59, -0.59, now=self.t0 + timedelta(seconds=30))
 
         # Check after 905 seconds (15m + 5s)
-        t_resume = self.t0 + timedelta(seconds=30 + 905)
-        reason, stake = self.gov.can_trade(balance=8.60, now=t_resume)
+        t_resume = self.t0 + timedelta(seconds=20 + 905)
+        reason, stake = self.gov.can_trade(balance=9.19, now=t_resume)
         self.assertIsNone(reason)
         self.assertEqual(stake, 0.35)
         self.assertEqual(self.gov.current_step, 1)
@@ -82,9 +77,9 @@ class TestGovernor(unittest.TestCase):
 
     def test_daily_loss_limit(self):
         """Daily loss limit halts trade when daily loss >= limit."""
-        # On $10 equity, daily loss limit is max(2.00, 10% of 10) = 2.00.
-        self.gov.daily_pnl = -2.05
-        reason, stake = self.gov.can_trade(balance=7.95, now=self.t0 + timedelta(seconds=60))
+        # On $10 equity, daily loss limit is max(1.00, 10% of 10) = 1.00.
+        self.gov.daily_pnl = -1.05
+        reason, stake = self.gov.can_trade(balance=8.95, now=self.t0 + timedelta(seconds=60))
         self.assertEqual(reason, "DAILY_LOSS_LIMIT")
         self.assertEqual(stake, 0.0)
 

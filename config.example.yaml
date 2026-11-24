@@ -20,10 +20,10 @@ risk:
   stake_pct_of_equity: 0.01 # 1% sizing mode used when sizing_mode is "percent"
   multiplier: 1.3 # Controlled progression multiplier (replaces 2x martingale)
   max_ladder_steps: 5 # Maximum loss steps allowed before reset ($3.17 cumulative)
-  max_consecutive_losses: 3 # Trigger cooling off period after consecutive losses
+  max_consecutive_losses: 2 # Trigger cooling off period after consecutive losses ($0.81 pre-cooloff risk)
   cool_off_seconds: 900 # 15-minute socket disconnect on tilt trigger
   reset_ladder_on_cooloff: true # Resets ladder back to step 1 ($0.35) after cool-off
-  daily_loss_limit_floor: 2.00 # Minimum daily loss limit floor ($2.00 on $10 account)
+  daily_loss_limit_floor: 1.00 # Minimum daily loss limit floor ($1.00 on $10 account)
   daily_loss_limit_pct: 0.10 # Daily loss limit as fraction of start-of-day equity
   max_drawdown_pct: 0.20 # Maximum peak-to-trough drawdown limit (20%)
   balance_floor: 2.00 # Absolute balance protection floor

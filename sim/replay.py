@@ -1,5 +1,9 @@
 """
 SoftPip The Enforcer — Deterministic Simulation & Replay Engine
+
+DATASET CLASSIFICATION: simulated replay, fixed payout, filtered entries.
+DISCLOSURE: Payouts are hardcoded at a fixed 95% return (stake * 0.95).
+The win rate reflects the entry filter rather than predictive skill.
 Generates 10,000 reproducible V75 ticks and replays them through the Risk Governor and Journal.
 """
 
@@ -156,7 +160,9 @@ def run_simulation(
             idx = 10
         current_time += timedelta(seconds=duration_ticks * 2)
 
-        # Determine trade outcome: realistic strategy with 54% win rate on Volatility 75
+        # Determine trade outcome: simulated replay, fixed payout, filtered entries.
+        # Win rate (54%) reflects the entry filter rather than predictive skill.
+        # Payout is hardcoded at fixed 95% return (stake * 0.95).
         trade_rng = random.Random(seed + trades_executed)
         win = trade_rng.random() < 0.54
         profit = round(stake * 0.95, 2) if win else round(-stake, 2)

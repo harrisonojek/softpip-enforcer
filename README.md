@@ -58,7 +58,7 @@ When retail traders attempt to recover losses using a standard 2× Martingale pr
 
 A $10 account cannot survive five consecutive losses under Martingale doubling—it suffers complete liquidation on Step 5.
 
-The Enforcer eliminates discretionary emotion and replaces unconstrained doubling with a conservative **1.3× ladder capped at 5 steps** ($3.17 total risk across 5 steps), an automatic 15-minute socket disconnect upon 3 consecutive losses ($1.40 cumulative pre-cooloff risk), and a strict daily loss limit of 10% with a $2.00 floor.
+The Enforcer eliminates discretionary emotion and replaces unconstrained doubling with a conservative **1.3× ladder capped at 5 steps** ($3.17 total risk across 5 steps), an automatic 15-minute socket disconnect upon 2 consecutive losses ($0.81 cumulative pre-cooloff risk), and a strict daily loss limit of 10% with a $1.00 floor.
 
 ---
 
@@ -71,10 +71,10 @@ The Enforcer governs trade execution according to nine non-negotiable process li
 | **Stake** | Base stake floor | `$0.35` (fixed) | Hard synthetic floor at $10 (3.5% of equity); percent mode unlocks 1% sizing above $100. |
 | **Stake** | Recovery ladder | `1.3×` capped at 5 steps | Explicit steps (`$0.35, $0.46, $0.59, $0.77, $1.00`) totaling `$3.17` cumulative risk. |
 | **Stake** | Reset ladder on cool-off | `True` (reset to step 1) | Resets progression back to `$0.35` after cool-off so the bot never resumes at step 4 into chop. |
-| **Time** | Loss cool-off | `15 min` after 3 losses | Halts dispatch for 900s (`$1.40` cumulative risk across first 3 steps) before daily cap fires. |
+| **Time** | Loss cool-off | `15 min` after 2 losses | Halts dispatch for 900s (`$0.81` cumulative risk across first 2 steps) before daily cap fires. |
 | **Time** | Session trade cap | `40 trades` per session | Prevents over-trading through extended flat or choppy volatility regimes. |
 | **Time** | Session timer | `60 min` kill switch | Auto-terminates run at 3,600 seconds continuous elapsed runtime. |
-| **Capital** | Daily loss limit | `10%` (`$2.00` floor) | Enforces `max($2.00, 10% of equity)` until 00:00 UTC rollover. |
+| **Capital** | Daily loss limit | `10%` (`$1.00` floor) | Enforces `max($1.00, 10% of equity)` until 00:00 UTC rollover. |
 | **Capital** | Drawdown stop | `20%` peak drawdown | Halts session if equity falls 20% below the session peak balance. |
 | **Capital** | Balance floor | `$2.00` floor + fail-closed | Refuses new orders at or below `$2.00`, on socket error, scope violation, or margin failure. |
 
@@ -152,6 +152,18 @@ When configured with a Telegram bot token and restricted to your chat ID, The En
 **Status: demo only until 200 clean trades**
 
 All deployments run in simulation or Deriv Virtual/Demo mode until **200 clean demo trades** are logged in `journal.db` without a single risk limit violation. The supervisor strictly refuses `--live` execution if `journal.count_clean_demo_trades() < 200`.
+
+---
+
+## Track Record & Replay Dataset Disclosure
+
+The historical baseline log bundled in `sim/fixtures/` and exported to the track record ledger is classified as:
+
+> **"simulated replay, fixed payout, filtered entries"**
+
+- **Payout Origin:** Payouts are hardcoded in simulation at a fixed 95% return (`stake * 0.95`). They were not pulled from live broker proposal calls.
+- **Win Rate:** The simulated 54% win rate reflects the entry filter (momentum and volatility bounds) rather than predictive forecasting skill.
+- **Purpose:** The replay exists to mathematically prove that the Risk Governor mechanically prevents ruin, enforces the 2-loss cool-off, and halts at the $1.00 daily loss floor across multi-session drawdowns.
 
 ---
 
