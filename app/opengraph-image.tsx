@@ -76,7 +76,7 @@ export default async function Image() {
             maxWidth: "900px",
           }}
         >
-          I lost ₦32,450,000 trading. This is the bot that would have stopped it.
+          I lost NGN 32,450,000 trading. This is the bot that would have stopped it.
         </div>
 
         {/* Subtitle */}

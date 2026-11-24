@@ -1,24 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SITE_NAME, SITE_URL, CONTACT_EMAIL, INSTAGRAM_URL } from "@/lib/seo";
 import "./globals.css";
-
-const geist = Geist({
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  variable: "--font-geist",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const viewport: Viewport = {
   themeColor: "#080B0F",
@@ -95,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-NG" className={`${geist.variable} ${inter.variable}`}>
+    <html lang="en-NG">
       <body className="bg-[var(--void)] text-[var(--text)] antialiased">
         <a href="#main" className="skip-link">
           Skip to main content
