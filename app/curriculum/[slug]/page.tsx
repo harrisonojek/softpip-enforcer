@@ -225,6 +225,31 @@ export default async function CurriculumDetailPage({ params }: ModulePageProps) 
     timeRequired: `PT${parseInt(metadata.duration, 10) || 20}M`,
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Curriculum",
+        item: `${SITE_URL}/curriculum`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: `${metadata.index}. ${metadata.title}`,
+        item: `${SITE_URL}/curriculum/${slug}`,
+      },
+    ],
+  };
+
   return (
     <article className="section-pad min-h-screen">
       <ScrollProgress />
@@ -232,6 +257,12 @@ export default async function CurriculumDetailPage({ params }: ModulePageProps) 
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(courseJsonLd),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
         }}
       />
 
@@ -377,6 +408,16 @@ export default async function CurriculumDetailPage({ params }: ModulePageProps) 
               </Link>
             )}
           </nav>
+
+          {/* Cross-Link Tools */}
+          <div className="pt-2 flex flex-wrap items-center justify-between text-xs text-[var(--muted)] font-mono gap-3">
+            <Link href="/calculator" className="text-[var(--mint-text)] hover:underline inline-flex items-center gap-1">
+              Test drawdown probabilities in Ruin Calculator →
+            </Link>
+            <Link href="/bot" className="text-[var(--text-70)] hover:text-[var(--text)] transition-colors inline-flex items-center gap-1">
+              Automate rules with The Enforcer Bot →
+            </Link>
+          </div>
         </div>
 
         {/* Account Setup Callout */}

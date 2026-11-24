@@ -123,8 +123,45 @@ const FAQ_ITEMS: AccordionItem[] = [
 ];
 
 export default function FAQPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Is it really free?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. The autopsy report, the ten curriculum modules, the Python source code for The Enforcer bot, and the Telegram community are 100% free with zero paywalls or subscription fees. The project is funded entirely via Deriv affiliate partner commissions.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Why $10?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Because scaling an untested trading system before mastering risk of ruin is dangerous. A $10 deposit provides psychological skin in the game while capping downside. Deriv allows $0.35 minimum stakes on Volatility 75 index options, which gives exactly 28 trades to test execution discipline.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is the bot profitable?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No bot is inherently profitable across every market regime. The Enforcer is a risk governor, not a predictive oracle. Its purpose is to pull execution brakes: enforcing hard consecutive loss limits, capping max daily drawdowns, and terminating sessions before tilt sets in.",
+        },
+      },
+    ],
+  };
+
   return (
     <div className="section-pad min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd),
+        }}
+      />
       <div className="container-shell flex flex-col gap-12">
         {/* Header */}
         <Reveal className="flex flex-col gap-5 max-w-[800px]">
