@@ -27,7 +27,7 @@ const LABS_TOOLS: readonly ToolCard[] = [
     status: "live",
     description:
       "Autonomous Python 3.13 execution container and strict 8-step risk governor for Deriv Synthetic Options. Gated by session timers, cool-off disconnects, and daily loss floors.",
-    href: "/bot",
+    href: "/labs/enforcer",
     cta: "Inspect Enforcer & Setup →",
     specs: ["Python 3.13", "Async WebSocket", "Docker Compose", "SQLite WAL Journal"],
   },
@@ -37,7 +37,7 @@ const LABS_TOOLS: readonly ToolCard[] = [
     status: "live",
     description:
       "Simulate 5,000 multi-session trading trials across 200 consecutive orders. Contrasts 2× Martingale liquidation against SoftPip's capped 1.3× recovery ladder.",
-    href: "/calculator",
+    href: "/labs/calculator",
     cta: "Launch Ruin Simulator →",
     specs: ["5,000 Trial Runs", "Empirical Payouts", "Dynamic Win Rate", "Ladder Comparison"],
   },
@@ -47,7 +47,7 @@ const LABS_TOOLS: readonly ToolCard[] = [
     status: "live",
     description:
       "Step-by-step mathematical breakdown showing why unconstrained doubling guarantees ruin on small balances and how The Enforcer caps loss exposure to preserve equity.",
-    href: "/martingale-calculator",
+    href: "/labs/martingale-calculator",
     cta: "Audit 5-Step Math →",
     specs: ["$10 Account Benchmark", "31.7% Max 5-Step Risk", "2-Loss Cool-Off", "Zero Wipeout"],
   },
