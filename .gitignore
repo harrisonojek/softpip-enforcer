@@ -15,3 +15,6 @@ config.yaml
 *.db-shm
 *.log
 *.heartbeat
+
+*.csv
+!sim/fixtures/ticks_v75.csv
