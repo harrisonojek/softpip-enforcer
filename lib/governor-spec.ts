@@ -6,11 +6,11 @@
  * (`GovernorConfig`) mirrors every key and default identically, enforced by CI parity tests.
  *
  * RATIONALE:
- * The old $1.00 daily cap was breached by the ladder's own third step ($1.40 cumulative),
- * which made the 15-minute cool-off unreachable and the 40-trade cap decorative.
- * Raising the cap to 10% of equity with a $2.00 floor makes the cool-off the operative
- * mid-session brake and lets the daily cap scale past $10. `reset_ladder_on_cooloff`
- * is new: resuming at step 4 after 15 minutes of chop is how small accounts die.
+ * The daily loss limit floor is preserved at $1.00. The 15-minute cool-off triggers
+ * after 2 consecutive losses ($0.35 + $0.46 = $0.81 cumulative), keeping it safely
+ * under the $1.00 daily loss floor so the cool-off breaker is reachable before the
+ * daily stop halts the session. `reset_ladder_on_cooloff` ensures progression resets
+ * back to step 1 ($0.35) following the cool-off.
  */
 
 export const GOVERNOR_SPEC = {
@@ -21,14 +21,14 @@ export const GOVERNOR_SPEC = {
   max_ladder_steps: 5,
   ladder_steps_usd: [0.35, 0.46, 0.59, 0.77, 1.00] as readonly number[],
   ladder_total_risk_usd: 3.17,
-  pre_cooloff_ladder_risk_usd: 1.40,
+  pre_cooloff_ladder_risk_usd: 0.81,
   martingale_steps_usd: [0.35, 0.70, 1.40, 2.80, 5.60] as readonly number[],
   martingale_total_risk_usd: 10.85,
-  max_consecutive_losses: 3,
+  max_consecutive_losses: 2,
   cool_off_seconds: 900,
   reset_ladder_on_cooloff: true,
   daily_loss_limit_pct_of_equity: 0.10,
-  daily_loss_limit_floor_usd: 2.00,
+  daily_loss_limit_floor_usd: 1.00,
   max_drawdown_pct_of_peak: 0.20,
   balance_floor_usd: 2.00,
   max_session_trades: 40,
@@ -84,7 +84,7 @@ export const GOVERNOR_CONTROL_GROUPS: readonly GovernorControlGroup[] = [
       {
         parameter: "Loss cool-off",
         limit: `${Math.round(GOVERNOR_SPEC.cool_off_seconds / 60)} min after ${GOVERNOR_SPEC.max_consecutive_losses} losses`,
-        enforcement: `Halts dispatch for ${GOVERNOR_SPEC.cool_off_seconds}s ($${GOVERNOR_SPEC.pre_cooloff_ladder_risk_usd.toFixed(2)} cumulative on first 3 steps) before daily cap fires.`,
+        enforcement: `Halts dispatch for ${GOVERNOR_SPEC.cool_off_seconds}s ($${GOVERNOR_SPEC.pre_cooloff_ladder_risk_usd.toFixed(2)} cumulative on first 2 steps) before daily cap fires.`,
       },
       {
         parameter: "Session trade cap",

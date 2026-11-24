@@ -104,7 +104,7 @@ export default function MartingaleCalculatorPage() {
             <div className="pt-2 text-xs text-[var(--muted)] leading-relaxed">
               <strong>The 5-Step Reality:</strong> In 2.0x Martingale, trade 5 demands a $5.60 stake with $10.85 total risk.
               Because your starting balance is $10.00, your account is liquidated before step 5 even finishes executing.
-              SoftPip caps ladder risk at $3.17 across all 5 steps and enforces a 15-minute cool-off after trade 3 ($1.40 cumulative loss).
+              SoftPip caps ladder risk at $3.17 across all 5 steps and enforces a 15-minute cool-off after trade 2 ($0.81 cumulative loss).
             </div>
           </div>
         </Reveal>

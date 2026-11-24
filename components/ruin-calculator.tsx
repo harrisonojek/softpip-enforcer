@@ -51,7 +51,7 @@ function runMonteCarlo(
       martingaleTradesSum += maxTrades;
     }
 
-    // 2. Simulate SoftPip 1.3x Capped Ladder with 3-loss cooloff reset
+    // 2. Simulate SoftPip 1.3x Capped Ladder with 2-loss cooloff reset
     let balE = balance;
     let stepE = 1;
     let consecutiveLosses = 0;
@@ -74,7 +74,7 @@ function runMonteCarlo(
       } else {
         balE -= stakeE;
         consecutiveLosses++;
-        if (consecutiveLosses >= 3) {
+        if (consecutiveLosses >= 2) {
           // Cool-off triggers: reset ladder back to step 1
           stepE = 1;
           consecutiveLosses = 0;
@@ -218,7 +218,7 @@ export function RuinCalculator() {
           <div className="pt-3 border-t border-[var(--mint)]/20 text-xs text-[var(--muted)] flex flex-col gap-1">
             <span>• Average survival: {results.enforcerAvgTradesToRuin} trades</span>
             <span>• Max 5-step risk: $3.17 (capped)</span>
-            <span className="text-[var(--mint-text)] font-semibold">• 15-min cool-off resets ladder to $0.35</span>
+            <span className="text-[var(--mint-text)] font-semibold">• 15-min cool-off resets ladder to $0.35 after 2 losses</span>
           </div>
         </div>
       </div>

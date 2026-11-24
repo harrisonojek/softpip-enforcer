@@ -53,8 +53,8 @@ export default function CalculatorPage() {
           <p className="type-body text-[var(--text-70)] m-0 text-sm leading-relaxed">
             SoftPip replaces geometric doubling with a linear-geometric hybrid: 1.3× slope capped strictly at 5 steps:
             $0.35 → $0.46 → $0.59 → $0.77 → $1.00. The entire 5-step loss sequence consumes only $3.17 (31.7% of $10),
-            leaving $6.83 preserved. Furthermore, a 15-minute cool-off triggers after three consecutive losses ($1.40 cumulative risk),
-            resetting the ladder back to $0.35 before market chop can trigger step four.
+            leaving $6.83 preserved. Furthermore, a 15-minute cool-off triggers after two consecutive losses ($0.81 cumulative risk),
+            resetting the ladder back to $0.35 before market chop can trigger step three.
           </p>
           <div className="pt-2 flex flex-wrap items-center gap-3">
             <Link href="/bot" className="btn-mint">

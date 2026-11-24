@@ -29,10 +29,6 @@ export function AffiliateLink({
   onClick,
   ...props
 }: AffiliateLinkProps) {
-  // Construct tagged URL with internal placement parameter
-  const separator = DERIV_AFFILIATE_URL.includes("?") ? "&" : "?";
-  const taggedHref = `${DERIV_AFFILIATE_URL}${separator}utm_source=softpip&utm_medium=web&utm_campaign=funnel&utm_content=${placement}`;
-
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     try {
       track("affiliate_click", { placement });
@@ -46,11 +42,12 @@ export function AffiliateLink({
 
   return (
     <a
-      href={taggedHref}
+      href={DERIV_AFFILIATE_URL}
       target="_blank"
       rel="sponsored noopener"
       onClick={handleClick}
       className={className}
+      data-placement={placement}
       {...props}
     >
       {children}

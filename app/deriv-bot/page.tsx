@@ -63,12 +63,12 @@ export default function DerivBotPage() {
                   <tr>
                     <td className="py-3.5 px-4 font-semibold text-[var(--foreground)]">Cool-Off Trigger</td>
                     <td className="py-3.5 px-4 text-[var(--rust)]">None (spins until liquidation)</td>
-                    <td className="py-3.5 px-4 text-[var(--mint-text)]">15-minute socket disconnect on 3 losses</td>
+                    <td className="py-3.5 px-4 text-[var(--mint-text)]">15-minute socket disconnect on 2 losses</td>
                   </tr>
                   <tr>
                     <td className="py-3.5 px-4 font-semibold text-[var(--foreground)]">Daily Loss Cap</td>
                     <td className="py-3.5 px-4 text-[var(--rust)]">None (wipes entire account balance)</td>
-                    <td className="py-3.5 px-4 text-[var(--mint-text)]">10% of equity ($2.00 hard floor)</td>
+                    <td className="py-3.5 px-4 text-[var(--mint-text)]">10% of equity ($1.00 hard floor)</td>
                   </tr>
                   <tr>
                     <td className="py-3.5 px-4 font-semibold text-[var(--foreground)]">Source Code Audit</td>

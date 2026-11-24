@@ -17,7 +17,7 @@ The first week of an adverse month typically begins with a normal clustering of 
 
 1. **Verify Circuit Breaker Activation**: Inspect `journal.db` to confirm that the governor halted execution every time the daily loss threshold ($1.00 on a $10 account) was approached. Did any day incur a loss greater than $1.00? If yes, identify why an order was dispatched beyond the limit.
 2. **Audit Streak Dynamics**: Identify your longest consecutive loss streak during the week. If your worst streak was 3 or 4 losses, the 1.3× ladder operated within expected statistical tolerances.
-3. **Verify Cool-Off Disconnects**: Confirm that after three consecutive losses, the socket dropped for the full 900 seconds (`cool_off_seconds: 900`). Verify that zero manual proposals were submitted during the enforced cooling intervals.
+3. **Verify Cool-Off Disconnects**: Confirm that after two consecutive losses ($0.81 cumulative loss, safely below the $1.00 daily loss limit), the socket dropped for the full 900 seconds (`cool_off_seconds: 900`). Verify that zero manual proposals were submitted during the enforced cooling intervals.
 
 ### Week 2: Psychological Compliance & Sizing Drift Analysis
 

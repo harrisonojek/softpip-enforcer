@@ -16,7 +16,7 @@ Revenge trading is the acute emotional reaction to an unexpected loss streak. Wh
 - **The Trigger**: A rapid drawdown cluster occurring within a narrow 10-minute window.
 - **The Behavioral Loop**: Cortisol spikes and rationality degrades. The trader switches from patient analysis to frantic execution, increasing contract frequency and elevating stake sizes from $0.35 to $1.50 or $3.00 to "force the market to give back the money" before the session ends.
 - **The Mathematical Reality**: Submitting random, oversized orders into an adverse variance regime dramatically amplifies the probability of complete account liquidation. A series of two additional losses at elevated stakes eliminates the entire $10 balance.
-- **The Enforcer Neutralization**: The governor enforces an automated 15-minute socket disconnect (`cool_off_seconds: 900`) immediately upon recording three consecutive losses. The connection drops, locking you out of order dispatch until neurochemical equilibrium is restored.
+- **The Enforcer Neutralization**: The governor enforces an automated 15-minute socket disconnect (`cool_off_seconds: 900`) immediately upon recording two consecutive losses ($0.81 cumulative pre-cooloff risk, safely under the $1.00 daily loss floor). The connection drops, locking you out of order dispatch until neurochemical equilibrium is restored.
 
 ### 2. Martingale Addiction
 

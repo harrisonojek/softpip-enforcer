@@ -33,7 +33,7 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     netUsd: -1.80,
     netNaira: -1.80 * USD_TO_NGN_RATE,
     maxDrawdownPct: 12.4,
-    notes: "Demo. Daily loss floor ($2.00) protected session on Thursday; halted cleanly without tilt.",
+    notes: "Demo. Daily loss floor ($1.00) protected session on Thursday; halted cleanly without tilt.",
   },
   {
     id: "2026-w03",

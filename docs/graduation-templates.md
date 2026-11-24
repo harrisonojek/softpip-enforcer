@@ -12,9 +12,9 @@ Before funding real capital ($10), you must complete **200 clean demo trades** i
 
 - [ ] Completed 200 trades on Volatility 75 / Volatility 10 in Deriv Virtual Account mode.
 - [ ] Zero manual overrides or discretionary order submissions during bot sessions.
-- [ ] Verified that 15-minute cool-off triggered upon 3 consecutive losses and reset stake back to $0.35.
+- [ ] Verified that 15-minute cool-off triggered upon 2 consecutive losses and reset stake back to $0.35.
 - [ ] Exported `journal_export.csv` and confirmed zero contract stake exceeded $1.00.
-- [ ] Successfully halted on session timer (60 minutes) or daily loss cap ($2.00 floor).
+- [ ] Successfully halted on session timer (60 minutes) or daily loss cap ($1.00 floor).
 
 ### Command to Verify Eligibility:
 

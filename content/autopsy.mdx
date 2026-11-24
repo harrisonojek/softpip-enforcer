@@ -105,7 +105,7 @@ To prevent this failure pattern from ever repeating, I built **The Enforcer** an
 
 1. **Hard daily loss cap ($1.00 on $10)**: The risk governor process terminates execution immediately when the cumulative session loss reaches $1.00. No manual override is permitted until the 00:00 UTC rollover.
 2. **Elimination of 2× Martingale**: The Enforcer caps any recovery ladder at 1.3× base stake, strictly limited to 5 steps ($0.35 → $0.46 → $0.59 → $0.77 → $1.00). If step five fails, the ladder resets to $0.35 flat. Total risk across all five steps is $3.17, preserving 68% of a $10 account.
-3. **Mandatory 15-minute cool-off**: Following three consecutive losses, the bot pauses all order dispatch for 900 seconds. This physically removes the trader from the market during choppy regime shifts.
+3. **Mandatory 15-minute cool-off**: Following two consecutive losses ($0.81 cumulative loss, safely below the $1.00 daily loss floor), the bot pauses all order dispatch for 900 seconds. This physically removes the trader from the market during choppy regime shifts before the daily loss cap can terminate the session.
 4. **Account segregation**: Trading bots run on a dedicated Deriv sub-account with no more than $10 funded. Discretionary trading on the bot account is prohibited.
 
 If you are trading on Deriv without hard limits, you are one bad evening away from repeating this sequence.

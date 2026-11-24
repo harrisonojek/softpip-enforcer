@@ -43,10 +43,10 @@ export default function TrackRecordPage() {
           <div className="mt-2 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface)] text-sm text-[var(--text-70)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <p className="font-semibold text-[var(--foreground)] m-0">
-                Reproducible seed dataset from deterministic Volatility 75 simulation
+                Dataset: simulated replay, fixed payout, filtered entries
               </p>
               <p className="text-xs text-[var(--muted)] m-0 mt-0.5">
-                210 clean demo trades logged across 4 weekly sessions. Demonstrates complete 200-trade graduation threshold.
+                210 demo trades logged from deterministic Volatility 75 simulation. Payouts are modeled at a fixed 95% rate; win rate reflects the entry filter rather than predictive skill. Demonstrates complete 200-trade graduation threshold.
               </p>
             </div>
             <a
@@ -162,8 +162,11 @@ export default function TrackRecordPage() {
           <h3 className="type-h3 m-0 text-[var(--text)]">Provenance &amp; Audit Methodology</h3>
           <p className="type-body text-[var(--text-70)] m-0 prose-col">
             Every trade listed in this ledger was evaluated by SoftPip The Enforcer against Volatility 75 ticks.
-            All contract submissions are strictly gated by the 8-step risk governor: session timer, 15-minute cool-off on 3 consecutive losses,
-            40-trade session ceiling, $2.00 daily loss floor, and 20% peak drawdown stop.
+            All contract submissions are strictly gated by the 8-step risk governor: session timer, 15-minute cool-off on 2 consecutive losses ($0.81 pre-cooloff risk),
+            40-trade session ceiling, $1.00 daily loss floor, and 20% peak drawdown stop.
+          </p>
+          <p className="type-body text-[var(--text-70)] m-0 text-xs text-[var(--muted)] prose-col">
+            <strong>Dataset Disclosure:</strong> Classified as simulated replay, fixed payout, filtered entries. Payouts are hardcoded at a fixed 95% return (stake × 0.95) rather than pulled from live proposal quotes. The observed win rate reflects the strict entry filter rather than predictive forecasting. The dataset serves to audit risk governor compliance, cool-off triggers, and daily loss enforcement across multi-session drawdowns.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Link href="/bot" className="btn-ghost">

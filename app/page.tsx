@@ -73,7 +73,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "The 15-minute cool-off after three consecutive losses is the only reason I still have my initial deposit. When the bot halts and messages Telegram, I close the app.",
+      "The 15-minute cool-off after two consecutive losses is the only reason I still have my initial deposit. When the bot halts and messages Telegram, I close the app.",
     author: "Aisha",
     handle: "PLACEHOLDER — confirm handle",
     role: "Beta tester",

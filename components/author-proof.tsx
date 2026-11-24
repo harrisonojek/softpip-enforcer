@@ -7,7 +7,8 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
     <div
       className={`p-6 sm:p-8 rounded-2xl border border-[var(--border)] bg-[var(--surface)] flex flex-col sm:flex-row items-center sm:items-start gap-6 ${className}`}
     >
-      <div className="relative shrink-0">
+      {/* TODO(phase-1): Replace placeholder headshot with verified portrait of Oghenerioborue Harrison Ekuetafia */}
+      <div className="relative shrink-0 flex flex-col items-center">
         <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-[var(--mint)] bg-[var(--void)] relative">
           <Image
             src="/author/harrison.jpg"
@@ -17,7 +18,10 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
             className="w-full h-full object-cover"
           />
         </div>
-        <span className="absolute -bottom-2 -right-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-[var(--void)] border border-[var(--rule)] text-[var(--text-45)]">
+        <span className="text-[10px] font-mono text-[var(--text-45)] mt-1.5 text-center">
+          placeholder
+        </span>
+        <span className="absolute -bottom-1 -right-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-[var(--void)] border border-[var(--rule)] text-[var(--text-45)]">
           Author
         </span>
       </div>
