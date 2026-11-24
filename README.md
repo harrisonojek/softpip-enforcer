@@ -1,8 +1,44 @@
 # SoftPip The Enforcer
 
-Open-source execution container and risk governor for Deriv Synthetic Index Options.
+> **v0.1.0 — demo only until 200 clean trades**  
+> Open-source execution container and risk governor for Deriv Synthetic Index Options.
 
 **It has no edge over the market. It has an edge over you.**
+
+---
+
+## Architecture Overview
+
+```text
+       +-------------------------------------------------------------+
+       |                  SoftPip Enforcer (v0.1.0)                  |
+       |                                                             |
+       |  +--------------------+         +------------------------+  |
+       |  |   Watchdog (30s)   |         |   Telegram Bot (Poll)  |  |
+       |  |  Touches heartbeat |         |  /status /stats /ladder|  |
+       |  +---------+----------+         +-----------+------------+  |
+       |            |                                |               |
+       |            v                                v               |
+       |  +-------------------------------------------------------+  |
+       |  |                  Execution Supervisor                 |  |
+       |  +---------------------------+---------------------------+  |
+       |                              |                              |
+       |          +-------------------+-------------------+          |
+       |          |                                       |          |
+       |          v                                       v          |
+       |  +-----------------------+               +---------------+  |
+       |  |     Risk Governor     |               |   Reconciler  |  |
+       |  |  Strict 8-Step Gate   |               |  Open Orders  |  |
+       |  +-----------+-----------+               +-------+-------+  |
+       |              |                                   |          |
+       +--------------|-----------------------------------|----------+
+                      |                                   |
+                      v                                   v
+             +-----------------+                 +-----------------+
+             |   Journal WAL   |                 | Deriv WebSocket |
+             | (Idempotent DB) |                 | (wss://derivws) |
+             +-----------------+                 +-----------------+
+```
 
 ---
 
@@ -22,94 +58,104 @@ When retail traders attempt to recover losses using a standard 2× Martingale pr
 
 A $10 account cannot survive five consecutive losses under Martingale doubling—it suffers complete liquidation on Step 5.
 
-The Enforcer eliminates discretionary emotion and replaces unconstrained doubling with a conservative **1.3× ladder capped at 5 steps** ($3.17 total risk across 5 steps), an automatic 15-minute socket disconnect upon 3 consecutive losses, and a strict daily drawdown stop of $1.00 (10% of $10).
+The Enforcer eliminates discretionary emotion and replaces unconstrained doubling with a conservative **1.3× ladder capped at 5 steps** ($3.17 total risk across 5 steps), an automatic 15-minute socket disconnect upon 3 consecutive losses ($1.40 cumulative pre-cooloff risk), and a strict daily loss limit of 10% with a $2.00 floor.
 
 ---
 
 ## Process-Level Risk Defaults
 
-The Enforcer governs trade execution according to nine non-negotiable process limits:
+The Enforcer governs trade execution according to nine non-negotiable process limits, mirrored identically in `lib/governor-spec.ts`:
 
-| Control | Value | Operational Purpose |
-| :--- | :--- | :--- |
-| **Stake Floor** | `$0.35` | Deriv synthetic index minimum contract size (3.5% of a $10 account). |
-| **Progression Multiplier** | `1.3×` | Controlled step progression on loss (replaces destructive 2.0× Martingale). |
-| **Max Ladder Steps** | `5 steps` | Progression ceiling capping total ladder risk strictly at `$3.17`. |
-| **Consecutive Loss Limit** | `3 losses` | Triggers an immediate 15-minute socket disconnect to break tilt loops. |
-| **Cool-Off Duration** | `900s (15 min)` | Enforced cooling period during which all trade execution is locked. |
-| **Daily Loss Limit** | `$1.00` | Hard daily stop (10% of $10 balance); terminates execution for the day. |
-| **Balance Floor** | `$9.00` | Account capital floor below which no new orders will be submitted. |
-| **Session Kill Switch** | `3,600s (60 min)` | Maximum continuous runtime before mandatory process exit. |
-| **Max Session Trades** | `20 trades` | Trade frequency ceiling preventing over-trading in choppy regimes. |
+| Control Group | Parameter | Limit / Value | Operational Enforcement |
+| :--- | :--- | :--- | :--- |
+| **Stake** | Base stake floor | `$0.35` (fixed) | Hard synthetic floor at $10 (3.5% of equity); percent mode unlocks 1% sizing above $100. |
+| **Stake** | Recovery ladder | `1.3×` capped at 5 steps | Explicit steps (`$0.35, $0.46, $0.59, $0.77, $1.00`) totaling `$3.17` cumulative risk. |
+| **Stake** | Reset ladder on cool-off | `True` (reset to step 1) | Resets progression back to `$0.35` after cool-off so the bot never resumes at step 4 into chop. |
+| **Time** | Loss cool-off | `15 min` after 3 losses | Halts dispatch for 900s (`$1.40` cumulative risk across first 3 steps) before daily cap fires. |
+| **Time** | Session trade cap | `40 trades` per session | Prevents over-trading through extended flat or choppy volatility regimes. |
+| **Time** | Session timer | `60 min` kill switch | Auto-terminates run at 3,600 seconds continuous elapsed runtime. |
+| **Capital** | Daily loss limit | `10%` (`$2.00` floor) | Enforces `max($2.00, 10% of equity)` until 00:00 UTC rollover. |
+| **Capital** | Drawdown stop | `20%` peak drawdown | Halts session if equity falls 20% below the session peak balance. |
+| **Capital** | Balance floor | `$2.00` floor + fail-closed | Refuses new orders at or below `$2.00`, on socket error, scope violation, or margin failure. |
+
+*Note: Three of these corroborate each other at a $10 balance; they separate as equity grows.*
 
 ---
 
-## Installation & Setup
+## 60-Second Dry-Run Quickstart
 
-### Option 1: Automated VPS Script (Recommended)
-
-Run the one-command installer on any Debian/Ubuntu Linux VPS with Docker:
+Test the governor and execution engine immediately in local simulation without exposing credentials or live capital:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/harrisonojek/softpip-enforcer/main/install.sh | bash
-```
-
-### Option 2: Manual Python Setup
-
-Requirements: Python 3.10+, Git.
-
-```bash
-# 1. Clone repository
+# 1. Clone the repository
 git clone https://github.com/harrisonojek/softpip-enforcer.git
 cd softpip-enforcer
 
-# 2. Set up virtual environment
+# 2. Create virtual environment and install pinned dependencies
 python3 -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
 
-# 3. Create private configuration
-cp config.example.yaml config.yaml
-
-# 4. Edit credentials
-nano config.yaml  # Enter your Deriv API token and Telegram parameters
-
-# 5. Run the dry-run simulator first (or live after 200 clean demo trades)
-python main.py --dry-run --config config.yaml
+# 3. Launch 60-second dry run
+python main.py --dry-run --config config.example.yaml
 ```
 
-### Option 3: Docker Container
+---
+
+## Production Deployment & Setup
+
+### Option 1: Docker Compose (Recommended VPS)
 
 ```bash
-docker build -t softpip-enforcer .
-docker run -d --name enforcer --restart unless-stopped -v $(pwd)/config.yaml:/app/config.yaml softpip-enforcer
+# Copy configuration and environment templates
+cp config.example.yaml config.yaml
+cp .env.example .env
+chmod 600 .env
+
+# Edit API token and credentials
+nano config.yaml
+
+# Build and start background service
+docker compose up -d
+
+# Follow execution logs
+docker compose logs -f
+```
+
+### Option 2: Automated VPS Script
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/harrisonojek/softpip-enforcer/main/install.sh | bash
 ```
 
 ---
 
 ## Telegram Remote Commands
 
-When configured with a Telegram bot token, The Enforcer can be monitored and commanded remotely via smartphone:
+When configured with a Telegram bot token and restricted to your chat ID, The Enforcer can be commanded securely:
 
 | Command | Description |
 | :--- | :--- |
-| `/start` | Launch execution session and connect to Deriv WebSocket. |
+| `/start` | Launch or resume trading execution session. |
 | `/stop` | Immediately halt trading, close active proposals, and drop socket. |
 | `/pause` | Temporarily pause new order dispatch without resetting session stats. |
-| `/status` | Inspect live account balance, current socket state, and uptime. |
-| `/stats` | Display daily session P/L, trade count, and peak drawdown. |
-| `/ladder` | Query current position in the 1.3× recovery ladder and next stake. |
+| `/status` | Inspect live balance, peak balance, ladder step, and active governor halts. |
+| `/stats` | Display lifetime win rate, trade volume, P&L, and clean demo trade counts. |
+| `/ladder` | Query current position in the 1.3× recovery ladder and next stake amount. |
+| `/export` | Trigger local CSV export of all journaled trades for open auditing. |
+| `/help` | Print command cheat sheet and operational instructions. |
 
 ---
 
-## Current Status
+## Status & Live Trading Gate
 
-**Status: demo only until 200 live trades**
+**Status: demo only until 200 clean trades**
 
-All initial deployments should run against Deriv Virtual/Demo accounts until 200 continuous executions have been logged in `journal.db` without a single risk limit violation.
+All deployments run in simulation or Deriv Virtual/Demo mode until **200 clean demo trades** are logged in `journal.db` without a single risk limit violation. The supervisor strictly refuses `--live` execution if `journal.count_clean_demo_trades() < 200`.
 
 ---
 
 ## License
 
-Licensed under the MIT License — Copyright (c) 2026 Oghenerioborue Harrison Ekuetafia.
+Licensed under the MIT License — Copyright (c) 2026 Oghenerioborue Harrison Ekuetafia.  
 See [LICENSE](LICENSE) for details.

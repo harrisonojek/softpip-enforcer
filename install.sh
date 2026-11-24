@@ -1,63 +1,58 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# SoftPip The Enforcer — One-command VPS Installer
-# Target directory: /opt/softpip-enforcer
+# SoftPip The Enforcer — Autonomous Risk Governor Setup Script
+# Target directory: /opt/softpip-enforcer or current directory
 
-echo "=== SoftPip The Enforcer: VPS Setup ==="
+echo "=========================================================="
+echo " SoftPip The Enforcer — Installation & Quickstart (v0.1.0)"
+echo " 'It has no edge over the market. It has an edge over you.'"
+echo "=========================================================="
 
-# 1. Verify Docker is present
-if ! command -v docker >/dev/null 2>&1; then
-  echo "Error: Docker is not installed or not in PATH." >&2
-  echo "Please install Docker before running this script (e.g. curl -fsSL https://get.docker.com | sh)." >&2
-  exit 1
+INSTALL_DIR="${1:-/opt/softpip-enforcer}"
+
+if [ ! -d "$INSTALL_DIR" ]; then
+  echo "Target directory $INSTALL_DIR does not exist. Creating..."
+  sudo mkdir -p "$INSTALL_DIR"
+  sudo chown "$USER":"$(id -gn)" "$INSTALL_DIR"
 fi
 
-INSTALL_DIR="/opt/softpip-enforcer"
-REPO_URL="https://github.com/harrisonojek/softpip-enforcer.git"
-
-# 2. Clone the repo to /opt/softpip-enforcer
-if [ -d "$INSTALL_DIR" ]; then
-  echo "Directory $INSTALL_DIR exists. Pulling latest main branch..."
-  git -C "$INSTALL_DIR" pull --ff-only origin main || true
-else
-  echo "Cloning $REPO_URL to $INSTALL_DIR..."
-  git clone "$REPO_URL" "$INSTALL_DIR"
-fi
-
+echo "Setting up in $INSTALL_DIR..."
 cd "$INSTALL_DIR"
 
-# 3. Copy config.example.yaml to config.yaml if absent
-if [ ! -f "config.yaml" ]; then
-  if [ -f "config.example.yaml" ]; then
-    echo "Creating config.yaml from config.example.yaml..."
-    cp "config.example.yaml" "config.yaml"
-  else
-    echo "Warning: config.example.yaml not found in $INSTALL_DIR." >&2
-  fi
-else
-  echo "Existing config.yaml found; preserving current configuration."
+if [ ! -f "config.yaml" ] && [ -f "config.example.yaml" ]; then
+  echo "Copying config.example.yaml to config.yaml..."
+  cp config.example.yaml config.yaml
 fi
 
-# 4. Build Docker image
-echo "Building Docker container image 'softpip-enforcer'..."
-docker build -t softpip-enforcer .
+if [ ! -f ".env" ] && [ -f ".env.example" ]; then
+  echo "Copying .env.example to .env..."
+  cp .env.example .env
+  chmod 600 .env
+fi
 
-# 5. Print next steps
-cat <<'EOF'
-
-=== Installation Complete ===
-
-Next steps:
-1. Edit your configuration file:
-   nano /opt/softpip-enforcer/config.yaml
-
-2. Add your Deriv API token (Read & Trade scopes) and Telegram bot credentials.
-
-3. Start the enforcer container:
-   docker run -d --name enforcer --restart unless-stopped -v /opt/softpip-enforcer/config.yaml:/app/config.yaml softpip-enforcer
-
-4. Verify container logs:
-   docker logs -f enforcer
-
-EOF
+if command -v docker >/dev/null 2>&1; then
+  echo "Docker detected. Building Docker image 'softpip-enforcer'..."
+  docker build -t softpip-enforcer .
+  echo ""
+  echo "Installation Complete!"
+  echo "To launch in dry-run mode via Docker:"
+  echo "  docker run --rm softpip-enforcer python main.py --dry-run --config config.example.yaml"
+  echo ""
+  echo "To launch via Docker Compose:"
+  echo "  docker compose up -d"
+else
+  echo "Docker not found. Falling back to local Python setup..."
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install --upgrade pip
+  pip install -r requirements.txt
+  echo ""
+  echo "Running 60-second Dry-Run Self-Test..."
+  python main.py --dry-run --config config.example.yaml
+  echo ""
+  echo "Installation Complete!"
+  echo "To run live trading (requires 200 clean demo trades in journal):"
+  echo "  source .venv/bin/activate"
+  echo "  python main.py --live --config config.yaml"
+fi
