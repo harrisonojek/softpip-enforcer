@@ -22,7 +22,7 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     netUsd: 4.20,
     netNaira: 4.20 * USD_TO_NGN_RATE,
     maxDrawdownPct: 6.2,
-    notes: "Demo baseline forward-test. 15-minute cool-off triggered once on Wednesday chop; reset to step 1.",
+    notes: "Simulated: Baseline forward-test. 15-minute cool-off triggered once on Wednesday chop; reset to step 1.",
   },
   {
     id: "2026-w02",
@@ -33,7 +33,7 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     netUsd: -1.80,
     netNaira: -1.80 * USD_TO_NGN_RATE,
     maxDrawdownPct: 12.4,
-    notes: "Demo. Daily loss floor ($1.00) protected session on Thursday; halted cleanly without tilt.",
+    notes: "Simulated: Daily loss floor ($1.00) protected session on Thursday; halted cleanly without tilt.",
   },
   {
     id: "2026-w03",
@@ -44,7 +44,7 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     netUsd: 5.85,
     netNaira: 5.85 * USD_TO_NGN_RATE,
     maxDrawdownPct: 5.8,
-    notes: "Demo. 1.3× recovery ladder resolved within 3 steps throughout; zero 5-step breaches.",
+    notes: "Simulated: 1.3× recovery ladder resolved within 3 steps throughout; zero 5-step breaches.",
   },
   {
     id: "2026-w04",
@@ -55,7 +55,7 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
     netUsd: 3.14,
     netNaira: 3.14 * USD_TO_NGN_RATE,
     maxDrawdownPct: 8.1,
-    notes: "Demo. Crossed 200 clean demo trades graduation threshold on Thursday session.",
+    notes: "Simulated: Crossed 200 clean demo trades graduation threshold on Thursday session.",
   },
 ];
 
