@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import {
   TRACK_RECORD_WEEKS,
@@ -19,38 +18,35 @@ export const metadata = buildMetadata({
 interface ResearchPaper {
   id: string;
   number: string;
-  status: "published" | "in-build";
+  status: "in-build" | "planned";
   title: string;
   summary: string;
   tag: string;
-  href?: string;
 }
 
 const RESEARCH_PAPERS: readonly ResearchPaper[] = [
   {
     id: "paper-01",
     number: "01",
-    status: "published",
+    status: "in-build",
     title: "The ₦32,450,000 Post-Mortem: Anatomical Analysis of an Options Wipeout",
     summary:
       "A forensic autopsy of an 8-month discretionary options trading collapse in Nigeria. Deconstructs how the 3.5% minimum stake floor, Martingale doubling, and absent circuit breakers caused complete liquidation.",
     tag: "Forensic Case Study",
-    href: "/autopsy",
   },
   {
     id: "paper-02",
     number: "02",
-    status: "published",
+    status: "planned",
     title: "The Enforcer Forward Audit: 210-Trade Mechanical Graduation Baseline",
     summary:
       "Reproducible simulation testing 210 continuous Volatility 75 trades against an 8-step risk governor. Demonstrates how a 2-loss cool-off and $1.00 daily loss floor prevent account ruin across drawdowns.",
     tag: "Execution Audit",
-    href: "#ledger-summary",
   },
   {
     id: "paper-03",
     number: "03",
-    status: "in-build",
+    status: "planned",
     title: "PRNG Kurtosis & Regime Clustering in Synthetic Volatility Indices",
     summary:
       "Investigating tick generation frequencies, non-normal distribution tails, and adverse micro-run clustering across Volatility 10 and 75 indices on Deriv.",
@@ -59,7 +55,7 @@ const RESEARCH_PAPERS: readonly ResearchPaper[] = [
   {
     id: "paper-04",
     number: "04",
-    status: "in-build",
+    status: "planned",
     title: "Asymmetric Ruin Dynamics: 1.3× Capped Ladders vs 2.0× Martingale Doubling",
     summary:
       "A mathematical proof contrasting geometric stake escalation with capped progression slopes. Proves that surviving small accounts require hard-capped linear sequences under 35% total risk.",
@@ -95,30 +91,30 @@ export default function ResearchPage() {
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
               <span className="type-micro font-mono text-[var(--mint-text)] font-semibold">
-                DIVISION STATUS: 2 / 4 PAPERS PUBLISHED
+                DIVISION STATUS: 0 OF 4 PUBLISHED — FIRST PAPER IN BUILD
               </span>
               <span className="type-micro px-2 py-0.5 rounded-full bg-[var(--slate)] text-[var(--text-70)] border border-[var(--rule)]">
-                Phase 1 Incubation
+                Incubation Stage
               </span>
             </div>
             <p className="type-small text-[var(--text-70)] m-0">
-              Upon publication of Paper 04, SoftPip Research separates into an autonomous institutional publication with open datasets and peer review.
+              Upon publication of four completed papers, SoftPip Research separates into an autonomous institutional publication with open datasets and peer review.
             </p>
           </div>
           <div className="shrink-0 font-mono text-xs text-[var(--text-45)]">
-            50% to Autonomous Division
+            0 of 4 published
           </div>
         </Reveal>
 
         {/* Publishing Pipeline */}
         <Reveal delayMs={100} className="flex flex-col gap-4">
           <h2 className="type-h2 m-0 text-[var(--foreground)] text-xl">
-            Research Index &amp; Working Papers
+            Research Index &amp; Planned Papers
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {RESEARCH_PAPERS.map((paper) => {
-              const isPub = paper.status === "published";
+              const isInBuild = paper.status === "in-build";
               return (
                 <div
                   key={paper.id}
@@ -131,12 +127,12 @@ export default function ResearchPage() {
                       </span>
                       <span
                         className={`type-micro px-2 py-0.5 rounded-full font-mono text-[10px] ${
-                          isPub
+                          isInBuild
                             ? "bg-[var(--mint)]/10 text-[var(--mint-text)] border border-[var(--mint)]/30 font-semibold"
                             : "bg-[var(--slate)] text-[var(--text-45)] border border-[var(--rule)]"
                         }`}
                       >
-                        {isPub ? "PUBLISHED" : "IN BUILD"}
+                        {isInBuild ? "IN BUILD" : "PLANNED"}
                       </span>
                     </div>
 
@@ -151,16 +147,9 @@ export default function ResearchPage() {
 
                   <div className="flex items-center justify-between pt-3 border-t border-[var(--rule)] text-xs font-mono">
                     <span className="text-[var(--text-45)]">{paper.tag}</span>
-                    {paper.href ? (
-                      <Link
-                        href={paper.href}
-                        className="text-[var(--mint-text)] hover:underline font-medium"
-                      >
-                        Read Paper →
-                      </Link>
-                    ) : (
-                      <span className="text-[var(--text-45)]">Q1 2026</span>
-                    )}
+                    <span className="text-[var(--text-45)] font-mono">
+                      {isInBuild ? "Draft in progress" : "Planned study"}
+                    </span>
                   </div>
                 </div>
               );

@@ -5,7 +5,7 @@ import { buildMetadata, TELEGRAM_COMMUNITY_URL } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "Community — SoftPip",
   description:
-    "Private engineering and risk governance community for systematic Deriv options traders. Zero signals, mandatory log auditing, and strict house rules.",
+    "An open community for $10 beginners and systematic traders on Deriv. Post your first five trades publicly, audit losses as readily as wins, and trade with rules.",
   path: "/community",
 });
 
@@ -27,9 +27,9 @@ const HOUSE_RULES: readonly HouseRule[] = [
   },
   {
     number: "02",
-    title: "Verification before assertion",
+    title: "Verification before assertion (losses posted as readily as wins)",
     rationale:
-      "Claims regarding strategy profitability, win rates, or edge must be backed by reproducible evidence: raw SQLite journal logs (`journal.db`), CSV exports, or broker contract statements.",
+      "Claims regarding strategy profitability or performance must be backed by reproducible logs: raw journal records (`journal.db`), CSV exports, or broker statements. Losses are shared openly for analysis.",
     enforcement:
       "Unverified P&L screenshots without execution logs or governor parameter disclosures are removed immediately.",
   },
@@ -59,7 +59,7 @@ export default function CommunityPage() {
           <h1 className="type-h1 m-0">Community.</h1>
 
           <p className="type-body text-[var(--text-70)] m-0 prose-col">
-            A private engineering circle for systematic Deriv traders dedicated to code-governed risk, empirical journal audits, and tilt prevention.
+            Whether you are funding your very first $10 account or compiling automated execution gates in Python, this is a room built for transparency. Post your first five trades publicly, share losses as readily as wins, and build unbreakable risk habits without signal-room noise.
           </p>
         </Reveal>
 
@@ -71,13 +71,13 @@ export default function CommunityPage() {
 
           <div className="flex flex-col gap-3 text-sm text-[var(--text-70)] leading-relaxed">
             <p className="m-0">
-              The SoftPip Telegram channel is not a signal group, trading chatroom, or speculative discussion forum. It exists exclusively to support traders who deploy mechanical risk controls and run <strong>The Enforcer</strong> on synthetic index options.
+              The SoftPip Telegram channel is built for anyone trading synthetic index options with rules instead of emotion. If you are starting with just $10, this is the place to post your very first five trades publicly, ask questions without fear of being pitched a paid mentorship, and learn how to audit your losses with complete honesty.
             </p>
             <p className="m-0">
-              Within the community, members share and review SQLite execution journals (<code>journal.db</code>), audit losing months using the 4-week framework, troubleshoot VPS and Docker container setups, and propose improvements to open-source risk governor state machines.
+              We keep the technical bar high—members review SQLite execution journals (<code>journal.db</code>), audit losing weeks using the 4-week framework, and troubleshoot Docker container setups for <strong>The Enforcer</strong>—but the door is wide open for beginners taking their first disciplined steps.
             </p>
             <p className="m-0 text-[var(--foreground)] font-medium">
-              If you are looking for trading signals, secret indicators, or overnight wealth, this group will disappoint you. If you want engineering accountability to never blow an account again, welcome.
+              Here, a trader who honors the $1.00 daily loss floor on a difficult red day receives more respect than someone posting an unverified 100× gain. Losses are posted as readily as wins. Zero signals, zero hype, zero hidden upsells.
             </p>
           </div>
 
