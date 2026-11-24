@@ -96,6 +96,11 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.addEventListener('click',function(e){var a=e.target&&e.target.closest('a[data-track]');if(a&&window.va){window.va('event',{name:'affiliate_click',data:{placement:a.getAttribute('data-placement')}});}},{passive:true});`,
+          }}
+        />
         <Analytics />
       </body>
     </html>

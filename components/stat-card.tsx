@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { CountUpNumber } from "@/components/reveal";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";

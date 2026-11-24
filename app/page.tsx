@@ -134,7 +134,7 @@ export default function HomePage() {
 
             <HeroHeadline />
 
-            <Reveal delayMs={60} className="flex flex-col items-start gap-6">
+            <div className="flex flex-col items-start gap-6">
               <p className="type-body text-[var(--text-70)] m-0 prose-col">
                 In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start.
               </p>
@@ -148,7 +148,7 @@ export default function HomePage() {
                   See the Enforcer
                 </Link>
               </div>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>

@@ -43,7 +43,7 @@ export const CURRICULUM_MODULES_PREVIEW: CurriculumModuleSummary[] = [
 export function ModuleRow({ module }: { module: CurriculumModuleSummary }) {
   return (
     <Link
-      href={`/curriculum/${module.slug}`}
+      href={`/academy/${module.slug}`}
       className="surface-card-interactive p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-underline group"
     >
       <div className="flex items-start gap-4 sm:gap-5">

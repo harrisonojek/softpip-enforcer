@@ -9,6 +9,8 @@ dist/
 next-env.d.ts
 data/subscribers.db*
 data/subscribers.jsonl
+lh-*.json
+verify_all.py
 
 .vercel
 .env*

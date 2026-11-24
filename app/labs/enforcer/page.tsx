@@ -105,7 +105,7 @@ const softwareJsonLd = {
   },
   description:
     "Open-source risk governor and trade executor for Deriv synthetic index accounts, designed for $10 account survival.",
-  url: `${SITE_URL}/bot`,
+  url: `${SITE_URL}/labs/enforcer`,
 };
 
 export default function BotPage() {

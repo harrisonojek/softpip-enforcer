@@ -15,9 +15,10 @@ const NAV_ITEMS = [
 ] as const;
 
 export function IconMark({ size = 28 }: { size?: number }) {
+  const iconSrc = size <= 32 ? "/icon-32.png" : "/icon-192.png";
   return (
     <img
-      src="/icon-192.png"
+      src={iconSrc}
       alt="SoftPip"
       width={size}
       height={size}
