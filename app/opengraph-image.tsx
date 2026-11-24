@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = "SoftPip — Trade with rules, not feelings.";
 export const size = {
   width: 1200,
