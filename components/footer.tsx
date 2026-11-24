@@ -43,7 +43,7 @@ export function Footer() {
                 alt="SoftPip"
                 width={20}
                 height={20}
-                className="h-[20px] w-[20px] rounded-[22%] object-cover opacity-85"
+                className="h-[20px] w-[20px] rounded-[22%] object-cover shrink-0"
               />
               <span
                 className="text-[16px] tracking-tight font-semibold text-[var(--text-70)]"

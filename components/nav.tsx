@@ -103,24 +103,24 @@ export function Nav() {
           {/* Brand Left */}
           <Link
             href="/"
-            className="inline-flex items-center min-h-[44px] text-[var(--text)] no-underline shrink-0"
+            className="inline-flex items-center gap-2.5 min-h-[44px] text-[var(--text)] no-underline shrink-0"
             aria-label="SoftPip Home"
           >
-            {/* Icon alone below 480px */}
             <img
               src="/icon-192.png"
               alt="SoftPip"
               width={26}
               height={26}
-              className="h-[26px] w-[26px] rounded-[22%] object-cover min-[480px]:hidden"
+              className="h-[26px] w-[26px] rounded-[22%] object-cover shrink-0"
             />
-            {/* Full lockup above 480px */}
-            <img
-              src="/brand/nav-lockup.png"
-              alt="SoftPip"
-              height={26}
-              className="h-[26px] w-auto object-contain hidden min-[480px]:block"
-            />
+            <span
+              className="font-semibold text-[17px] tracking-tight text-[var(--text)]"
+              style={{
+                fontFamily: "var(--font-geist), system-ui, sans-serif",
+              }}
+            >
+              SoftPip
+            </span>
           </Link>
 
           {/* Desktop Center/Right Inline Links (≥880px only) */}
@@ -226,15 +226,24 @@ export function Nav() {
             <Link
               href="/"
               onClick={() => setMenuOpen(false)}
-              className="inline-flex items-center min-h-[44px] text-[var(--text)] no-underline"
+              className="inline-flex items-center gap-2.5 min-h-[44px] text-[var(--text)] no-underline"
               aria-label="SoftPip Home"
             >
               <img
-                src="/brand/nav-lockup.png"
+                src="/icon-192.png"
                 alt="SoftPip"
+                width={26}
                 height={26}
-                className="h-[26px] w-auto object-contain"
+                className="h-[26px] w-[26px] rounded-[22%] object-cover shrink-0"
               />
+              <span
+                className="font-semibold text-[17px] tracking-tight text-[var(--text)]"
+                style={{
+                  fontFamily: "var(--font-geist), system-ui, sans-serif",
+                }}
+              >
+                SoftPip
+              </span>
             </Link>
             <button
               type="button"

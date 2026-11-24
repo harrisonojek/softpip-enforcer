@@ -61,6 +61,10 @@ export default function AboutPage() {
 
           <h1 className="type-h1 m-0">The engineer behind the autopsy.</h1>
 
+          <p className="type-body text-[var(--mint-text)] font-medium m-0">
+            Markets move. Knowledge evolves. Discipline remains.
+          </p>
+
           <p className="type-body text-[var(--text-70)] m-0 prose-col">
             My name is Oghenerioborue Harrison Ekuetafia. In 2025 I lost ₦32,450,000 trading synthetic index derivatives. Here is what happened, what survived, and why every tool I build is free.
           </p>

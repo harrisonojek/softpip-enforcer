@@ -11,6 +11,5 @@ data/subscribers.db*
 data/subscribers.jsonl
 lh-*.json
 verify_all.py
-
-.vercel
-.env*
+__pycache__/
+*.pyc

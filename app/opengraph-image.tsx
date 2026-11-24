@@ -34,7 +34,7 @@ export default async function Image() {
             width: "600px",
             height: "400px",
             borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(138, 245, 206, 0.12) 0%, rgba(8, 11, 15, 0) 70%)",
+            background: "radial-gradient(circle, rgba(122, 243, 198, 0.12) 0%, rgba(8, 11, 15, 0) 70%)",
           }}
         />
 
@@ -44,12 +44,12 @@ export default async function Image() {
             width: "80px",
             height: "80px",
             borderRadius: "22%",
-            backgroundColor: "#8AF5CE",
+            backgroundColor: "#7AF3C6",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             marginBottom: "28px",
-            boxShadow: "0 0 35px rgba(138, 245, 206, 0.35)",
+            boxShadow: "0 0 35px rgba(122, 243, 198, 0.35)",
           }}
         >
           <div
@@ -83,7 +83,7 @@ export default async function Image() {
         <div
           style={{
             fontSize: "24px",
-            color: "#6FE8BE",
+            color: "#7AF3C6",
             fontFamily: "monospace",
             letterSpacing: "0.02em",
             textAlign: "center",
