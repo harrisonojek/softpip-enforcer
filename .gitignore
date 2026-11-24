@@ -9,3 +9,6 @@ dist/
 next-env.d.ts
 data/subscribers.db*
 data/subscribers.jsonl
+
+.vercel
+.env*
