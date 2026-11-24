@@ -5,25 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DERIV_AFFILIATE_URL } from "@/lib/seo";
 
-const PRIMARY_NAV_ITEMS = [
-  { label: "Autopsy", href: "/autopsy" },
-  { label: "Curriculum", href: "/curriculum" },
-  { label: "Bot", href: "/bot" },
-  { label: "Track record", href: "/track-record" },
-  { label: "Partner", href: "/partner" },
-];
-
-const OVERLAY_NAV_ITEMS = [
-  { label: "Autopsy", href: "/autopsy" },
-  { label: "Curriculum", href: "/curriculum" },
-  { label: "Bot", href: "/bot" },
-  { label: "Track record", href: "/track-record" },
-  { label: "Milestones", href: "/milestones" },
-  { label: "Partner", href: "/partner" },
+const NAV_ITEMS = [
+  { label: "Home", href: "/" },
+  { label: "Academy", href: "/academy" },
+  { label: "Labs", href: "/labs" },
+  { label: "Community", href: "/community" },
+  { label: "Partners", href: "/partners" },
   { label: "About", href: "/about" },
-  { label: "Risk", href: "/risk" },
-  { label: "FAQ", href: "/faq" },
-];
+] as const;
 
 export function IconMark({ size = 28 }: { size?: number }) {
   return (
@@ -138,21 +127,28 @@ export function Nav() {
             aria-label="Primary"
             className="nav-desktop-links items-center gap-7"
           >
-            {PRIMARY_NAV_ITEMS.map((item) => {
+            {NAV_ITEMS.map((item) => {
               const isActive =
-                pathname === item.href ||
-                pathname.startsWith(`${item.href}/`);
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`inline-flex items-center min-h-[44px] type-small transition-colors duration-200 ${
+                  className={`relative inline-flex items-center min-h-[44px] type-small transition-colors duration-200 ${
                     isActive
                       ? "text-[var(--mint-text)] font-medium"
                       : "text-[var(--text-70)] hover:text-[var(--text)]"
                   }`}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  {isActive && (
+                    <span
+                      className="absolute bottom-2 inset-x-0 h-[2px] bg-[var(--mint)] rounded-full"
+                      aria-hidden="true"
+                    />
+                  )}
                 </Link>
               );
             })}
@@ -269,22 +265,29 @@ export function Nav() {
             aria-label="Mobile full-screen"
             className="container-shell py-8 flex-1 flex flex-col justify-center gap-3"
           >
-            {OVERLAY_NAV_ITEMS.map((item) => {
+            {NAV_ITEMS.map((item) => {
               const isActive =
-                pathname === item.href ||
-                pathname.startsWith(`${item.href}/`);
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className={`type-h2 py-1.5 inline-flex items-center min-h-[44px] transition-colors ${
+                  className={`relative type-h2 py-1.5 inline-flex items-center min-h-[44px] transition-colors w-fit ${
                     isActive
-                      ? "text-[var(--mint-text)]"
+                      ? "text-[var(--mint-text)] font-medium"
                       : "text-[var(--text)] hover:text-[var(--mint-text)]"
                   }`}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  {isActive && (
+                    <span
+                      className="absolute bottom-0 inset-x-0 h-[2px] bg-[var(--mint)] rounded-full"
+                      aria-hidden="true"
+                    />
+                  )}
                 </Link>
               );
             })}

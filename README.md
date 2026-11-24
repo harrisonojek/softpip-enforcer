@@ -1,6 +1,12 @@
 # SoftPip Marketing Site (`softpip-site`)
 
-Next.js 15 App Router web application for [softpip.com](https://softpip.com): the ₦32.45M trading autopsy, ten-module curriculum, Monte Carlo risk-of-ruin calculator, scaling ladder, and documentation for **The Enforcer** open-source Python risk governor ([github.com/harrisonojek/softpip-enforcer](https://github.com/harrisonojek/softpip-enforcer)).
+Next.js 15 App Router web application for SoftPip: the ₦32.45M trading autopsy, ten-module Academy curriculum, Monte Carlo risk-of-ruin calculator, scaling ladder, and documentation for **The Enforcer** open-source Python risk governor.
+
+## Canonical Repository & Branch
+
+- **Canonical Repository:** `https://github.com/harrisonojek/softpip-enforcer.git`
+- **Marketing & Site Branch:** `site`
+- **Engine & Core Bot Branch:** `main`
 
 ## Local Development
 
@@ -12,7 +18,7 @@ npm run dev
 
 ## Production Build & Vercel Deployment
 
-This repository deploys to Vercel as `softpip-site` (custom domain `softpip.com`):
+This repository deploys to Vercel as `softpip-site` (`softpip-site.vercel.app`):
 
 ```bash
 npm run typecheck

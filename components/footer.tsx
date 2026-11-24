@@ -3,36 +3,32 @@ import Link from "next/link";
 import { AffiliateLink } from "@/components/affiliate-link";
 import {
   CONTACT_EMAIL,
-  DERIV_AFFILIATE_URL,
-  INSTAGRAM_URL,
   VERBATIM_AFFILIATE_DISCLOSURE,
   VERBATIM_COPYRIGHT,
   VERBATIM_RISK_WARNING,
 } from "@/lib/seo";
 
-const PLATFORM_ROUTES = [
-  { label: "Home", href: "/" },
+const CANONICAL_ROUTES = [
+  { label: "Academy", href: "/academy" },
+  { label: "Labs", href: "/labs" },
+  { label: "Enforcer", href: "/labs/enforcer" },
+  { label: "Track record", href: "/labs/enforcer/track-record" },
+  { label: "Calculators", href: "/labs/calculator" },
+  { label: "Community", href: "/community" },
+  { label: "Partners", href: "/partners" },
   { label: "Autopsy", href: "/autopsy" },
-  { label: "Curriculum", href: "/curriculum" },
-  { label: "Bot", href: "/bot" },
-  { label: "Track record", href: "/track-record" },
-  { label: "Milestones", href: "/milestones" },
-];
-
-const REFERENCE_ROUTES = [
-  { label: "Partner", href: "/partner" },
   { label: "About", href: "/about" },
   { label: "Risk", href: "/risk" },
   { label: "FAQ", href: "/faq" },
   { label: "Terms", href: "/terms" },
   { label: "Privacy", href: "/privacy" },
-];
+] as const;
 
 export function Footer() {
   return (
     <footer className="relative z-10 block w-full hairline-t bg-[var(--void)] pt-16 pb-16 max-[879px]:pb-28">
       <div className="container-shell">
-        {/* Four columns, stacked mobile */}
+        {/* Main Footer Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-14 hairline-b">
           {/* Column 1: Brand line */}
           <div className="flex flex-col gap-4">
@@ -72,32 +68,13 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Platform Routes */}
-          <div>
+          {/* Column 2 & 3: Canonical Routes */}
+          <div className="sm:col-span-2 lg:col-span-2">
             <p className="type-micro uppercase text-[var(--text-45)] m-0 mb-3">
-              Platform
+              Routes
             </p>
-            <ul className="list-none p-0 m-0 flex flex-col gap-1">
-              {PLATFORM_ROUTES.map((route) => (
-                <li key={route.href}>
-                  <Link
-                    href={route.href}
-                    className="inline-flex items-center min-h-[44px] type-small text-[var(--text-70)] hover:text-[var(--text)] transition-colors"
-                  >
-                    {route.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3: Reference & Legal Routes */}
-          <div>
-            <p className="type-micro uppercase text-[var(--text-45)] m-0 mb-3">
-              Directory
-            </p>
-            <ul className="list-none p-0 m-0 flex flex-col gap-1">
-              {REFERENCE_ROUTES.map((route) => (
+            <ul className="list-none p-0 m-0 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
+              {CANONICAL_ROUTES.map((route) => (
                 <li key={route.href}>
                   <Link
                     href={route.href}
