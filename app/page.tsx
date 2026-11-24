@@ -11,6 +11,7 @@ import { RustCaveatCard, SpecCard } from "@/components/spec-card";
 import { EquityRiskTable } from "@/components/equity-risk-table";
 import { HeroBloom, HeroHeadline } from "@/components/hero-headline";
 import { CtaSpotlight } from "@/components/cta-spotlight";
+import { AffiliateLink } from "@/components/affiliate-link";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import {
   TRACK_RECORD_WEEKS,
@@ -378,14 +379,9 @@ export default function HomePage() {
                 <Link href="/autopsy" className="btn-mint">
                   Start with the autopsy
                 </Link>
-                <a
-                  href={DERIV_AFFILIATE_URL}
-                  rel="sponsored noopener"
-                  target="_blank"
-                  className="btn-ghost"
-                >
+                <AffiliateLink placement="hero" className="btn-ghost">
                   Open $10 account
-                </a>
+                </AffiliateLink>
               </div>
             </CtaSpotlight>
           </Reveal>

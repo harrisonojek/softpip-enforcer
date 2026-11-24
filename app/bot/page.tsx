@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { SpecCard, RustCaveatCard } from "@/components/spec-card";
 import { EquityRiskTable } from "@/components/equity-risk-table";
+import { AffiliateLink } from "@/components/affiliate-link";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL, GITHUB_REPO_URL, SITE_URL } from "@/lib/seo";
 
@@ -367,14 +368,12 @@ export default function BotPage() {
                 Never connect The Enforcer to your main manual account. Open a dedicated $10 sub-account through the official link to keep your balances strictly segregated.
               </p>
             </div>
-            <a
-              href={DERIV_AFFILIATE_URL}
-              rel="sponsored noopener"
-              target="_blank"
+            <AffiliateLink
+              placement="bot"
               className="btn-mint shrink-0 self-start sm:self-auto"
             >
               Open segregated $10 account →
-            </a>
+            </AffiliateLink>
           </div>
         </Reveal>
       </div>

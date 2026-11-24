@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { AffiliateLink } from "@/components/affiliate-link";
 import {
   CONTACT_EMAIL,
   DERIV_AFFILIATE_URL,
@@ -62,14 +63,12 @@ export function Footer() {
               2025.
             </p>
             <div className="pt-1">
-              <a
-                href={DERIV_AFFILIATE_URL}
-                rel="sponsored noopener"
-                target="_blank"
+              <AffiliateLink
+                placement="footer"
                 className="inline-flex items-center min-h-[44px] type-small text-[var(--mint-text)] hover:underline font-medium"
               >
                 Open $10 account →
-              </a>
+              </AffiliateLink>
             </div>
           </div>
 
