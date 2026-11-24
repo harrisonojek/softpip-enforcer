@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
 
-export const SITE_URL = "https://softpip.com";
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "") ||
+  "https://softpip.vercel.app"
+).replace(/\/+$/, "");
 export const SITE_NAME = "SoftPip";
 
-export const DERIV_AFFILIATE_URL =
+const rawAffiliateUrl =
   process.env.NEXT_PUBLIC_AFFILIATE_LINK ||
   process.env.NEXT_PUBLIC_DERIV_AFFILIATE_URL ||
   "https://t.deriv.link?t=B9FG9YL4HJVF";
+
+export const DERIV_AFFILIATE_URL = rawAffiliateUrl.replace("t.deriv.link/?", "t.deriv.link?");
 export const INSTAGRAM_URL = "https://www.instagram.com/soft.pip";
 export const CONTACT_EMAIL = "softpip.contact@gmail.com";
 export const TELEGRAM_COMMUNITY_URL = "https://t.me/+UbVnSmaiazlhY2Nk";

@@ -1,13 +1,5 @@
 import React from "react";
 
-const DEFAULT_HEADLINE_WORDS = [
-  "Trade",
-  "with",
-  "rules,",
-  "not",
-  "feelings.",
-];
-
 export function HeroBloom() {
   return (
     <div
@@ -25,19 +17,23 @@ export function HeroBloom() {
   );
 }
 
-export function HeroHeadline({ words = DEFAULT_HEADLINE_WORDS }: { words?: string[] }) {
+export function HeroHeadline({ words }: { words?: string[] }) {
+  if (words && words.length > 0) {
+    return (
+      <h1 className="type-display m-0 max-w-[22ch]">
+        {words.map((w, idx) => (
+          <React.Fragment key={idx}>
+            {idx > 0 && " "}
+            <span className={w === "rules," ? "text-[var(--mint-text)]" : undefined}>{w}</span>
+          </React.Fragment>
+        ))}
+      </h1>
+    );
+  }
+
   return (
     <h1 className="type-display m-0 max-w-[22ch]">
-      {words.map((word, index) => (
-        <React.Fragment key={index}>
-          <span
-            className={word === "rules," ? "inline-block text-[var(--mint-text)]" : "inline-block"}
-          >
-            {word}
-          </span>
-          {index < words.length - 1 ? " " : ""}
-        </React.Fragment>
-      ))}
+      Trade with <span className="text-[var(--mint-text)]">rules,</span> not feelings.
     </h1>
   );
 }

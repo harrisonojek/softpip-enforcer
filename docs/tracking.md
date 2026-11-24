@@ -5,7 +5,7 @@
 SoftPip operates as an educational affiliate funnel for Deriv (Deriv Services Ltd). The platform maintains a single primary partner tracking token:
 
 - **Tracking Token:** `B9FG9YL4HJVF`
-- **Canonical Referral URL:** `https://t.deriv.link/?t=B9FG9YL4HJVF`
+- **Canonical Referral URL:** `https://t.deriv.link?t=B9FG9YL4HJVF`
 
 Every outgoing registration anchor across the website routes through this URL with standardized placement tags for internal attribution.
 
@@ -27,7 +27,7 @@ To measure conversion efficiency and user drop-off across the 14-phase funnel, o
 
 Example tagged referral link:
 ```
-https://t.deriv.link/?t=B9FG9YL4HJVF&utm_source=softpip&utm_medium=web&utm_campaign=funnel&utm_content=calculator
+https://t.deriv.link?t=B9FG9YL4HJVF&utm_source=softpip&utm_medium=web&utm_campaign=funnel&utm_content=calculator
 ```
 
 ---

@@ -17,7 +17,7 @@ const THREE_HOME_STATS: StatCell[] = [
     target: 32.45,
     suffix: "M",
     label: "lost",
-    detail: "₦32,450,000 lost across 8 months of unaudited trades in 2025.",
+    detail: "₦32,450,000 lost across 10 months of unaudited trades in 2025.",
     highlightMint: true,
   },
   {

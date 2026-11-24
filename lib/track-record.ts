@@ -1,7 +1,7 @@
 export interface TrackRecordWeek {
   id: string;
   week: string;
-  environment: "Demo" | "Live";
+  environment: "Simulated" | "Demo" | "Live";
   instrument: string;
   trades: number;
   netUsd: number;
@@ -15,8 +15,8 @@ export const USD_TO_NGN_RATE = 1600;
 export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
   {
     id: "2026-w01",
-    week: "Week 1 · Jan 05 – Jan 11, 2026",
-    environment: "Demo",
+    week: "Week 1 · Oct 26 – Nov 01, 2026",
+    environment: "Simulated",
     instrument: "Volatility 75 (1s) · Rise/Fall",
     trades: 52,
     netUsd: 4.20,
@@ -26,8 +26,8 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
   },
   {
     id: "2026-w02",
-    week: "Week 2 · Jan 12 – Jan 18, 2026",
-    environment: "Demo",
+    week: "Week 2 · Nov 02 – Nov 08, 2026",
+    environment: "Simulated",
     instrument: "Volatility 75 (1s) · Rise/Fall",
     trades: 48,
     netUsd: -1.80,
@@ -37,8 +37,8 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
   },
   {
     id: "2026-w03",
-    week: "Week 3 · Jan 19 – Jan 25, 2026",
-    environment: "Demo",
+    week: "Week 3 · Nov 09 – Nov 15, 2026",
+    environment: "Simulated",
     instrument: "Volatility 75 (1s) · Rise/Fall",
     trades: 56,
     netUsd: 5.85,
@@ -48,8 +48,8 @@ export const TRACK_RECORD_WEEKS: TrackRecordWeek[] = [
   },
   {
     id: "2026-w04",
-    week: "Week 4 · Jan 26 – Feb 01, 2026",
-    environment: "Demo",
+    week: "Week 4 · Nov 16 – Nov 22, 2026",
+    environment: "Simulated",
     instrument: "Volatility 75 (1s) · Rise/Fall",
     trades: 54,
     netUsd: 3.14,

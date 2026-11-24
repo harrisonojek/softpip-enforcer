@@ -100,7 +100,6 @@ const TESTIMONIALS = [
     quote:
       "Module 05 broke down why my ₦45,000 balance kept dying on step five of a 2× recovery ladder. Switching to a hard $1.00 daily loss floor kept my $10 test account alive past week four for the first time.",
     author: "Tunde",
-    handle: "PLACEHOLDER — confirm handle",
     role: "Beta tester",
     city: "Lagos",
   },
@@ -108,7 +107,6 @@ const TESTIMONIALS = [
     quote:
       "The autopsy read like my own statement history. No screenshots of sports cars, just the exact math on why missing stops and unverified bots wipe small accounts.",
     author: "Chinedu",
-    handle: "PLACEHOLDER — confirm handle",
     role: "Beta tester",
     city: "Port Harcourt",
   },
@@ -116,7 +114,6 @@ const TESTIMONIALS = [
     quote:
       "The 15-minute cool-off after two consecutive losses is the only reason I still have my initial deposit. When the bot halts and messages Telegram, I close the app.",
     author: "Aisha",
-    handle: "PLACEHOLDER — confirm handle",
     role: "Beta tester",
     city: "Abuja",
   },
@@ -465,7 +462,7 @@ export default function HomePage() {
                         {t.author}
                       </span>
                       <span className="type-micro text-[var(--text-45)] block">
-                        {t.role} · <span className="text-[var(--text-45)]/70">{t.handle}</span>
+                        {t.role}
                       </span>
                     </div>
                     <span className="type-micro text-[var(--text-45)]">
