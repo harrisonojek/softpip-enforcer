@@ -4,6 +4,7 @@ import { Reveal } from "@/components/reveal";
 import { SpecCard, RustCaveatCard } from "@/components/spec-card";
 import { EquityRiskTable } from "@/components/equity-risk-table";
 import { AffiliateLink } from "@/components/affiliate-link";
+import { AffiliateDisclosure } from "@/components/affiliate-disclosure";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL, GITHUB_REPO_URL, SITE_URL } from "@/lib/seo";
 
@@ -374,6 +375,9 @@ export default function BotPage() {
             >
               Open segregated $10 account →
             </AffiliateLink>
+          </div>
+          <div className="pt-3 max-w-[800px]">
+            <AffiliateDisclosure />
           </div>
         </Reveal>
       </div>

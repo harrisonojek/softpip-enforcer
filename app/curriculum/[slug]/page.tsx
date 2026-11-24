@@ -9,6 +9,8 @@ import {
   getAllCurriculumModules,
   getCurriculumModuleBySlug,
 } from "@/lib/content";
+import { AffiliateLink } from "@/components/affiliate-link";
+import { AffiliateDisclosure } from "@/components/affiliate-disclosure";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL, SITE_URL } from "@/lib/seo";
 
@@ -432,14 +434,15 @@ export default async function CurriculumDetailPage({ params }: ModulePageProps) 
                   Open a segregated $10 Deriv account to test these constraints on demo first.
                 </p>
               </div>
-              <a
-                href={DERIV_AFFILIATE_URL}
-                rel="sponsored noopener"
-                target="_blank"
+              <AffiliateLink
+                placement="curriculum"
                 className="btn-mint shrink-0"
               >
                 Open $10 account
-              </a>
+              </AffiliateLink>
+            </div>
+            <div className="pt-3 max-w-[800px]">
+              <AffiliateDisclosure />
             </div>
           </Reveal>
         </div>

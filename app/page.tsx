@@ -12,6 +12,7 @@ import { EquityRiskTable } from "@/components/equity-risk-table";
 import { HeroBloom, HeroHeadline } from "@/components/hero-headline";
 import { CtaSpotlight } from "@/components/cta-spotlight";
 import { AffiliateLink } from "@/components/affiliate-link";
+import { AffiliateDisclosure } from "@/components/affiliate-disclosure";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import {
   TRACK_RECORD_WEEKS,
@@ -382,6 +383,9 @@ export default function HomePage() {
                 <AffiliateLink placement="hero" className="btn-ghost">
                   Open $10 account
                 </AffiliateLink>
+              </div>
+              <div className="pt-2 border-t border-[var(--border)] w-full">
+                <AffiliateDisclosure />
               </div>
             </CtaSpotlight>
           </Reveal>

@@ -7,6 +7,8 @@ import { GateForm } from "@/components/gate-form";
 import { Reveal } from "@/components/reveal";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { AuthorProofBlock } from "@/components/author-proof";
+import { AffiliateLink } from "@/components/affiliate-link";
+import { AffiliateDisclosure } from "@/components/affiliate-disclosure";
 import { getAutopsyContent } from "@/lib/content";
 import { buildMetadata, DERIV_AFFILIATE_URL } from "@/lib/seo";
 
@@ -204,15 +206,16 @@ export default async function AutopsyPage() {
                 <Link href="/bot" className="btn-ghost">
                   Examine Bot
                 </Link>
-                <a
-                  href={DERIV_AFFILIATE_URL}
-                  rel="sponsored noopener"
-                  target="_blank"
+                <AffiliateLink
+                  placement="autopsy"
                   className="btn-ghost"
                 >
                   Open $10 account
-                </a>
+                </AffiliateLink>
               </div>
+            </div>
+            <div className="pt-4 max-w-[800px]">
+              <AffiliateDisclosure />
             </div>
           </Reveal>
         </div>

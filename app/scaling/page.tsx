@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { EquityRiskTable } from "@/components/equity-risk-table";
+import { AffiliateLink } from "@/components/affiliate-link";
+import { AffiliateDisclosure } from "@/components/affiliate-disclosure";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL } from "@/lib/seo";
 
@@ -159,6 +161,26 @@ export default function ScalingPage() {
             <span className="text-xs font-mono text-[var(--muted)] px-3 py-1.5 rounded-lg border border-[var(--border)] shrink-0 self-start sm:self-auto">
               In Development
             </span>
+          </div>
+        </Reveal>
+
+        {/* CTA Banner */}
+        <Reveal delayMs={360} className="max-w-[860px]">
+          <div className="surface-card p-8 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border border-[var(--mint)]/20">
+            <div className="flex flex-col gap-2 max-w-[500px]">
+              <h3 className="type-h3 m-0 text-[var(--foreground)]">
+                Ready to start Stage 1?
+              </h3>
+              <p className="type-body text-[var(--text-70)] m-0 text-sm">
+                Fund a dedicated $10 trial account through the official partner link to keep your balances strictly segregated.
+              </p>
+            </div>
+            <AffiliateLink placement="scaling" className="btn-mint shrink-0 self-start sm:self-auto">
+              Open $10 Trial Account →
+            </AffiliateLink>
+          </div>
+          <div className="pt-3">
+            <AffiliateDisclosure />
           </div>
         </Reveal>
       </div>
