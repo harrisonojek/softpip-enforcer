@@ -41,7 +41,7 @@ const HOW_IT_WORKS_STEPS = [
     title: "Take the free curriculum and bot",
     body: "Read the ten modules covering synthetic index RNG mechanics, risk-of-ruin math, and token security before deploying code.",
     ctaLabel: "Read curriculum →",
-    ctaHref: "/curriculum",
+    ctaHref: "/academy",
     external: false,
   },
   {
@@ -49,7 +49,7 @@ const HOW_IT_WORKS_STEPS = [
     title: "Follow the guardian limits",
     body: `Run The Enforcer on demo first. Let the $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} flat floor, $${GOVERNOR_SPEC.daily_loss_limit_floor_usd.toFixed(2)} daily loss floor (${Math.round(GOVERNOR_SPEC.daily_loss_limit_pct_of_equity * 100)}% of equity), and ${Math.round(GOVERNOR_SPEC.cool_off_seconds / 60)}-minute cool-off lock out revenge trades.`,
     ctaLabel: "Inspect the bot →",
-    ctaHref: "/bot",
+    ctaHref: "/labs/enforcer",
     external: false,
   },
 ];
@@ -103,7 +103,7 @@ export default function HomePage() {
                 <Link href="/autopsy" className="btn-mint">
                   Read the autopsy — free
                 </Link>
-                <Link href="/bot" className="btn-ghost">
+                <Link href="/labs/enforcer" className="btn-ghost">
                   Inspect the bot
                 </Link>
               </div>
@@ -203,7 +203,7 @@ export default function HomePage() {
               </p>
             </div>
             <Link
-              href="/curriculum"
+              href="/academy"
               className="btn-ghost shrink-0 self-start sm:self-auto"
             >
               View all 10 modules →
@@ -237,7 +237,7 @@ export default function HomePage() {
               </p>
             </div>
             <Link
-              href="/bot"
+              href="/labs/enforcer"
               className="btn-ghost shrink-0 self-start sm:self-auto"
             >
               Full bot specification →
@@ -273,7 +273,7 @@ export default function HomePage() {
               </p>
             </div>
             <Link
-              href="/track-record"
+              href="/labs/enforcer/track-record"
               className="btn-ghost shrink-0 self-start sm:self-auto"
             >
               Inspect full ledger →

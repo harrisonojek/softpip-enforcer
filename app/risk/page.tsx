@@ -88,7 +88,7 @@ export default function RiskPage() {
             <Link href="/autopsy" className="btn-secondary">
               Read the ₦32M Autopsy
             </Link>
-            <Link href="/curriculum" className="btn-secondary">
+            <Link href="/academy" className="btn-secondary">
               Review Module 01: Ruin Probability
             </Link>
             <a

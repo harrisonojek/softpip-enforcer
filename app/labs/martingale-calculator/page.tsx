@@ -133,7 +133,7 @@ export default function MartingaleCalculatorPage() {
             </p>
           </div>
           <Link
-            href="/curriculum/05-drawdown-math-recovery-ladders"
+            href="/academy/05-drawdown-math-recovery-ladders"
             className="btn-mint shrink-0 self-start sm:self-auto"
           >
             Read Module 05 →

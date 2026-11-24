@@ -94,7 +94,7 @@ export default function Volatility75StrategyPage() {
             </p>
           </div>
           <Link
-            href="/curriculum/06-contract-mechanics-ticks-duration-spread-cost"
+            href="/academy/06-contract-mechanics-ticks-duration-spread-cost"
             className="btn-mint shrink-0 self-start sm:self-auto"
           >
             Read Module 06 →

@@ -196,8 +196,8 @@ export default function FAQPage() {
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
-            <Link href="/curriculum" className="btn-secondary">
-              Curriculum →
+            <Link href="/academy" className="btn-secondary">
+              Academy →
             </Link>
             <a
               href={DERIV_AFFILIATE_URL}

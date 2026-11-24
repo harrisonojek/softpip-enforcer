@@ -234,7 +234,7 @@ export function RuinCalculator() {
           </span>
         </div>
         <Link
-          href="/bot"
+          href="/labs/enforcer"
           className="btn-mint text-xs py-2 px-3.5 shrink-0 self-start sm:self-auto"
         >
           Inspect The Enforcer Bot →

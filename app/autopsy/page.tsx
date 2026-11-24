@@ -200,10 +200,10 @@ export default async function AutopsyPage() {
               </div>
 
               <div className="flex flex-wrap items-center gap-3 shrink-0">
-                <Link href="/curriculum" className="btn-mint">
+                <Link href="/academy" className="btn-mint">
                   Start Curriculum →
                 </Link>
-                <Link href="/bot" className="btn-ghost">
+                <Link href="/labs/enforcer" className="btn-ghost">
                   Examine Bot
                 </Link>
                 <AffiliateLink

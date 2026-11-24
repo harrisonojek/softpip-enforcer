@@ -76,6 +76,32 @@ export default async function AcademyPage() {
           ))}
         </div>
 
+        {/* Pathway Card: Capital Scaling Ladder */}
+        <Reveal>
+          <Link
+            href="/scaling"
+            className="surface-card-interactive p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 no-underline group"
+          >
+            <div className="flex flex-col gap-2 max-w-[680px]">
+              <div className="inline-flex items-center gap-2">
+                <span className="type-micro uppercase text-[var(--mint-text)] font-semibold tracking-wider">
+                  Next Pathway · Capital Progression
+                </span>
+              </div>
+              <h2 className="type-h2 m-0 text-xl text-[var(--text)] group-hover:text-[var(--mint-text)] transition-colors">
+                The Capital Scaling Ladder: $10 to $1,000 →
+              </h2>
+              <p className="type-small text-[var(--text-70)] m-0 prose-col">
+                A mathematical progression model for small accounts: 30-trade batches, mechanical drawdown floors, and graduation criteria that protect capital as balance increases.
+              </p>
+            </div>
+            <div className="flex items-center gap-2 text-[var(--mint-text)] group-hover:translate-x-1 transition-transform shrink-0 font-medium type-small">
+              <span>Explore ladder</span>
+              <span aria-hidden="true">→</span>
+            </div>
+          </Link>
+        </Reveal>
+
         {/* Bottom Callout & Link */}
         <div className="pt-8 hairline-t">
           <Reveal>
