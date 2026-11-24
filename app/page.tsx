@@ -3,6 +3,7 @@ import Link from "next/link";
 import { IconMark } from "@/components/nav";
 import { Reveal } from "@/components/reveal";
 import { StatRow } from "@/components/stat-card";
+import { StatusLine } from "@/components/status-line";
 import {
   CURRICULUM_MODULES_PREVIEW,
   ModuleRow,
@@ -23,7 +24,7 @@ import { DERIV_AFFILIATE_URL, buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "SoftPip — Trade with rules, not feelings.",
   description:
-    "In 2025 I lost ₦32M trading. The full autopsy, ten-module curriculum, and open-source risk governor bot are free. You need $10 to start.",
+    "In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start.",
   path: "/",
 });
 
@@ -54,10 +55,50 @@ const HOW_IT_WORKS_STEPS = [
   },
 ];
 
+interface PillarItem {
+  name: string;
+  href: string;
+  status: "live" | "in build";
+  line: string;
+}
+
+const PILLARS: readonly PillarItem[] = [
+  {
+    name: "Academy",
+    href: "/academy",
+    status: "live",
+    line: "Free 10-module risk curriculum.",
+  },
+  {
+    name: "Labs",
+    href: "/labs",
+    status: "live",
+    line: "Open-source Python execution governors.",
+  },
+  {
+    name: "Intelligence",
+    href: "/academy/research",
+    status: "in build",
+    line: "Empirical market risk research.",
+  },
+  {
+    name: "Community",
+    href: "/community",
+    status: "live",
+    line: "Discipline-first trader Telegram room.",
+  },
+  {
+    name: "Partners",
+    href: "/partners",
+    status: "live",
+    line: "Transparent broker affiliate network.",
+  },
+];
+
 const TESTIMONIALS = [
   {
     quote:
-      "Module 05 broke down why my ₦45,000 balance kept dying on step five of a 2× recovery ladder. Switching to a hard $2.00 daily loss floor kept my $10 test account alive past week four for the first time.",
+      "Module 05 broke down why my ₦45,000 balance kept dying on step five of a 2× recovery ladder. Switching to a hard $1.00 daily loss floor kept my $10 test account alive past week four for the first time.",
     author: "Tunde",
     handle: "PLACEHOLDER — confirm handle",
     role: "Beta tester",
@@ -84,7 +125,7 @@ const TESTIMONIALS = [
 export default function HomePage() {
   return (
     <div>
-      {/* 1. Hero & 2. Two CTAs & 3. Stat row */}
+      {/* 1. Hero */}
       <section className="hero-section section-pad mint-glow hairline-b relative isolate overflow-hidden">
         <HeroBloom />
         <div className="container-shell flex flex-col gap-12 relative z-10">
@@ -95,23 +136,34 @@ export default function HomePage() {
 
             <Reveal delayMs={60} className="flex flex-col items-start gap-6">
               <p className="type-body text-[var(--text-70)] m-0 prose-col">
-                A free, open-source risk governor for Deriv synthetic indices. Enforces nine non-negotiable process limits so you survive on a $10 balance and unlock 1% sizing at $100.
+                In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start.
               </p>
 
-              {/* 2. Two CTAs */}
+              {/* Two CTAs */}
               <div className="flex flex-wrap items-center gap-3.5 pt-2">
                 <Link href="/autopsy" className="btn-mint">
-                  Read the autopsy — free
+                  Start with the autopsy
                 </Link>
                 <Link href="/labs/enforcer" className="btn-ghost">
-                  Inspect the bot
+                  See the Enforcer
                 </Link>
               </div>
             </Reveal>
           </div>
+        </div>
+      </section>
 
-          {/* 3. Stat row */}
-          <Reveal delayMs={120}>
+      {/* 2. Status line component */}
+      <section className="py-6 hairline-b bg-[var(--navy)]/40">
+        <div className="container-shell flex justify-center">
+          <StatusLine />
+        </div>
+      </section>
+
+      {/* 3. Three stats only */}
+      <section className="py-12 hairline-b">
+        <div className="container-shell">
+          <Reveal>
             <StatRow />
           </Reveal>
         </div>
@@ -126,8 +178,7 @@ export default function HomePage() {
             </span>
             <h2 className="type-h2 m-0">How it works</h2>
             <p className="type-body text-[var(--text-70)] m-0 prose-col">
-              Three steps designed to stop account blowups before you scale past
-              minimum stake.
+              Three steps designed to stop account blowups before you scale past minimum stake.
             </p>
           </Reveal>
 
@@ -138,35 +189,31 @@ export default function HomePage() {
                   <div className="flex flex-col gap-3">
                     <span
                       className={`type-micro tabular-nums ${
-                        idx === 0
+                        step.number === "01"
                           ? "text-[var(--mint-text)]"
                           : "text-[var(--text-45)]"
                       }`}
                     >
-                      {step.number}
+                      Step {step.number}
                     </span>
-                    <h3 className="type-h3 m-0 text-[var(--text)]">
-                      {step.title}
-                    </h3>
-                    <p className="type-small text-[var(--text-70)] m-0">
+                    <h3 className="type-h3 m-0">{step.title}</h3>
+                    <p className="type-small text-[var(--text-70)] m-0 prose-col">
                       {step.body}
                     </p>
                   </div>
 
                   <div>
                     {step.external ? (
-                      <a
-                        href={step.ctaHref}
-                        rel="sponsored noopener"
-                        target="_blank"
+                      <AffiliateLink
+                        placement="hero"
                         className="inline-flex items-center min-h-[44px] type-small text-[var(--mint-text)] hover:underline font-medium"
                       >
                         {step.ctaLabel}
-                      </a>
+                      </AffiliateLink>
                     ) : (
                       <Link
                         href={step.ctaHref}
-                        className="inline-flex items-center min-h-[44px] type-small text-[var(--text-70)] hover:text-[var(--text)] font-medium transition-colors"
+                        className="inline-flex items-center min-h-[44px] type-small text-[var(--mint-text)] hover:underline font-medium"
                       >
                         {step.ctaLabel}
                       </Link>
@@ -176,30 +223,60 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
 
-          <Reveal delayMs={180}>
-            <p className="type-small text-[var(--text-45)] m-0 prose-col">
-              Nothing is charged. I earn commission from Deriv, disclosed in the
-              footer.
-            </p>
+      {/* 5. Autopsy block, elevated (sit above academy preview) */}
+      <section className="section-pad hairline-b">
+        <div className="container-shell">
+          <Reveal>
+            <div className="surface-card p-8 sm:p-12 lg:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border border-[var(--border)]">
+              <div className="flex flex-col gap-4 max-w-[680px]">
+                <div className="inline-flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[var(--rust)]" aria-hidden="true" />
+                  <span className="type-micro uppercase text-[var(--rust)] font-semibold tracking-wider">
+                    Forensic Case Study · Free Publication
+                  </span>
+                </div>
+                <h2 className="type-h1 m-0 text-[var(--text)]">
+                  The ₦32M autopsy.
+                </h2>
+                <div className="flex flex-col gap-2 text-[var(--text-70)] type-body">
+                  <p className="m-0">
+                    An anatomical, line-by-line accounting of how ₦32,450,000 was lost trading synthetic indices across 2025.
+                  </p>
+                  <p className="m-0">
+                    Covers the 14-second liquidation cascade, unchecked Martingale doubling, and absent broker circuit breakers.
+                  </p>
+                  <p className="m-0">
+                    Published completely free because mastering risk of ruin must happen before risking live capital.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col gap-3 shrink-0">
+                <Link href="/autopsy" className="btn-mint">
+                  Read the autopsy — free →
+                </Link>
+                <span className="type-micro text-[var(--text-45)] text-center">
+                  8 sections · Unlocked
+                </span>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* 5. Curriculum preview */}
+      {/* 6. Academy preview */}
       <section className="section-pad hairline-b">
-        <div className="container-shell flex flex-col gap-10">
+        <div className="container-shell flex flex-col gap-8">
           <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="flex flex-col gap-3">
               <span className="type-micro uppercase text-[var(--text-45)]">
-                02 · Curriculum
+                02 · SoftPip Academy
               </span>
-              <h2 className="type-h2 m-0">
-                Ten modules. Built backwards from the failures.
-              </h2>
+              <h2 className="type-h2 m-0">Ten modules. Nothing locked.</h2>
               <p className="type-body text-[var(--text-70)] m-0 prose-col">
-                Most courses teach entries. These start at the thing that kills
-                accounts and work outward.
+                Most courses teach entries. These start at the thing that kills accounts and work outward.
               </p>
             </div>
             <Link
@@ -220,7 +297,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. Bot teaser */}
+      {/* 7. Labs preview */}
       <section className="section-pad hairline-b">
         <div className="container-shell flex flex-col gap-8">
           <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -232,8 +309,7 @@ export default function HomePage() {
                 Open-source risk governor for $10 accounts.
               </h2>
               <p className="type-body text-[var(--text-70)] m-0 prose-col">
-                Hard-coded position ceilings, drawdown halts, and socket
-                kill-switches written in Python. MIT licensed.
+                Hard-coded position ceilings, drawdown halts, and socket kill-switches written in Python. MIT licensed.
               </p>
             </div>
             <Link
@@ -258,18 +334,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. Track record strip */}
+      {/* 8. Ledger strip */}
       <section className="section-pad hairline-b">
         <div className="container-shell flex flex-col gap-10">
           <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="flex flex-col gap-3">
-              <span className="type-micro uppercase text-[var(--text-45)]">
-                04 · Verification
+              <span className="type-micro uppercase text-[var(--text-45)] font-mono">
+                04 · Verification · Simulated replay
               </span>
               <h2 className="type-h2 m-0">Last four weeks. Red weeks included.</h2>
               <p className="type-body text-[var(--text-70)] m-0 prose-col">
-                Logged weekly from demo forward-testing before any live promotion.
-                Past sessions are historical records, not forecasts.
+                Simulated replay with fixed payout and filtered entries. Win rate reflects the entry filter rather than predictive skill.
               </p>
             </div>
             <Link
@@ -323,13 +398,57 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8. Testimonials */}
+      {/* 9. Pillar strip */}
+      <section className="section-pad hairline-b">
+        <div className="container-shell flex flex-col gap-8">
+          <Reveal className="flex flex-col gap-2">
+            <span className="type-micro uppercase text-[var(--text-45)]">
+              05 · Structure
+            </span>
+            <h2 className="type-h2 m-0">The Five Pillars</h2>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {PILLARS.map((p, idx) => (
+              <Reveal key={p.name} delayMs={idx * 50}>
+                <Link
+                  href={p.href}
+                  className="surface-card-interactive p-5 flex flex-col justify-between gap-3 h-full no-underline group"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-semibold text-[var(--text)] group-hover:text-[var(--mint-text)] transition-colors">
+                      {p.name}
+                    </span>
+                    <span className={`type-micro px-2 py-0.5 rounded-full border font-mono ${
+                      p.status === "live"
+                        ? "border-[var(--mint)] text-[var(--mint-text)]"
+                        : "border-[var(--line)] text-[var(--text-45)]"
+                    }`}>
+                      {p.status}
+                    </span>
+                  </div>
+                  <p className="type-small text-[var(--text-70)] m-0 leading-snug">
+                    {p.line}
+                  </p>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 10. Testimonials */}
       <section className="section-pad hairline-b">
         <div className="container-shell flex flex-col gap-10">
           <Reveal staggerChildren className="flex flex-col gap-3">
-            <span className="type-micro uppercase text-[var(--text-45)]">
-              05 · Field notes
-            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="type-micro uppercase text-[var(--text-45)]">
+                06 · Field notes
+              </span>
+              <span className="type-micro px-2 py-0.5 rounded-full bg-[var(--slate)] border border-[var(--rule)] text-[var(--text-45)] font-mono">
+                Early users, unverified
+              </span>
+            </div>
             <h2 className="type-h2 m-0">Traders using the limits</h2>
           </Reveal>
 
@@ -360,7 +479,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9. Final CTA */}
+      {/* 11. Final CTA */}
       <section className="section-pad">
         <div className="container-shell">
           <Reveal>
@@ -372,9 +491,7 @@ export default function HomePage() {
                 Start with the autopsy. It&apos;s free.
               </h2>
               <p className="type-body text-[var(--text-70)] m-0 prose-col">
-                Read the full breakdown of the ₦32M loss before you fund or
-                configure a single trade. Then open a segregated $10 account and
-                enforce the limits.
+                Read the full breakdown of the ₦32M loss before you fund or configure a single trade. Then open a segregated $10 account and enforce the limits.
               </p>
               <div className="flex flex-wrap items-center gap-3.5 pt-2">
                 <Link href="/autopsy" className="btn-mint">

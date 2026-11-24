@@ -4,19 +4,11 @@ import React, { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 const DEFAULT_HEADLINE_WORDS = [
-  "I",
-  "lost",
-  "₦32,450,000",
-  "trading.",
-  "This",
-  "is",
-  "the",
-  "bot",
-  "that",
-  "would",
-  "have",
-  "stopped",
-  "it.",
+  "Trade",
+  "with",
+  "rules,",
+  "not",
+  "feelings.",
 ];
 
 export function HeroBloom() {
@@ -24,7 +16,7 @@ export function HeroBloom() {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    if (shouldReduceMotion) return;
+    if (!shouldReduceMotion) return;
 
     const onScroll = () => {
       setScrollY(window.scrollY);
@@ -74,10 +66,10 @@ export function HeroHeadline({ words = DEFAULT_HEADLINE_WORDS }: { words?: strin
             }}
             transition={{
               duration: 0.5,
-              delay: index * 0.03,
+              delay: index * 0.05,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className={word.startsWith("₦") ? "inline-block text-[var(--mint-text)]" : "inline-block"}
+            className={word === "rules," ? "inline-block text-[var(--mint-text)]" : "inline-block"}
           >
             {word}
           </motion.span>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { AuthorProofBlock } from "@/components/author-proof";
+import { StatusLine } from "@/components/status-line";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL } from "@/lib/seo";
 
@@ -12,6 +13,37 @@ export const metadata = buildMetadata({
     "Oghenerioborue Harrison Ekuetafia built SoftPip after losing ₦32M trading in 2025. Read the story of what happened, what survived, and why every tool is free.",
   path: "/about",
 });
+
+const WILL_NOT_DO_YET = [
+  {
+    title: "Paid tier",
+    detail: "The curriculum and the Enforcer are free permanently. Anything paid later sits alongside them, never in place of them.",
+  },
+  {
+    title: "Signals",
+    detail: "No entry alerts, no Telegram call channels, and no predictions. Discretionary signals create dependence and hide process failures.",
+  },
+  {
+    title: "Copy trading",
+    detail: "No account pooling or master-slave mirrors. Every trader must control their own execution socket and understand their risk parameters.",
+  },
+  {
+    title: "A second broker",
+    detail: "Deriv is currently our sole supported platform. We will not dilute risk governor compatibility across multiple venues until Deriv execution is mastered.",
+  },
+  {
+    title: "An Intelligence division",
+    detail: "Research remains an incubation track within SoftPip Academy until four empirical, peer-reviewed market papers are completed and published.",
+  },
+  {
+    title: "A newsletter",
+    detail: "We do not run email marketing blasts or weekly commentary. All communications happen publicly via the Telegram group and documentation.",
+  },
+  {
+    title: "A mobile app",
+    detail: "The Enforcer runs as a resilient Python daemon on VPS or Docker. We prioritize socket stability and circuit breaker reliability over mobile app gimmicks.",
+  },
+] as const;
 
 export default function AboutPage() {
   return (
@@ -32,6 +64,10 @@ export default function AboutPage() {
           <p className="type-body text-[var(--text-70)] m-0 prose-col">
             My name is Oghenerioborue Harrison Ekuetafia. In 2025 I lost ₦32,450,000 trading synthetic index derivatives. Here is what happened, what survived, and why every tool I build is free.
           </p>
+
+          <div className="pt-2">
+            <StatusLine className="mx-0" />
+          </div>
         </Reveal>
 
         {/* Author Proof Block */}
@@ -125,6 +161,10 @@ export default function AboutPage() {
             </p>
 
             <p className="type-body text-[var(--text-70)] m-0 leading-relaxed">
+              The curriculum and the Enforcer are free permanently. Anything paid later sits alongside them, never in place of them.
+            </p>
+
+            <p className="type-body text-[var(--text-70)] m-0 leading-relaxed">
               SoftPip operates on a Deriv affiliate revenue share model: 40% net revenue on Options volume, plus a 7.5% override on sub-partner commissions as a Master Partner. Under this model, my economic interest is 100% aligned with your long-term survival. If you blow up your $10 account in 30 minutes through Martingale doubling, I earn zero and lose a community member. I only earn when you stay disciplined, enforce your daily loss cap, survive month after month, and trade with mathematical restraint.
             </p>
 
@@ -133,6 +173,40 @@ export default function AboutPage() {
             </p>
           </Reveal>
         </div>
+
+        {/* What SoftPip will not do yet */}
+        <Reveal delayMs={160} className="surface-card p-8 sm:p-10 rounded-2xl flex flex-col gap-6 max-w-[800px] border border-[var(--border)]">
+          <div className="flex flex-col gap-2">
+            <span className="type-micro uppercase text-[var(--rust)] font-semibold tracking-wider">
+              Boundaries & Scope
+            </span>
+            <h2 className="type-h2 m-0 text-[var(--text)]">
+              What SoftPip will not do yet
+            </h2>
+            <p className="type-small text-[var(--text-70)] m-0">
+              To preserve architectural integrity and avoid the predatory traps of retail forex marketing, we hold firm non-negotiable boundaries:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            {WILL_NOT_DO_YET.map((item) => (
+              <div
+                key={item.title}
+                className="p-4 rounded-xl bg-[var(--slate)] border border-[var(--rule)] flex flex-col gap-1.5"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--rust)] shrink-0" aria-hidden="true" />
+                  <span className="type-small font-semibold text-[var(--text)]">
+                    {item.title}
+                  </span>
+                </div>
+                <p className="type-micro text-[var(--text-70)] m-0 leading-relaxed">
+                  {item.detail}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
 
         {/* Closing CTAs */}
         <div className="pt-8 hairline-t">

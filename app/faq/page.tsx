@@ -17,7 +17,7 @@ const FAQ_ITEMS: AccordionItem[] = [
     question: "Is it really free?",
     answer: (
       <p className="m-0">
-        Yes. The autopsy report, the ten curriculum modules, the Python source code for The Enforcer bot, and the Telegram community are 100% free with zero paywalls, locked tiers, or private subscription fees. The project is funded entirely via Deriv affiliate partner commissions when you open a new account through our referral link.
+        Yes. The curriculum and the Enforcer are free permanently. Anything paid later sits alongside them, never in place of them. SoftPip operates with zero upfront paywalls, locked tiers, or private subscription fees. The project is funded entirely via Deriv affiliate partner commissions when you open a new account through our referral link.
       </p>
     ),
   },
@@ -132,7 +132,7 @@ export default function FAQPage() {
         name: "Is it really free?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. The autopsy report, the ten curriculum modules, the Python source code for The Enforcer bot, and the Telegram community are 100% free with zero paywalls or subscription fees. The project is funded entirely via Deriv affiliate partner commissions.",
+          text: "Yes. The curriculum and the Enforcer are free permanently. Anything paid later sits alongside them, never in place of them. The project is funded entirely via Deriv affiliate partner commissions.",
         },
       },
       {

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { AffiliateLink } from "@/components/affiliate-link";
+import { StatusLine } from "@/components/status-line";
 import {
   CONTACT_EMAIL,
   VERBATIM_AFFILIATE_DISCLOSURE,
@@ -144,8 +145,13 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Status Line */}
+        <div className="pt-8 pb-4 flex justify-start">
+          <StatusLine className="mx-0 text-left" />
+        </div>
+
         {/* Verbatim Affiliate & Risk Disclosures */}
-        <div className="pt-8 flex flex-col gap-4 prose-col">
+        <div className="pt-4 flex flex-col gap-4 prose-col">
           <p className="type-micro text-[var(--text-45)] m-0">
             {VERBATIM_AFFILIATE_DISCLOSURE}
           </p>

@@ -13,51 +13,39 @@ export interface StatCell {
   highlightMint?: boolean;
 }
 
-const DEFAULT_HOME_STATS: StatCell[] = [
+const THREE_HOME_STATS: StatCell[] = [
   {
     prefix: "₦",
     target: 32.45,
     suffix: "M",
-    label: "real loss that forced this",
+    label: "lost",
     detail: "₦32,450,000 lost across 8 months of unaudited trades in 2025.",
     highlightMint: true,
   },
   {
     target: 28,
-    label: "days to account liquidation",
+    label: "trades a $10 account survives",
     detail: `A $10 account survives 28 flat losses at $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}; martingale wipes it in 5.`,
   },
   {
     prefix: "$",
-    target: GOVERNOR_SPEC.martingale_total_risk_usd,
-    label: "5-step 2× martingale risk",
-    detail: `A 2× ladder demands $${GOVERNOR_SPEC.martingale_total_risk_usd.toFixed(2)} on a $10 account (complete liquidation on step 5).`,
-  },
-  {
-    prefix: "$",
     target: 0,
-    label: "100% free & open-source",
-    detail: "No VIP signals, no course sales, zero subscriptions. Free forever under MIT.",
+    label: "cost to you",
+    detail: "The curriculum and the Enforcer are free permanently. Anything paid later sits alongside them, never in place of them.",
   },
 ];
 
-export function StatRow({ stats = DEFAULT_HOME_STATS }: { stats?: StatCell[] }) {
+export function StatRow({ stats = THREE_HOME_STATS }: { stats?: StatCell[] }) {
   return (
     <div className="surface-card overflow-hidden">
-      <div className="grid grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 md:grid-cols-3">
         {stats.map((cell, idx) => {
-          const borderClasses = [
-            idx % 2 === 1 ? "border-l border-[var(--rule)]" : "",
-            idx >= 2 ? "max-lg:border-t max-lg:border-[var(--rule)]" : "",
-            idx === 2 ? "lg:border-l lg:border-[var(--rule)]" : "",
-          ]
-            .filter(Boolean)
-            .join(" ");
+          const borderClasses = idx > 0 ? "md:border-l md:border-[var(--rule)] max-md:border-t max-md:border-[var(--rule)]" : "";
 
           return (
             <div
               key={cell.label}
-              className={`min-h-[96px] min-w-0 p-4 sm:p-6 lg:p-7 flex flex-col justify-between gap-2 ${borderClasses}`}
+              className={`min-h-[96px] min-w-0 p-5 sm:p-6 lg:p-7 flex flex-col justify-between gap-2 ${borderClasses}`}
             >
               <p
                 className={`type-h2 m-0 tabular-nums break-words whitespace-normal ${
