@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import { GateForm } from "@/components/gate-form";
 import { Reveal } from "@/components/reveal";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { AuthorProofBlock } from "@/components/author-proof";
 import { getAutopsyContent } from "@/lib/content";
 import { buildMetadata, DERIV_AFFILIATE_URL } from "@/lib/seo";
 
@@ -158,6 +159,11 @@ export default async function AutopsyPage() {
             </div>
           </Reveal>
         </div>
+
+        {/* Author Proof Block */}
+        <Reveal delayMs={160} className="max-w-[800px]">
+          <AuthorProofBlock />
+        </Reveal>
 
         {/* Closing CTAs linking to /curriculum and /bot */}
         <div className="pt-10 hairline-t">

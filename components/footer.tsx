@@ -111,28 +111,57 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Contact & Social */}
+          {/* Column 4: Verification & Contact */}
           <div>
             <p className="type-micro uppercase text-[var(--text-45)] m-0 mb-3">
-              Contact
+              Verification &amp; Code
             </p>
             <ul className="list-none p-0 m-0 flex flex-col gap-1">
+              <li>
+                <a
+                  href="https://github.com/harrisonojek/softpip-enforcer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center min-h-[44px] type-small text-[var(--mint-text)] hover:underline font-medium"
+                >
+                  GitHub Engine (@softpip-enforcer)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/harrisonojek/softpip-enforcer/releases/tag/v0.1.0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center min-h-[44px] type-small text-[var(--text-70)] hover:text-[var(--text)] transition-colors"
+                >
+                  Release v0.1.0 (Demo Gate)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/downloads/journal.csv"
+                  download="softpip-journal.csv"
+                  className="inline-flex items-center min-h-[44px] type-small text-[var(--text-70)] hover:text-[var(--text)] transition-colors font-mono"
+                >
+                  Download Raw Log (CSV)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://t.me/softpip_support"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center min-h-[44px] type-small text-[var(--text-70)] hover:text-[var(--text)] transition-colors"
+                >
+                  Telegram Community
+                </a>
+              </li>
               <li>
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
                   className="inline-flex items-center min-h-[44px] type-small text-[var(--text-70)] hover:text-[var(--text)] transition-colors break-all"
                 >
                   {CONTACT_EMAIL}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={INSTAGRAM_URL}
-                  rel="noopener me"
-                  target="_blank"
-                  className="inline-flex items-center min-h-[44px] type-small text-[var(--text-70)] hover:text-[var(--text)] transition-colors"
-                >
-                  Instagram (@soft.pip)
                 </a>
               </li>
             </ul>

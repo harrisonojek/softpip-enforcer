@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { AuthorProofBlock } from "@/components/author-proof";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL } from "@/lib/seo";
 
@@ -33,36 +34,9 @@ export default function AboutPage() {
           </p>
         </Reveal>
 
-        {/* Portrait Slot with Mint Caption */}
+        {/* Author Proof Block */}
         <Reveal delayMs={70} className="max-w-[800px]">
-          <div className="surface-card p-4 sm:p-5 flex flex-col gap-3 rounded-[20px] overflow-hidden">
-            <div
-              className="w-full aspect-[16/9] sm:aspect-[21/9] rounded-[16px] bg-[var(--slate)] border border-[var(--line)] flex items-center justify-center relative overflow-hidden"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle at 50% 50%, rgba(138, 245, 206, 0.08) 0%, rgba(20, 27, 35, 0.95) 100%)",
-              }}
-            >
-              {/* Minimal geometric graphic representing risk governor */}
-              <div className="flex flex-col items-center gap-2 select-none" aria-hidden="true">
-                <span className="w-12 h-12 rounded-full border border-[var(--mint)]/40 flex items-center justify-center text-[var(--mint-text)] font-mono text-sm">
-                  HE
-                </span>
-                <span className="type-micro uppercase text-[var(--text-45)] tracking-widest">
-                  Oghenerioborue Harrison Ekuetafia
-                </span>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1 pt-1">
-              <span className="type-small font-medium text-[var(--mint-text)]">
-                Oghenerioborue Harrison Ekuetafia · Founder, SoftPip
-              </span>
-              <span className="type-micro text-[var(--text-45)]">
-                Lagos & Warri, Nigeria · 2026
-              </span>
-            </div>
-          </div>
+          <AuthorProofBlock />
         </Reveal>
 
         {/* 700+ Words Narrative in 3 Distinct Sections */}
