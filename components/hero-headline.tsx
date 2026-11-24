@@ -3,7 +3,21 @@
 import React, { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
-const HEADLINE_WORDS = ["Trade", "with", "rules,", "not", "feelings."];
+const DEFAULT_HEADLINE_WORDS = [
+  "I",
+  "lost",
+  "₦32,450,000",
+  "trading.",
+  "This",
+  "is",
+  "the",
+  "bot",
+  "that",
+  "would",
+  "have",
+  "stopped",
+  "it.",
+];
 
 export function HeroBloom() {
   const shouldReduceMotion = useReducedMotion();
@@ -42,12 +56,12 @@ export function HeroBloom() {
   );
 }
 
-export function HeroHeadline() {
+export function HeroHeadline({ words = DEFAULT_HEADLINE_WORDS }: { words?: string[] }) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <h1 className="type-display m-0 max-w-[16ch]">
-      {HEADLINE_WORDS.map((word, index) => (
+    <h1 className="type-display m-0 max-w-[22ch]">
+      {words.map((word, index) => (
         <React.Fragment key={index}>
           <motion.span
             initial={{
@@ -60,14 +74,14 @@ export function HeroHeadline() {
             }}
             transition={{
               duration: 0.5,
-              delay: index * 0.04,
+              delay: index * 0.03,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="inline-block"
+            className={word.startsWith("₦") ? "inline-block text-[var(--mint-text)]" : "inline-block"}
           >
             {word}
           </motion.span>
-          {index < HEADLINE_WORDS.length - 1 ? " " : ""}
+          {index < words.length - 1 ? " " : ""}
         </React.Fragment>
       ))}
     </h1>

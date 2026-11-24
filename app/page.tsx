@@ -8,6 +8,7 @@ import {
   ModuleRow,
 } from "@/components/module-row";
 import { RustCaveatCard, SpecCard } from "@/components/spec-card";
+import { EquityRiskTable } from "@/components/equity-risk-table";
 import { HeroBloom, HeroHeadline } from "@/components/hero-headline";
 import { CtaSpotlight } from "@/components/cta-spotlight";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
@@ -54,20 +55,26 @@ const HOW_IT_WORKS_STEPS = [
 const TESTIMONIALS = [
   {
     quote:
-      "Module 05 broke down why my ₦45,000 balance kept dying on step five of a 2× recovery ladder. Switching to a hard $1.00 daily loss stop kept my $10 test account alive past week four for the first time.",
+      "Module 05 broke down why my ₦45,000 balance kept dying on step five of a 2× recovery ladder. Switching to a hard $2.00 daily loss floor kept my $10 test account alive past week four for the first time.",
     author: "Tunde",
+    handle: "PLACEHOLDER — confirm handle",
+    role: "Beta tester",
     city: "Lagos",
   },
   {
     quote:
       "The autopsy read like my own statement history. No screenshots of sports cars, just the exact math on why missing stops and unverified bots wipe small accounts.",
     author: "Chinedu",
+    handle: "PLACEHOLDER — confirm handle",
+    role: "Beta tester",
     city: "Port Harcourt",
   },
   {
     quote:
       "The 15-minute cool-off after three consecutive losses is the only reason I still have my initial deposit. When the bot halts and messages Telegram, I close the app.",
     author: "Aisha",
+    handle: "PLACEHOLDER — confirm handle",
+    role: "Beta tester",
     city: "Abuja",
   },
 ];
@@ -86,17 +93,16 @@ export default function HomePage() {
 
             <Reveal delayMs={60} className="flex flex-col items-start gap-6">
               <p className="type-body text-[var(--text-70)] m-0 prose-col">
-                In 2025 I lost ₦32M trading. The full autopsy is free. So is the
-                ten-module curriculum and the risk bot. You need $10 to start.
+                A free, open-source risk governor for Deriv synthetic indices. Enforces nine non-negotiable process limits so you survive on a $10 balance and unlock 1% sizing at $100.
               </p>
 
               {/* 2. Two CTAs */}
               <div className="flex flex-wrap items-center gap-3.5 pt-2">
                 <Link href="/autopsy" className="btn-mint">
-                  Start with the autopsy
+                  Read the autopsy — free
                 </Link>
                 <Link href="/bot" className="btn-ghost">
-                  See the bot
+                  Inspect the bot
                 </Link>
               </div>
             </Reveal>
@@ -243,6 +249,10 @@ export default function HomePage() {
           <Reveal delayMs={120}>
             <SpecCard />
           </Reveal>
+
+          <Reveal delayMs={180}>
+            <EquityRiskTable />
+          </Reveal>
         </div>
       </section>
 
@@ -329,9 +339,14 @@ export default function HomePage() {
                     “{t.quote}”
                   </p>
                   <div className="pt-4 hairline-t flex items-center justify-between">
-                    <span className="type-small font-medium text-[var(--text)]">
-                      {t.author}
-                    </span>
+                    <div>
+                      <span className="type-small font-medium text-[var(--text)] block">
+                        {t.author}
+                      </span>
+                      <span className="type-micro text-[var(--text-45)] block">
+                        {t.role} · <span className="text-[var(--text-45)]/70">{t.handle}</span>
+                      </span>
+                    </div>
                     <span className="type-micro text-[var(--text-45)]">
                       {t.city}
                     </span>

@@ -16,27 +16,28 @@ export interface StatCell {
 const DEFAULT_HOME_STATS: StatCell[] = [
   {
     prefix: "₦",
-    target: 32,
+    target: 32.45,
     suffix: "M",
-    label: "lost",
-    detail: "₦32M lost across unaudited positions in 2025.",
+    label: "real loss that forced this",
+    detail: "₦32,450,000 lost across 8 months of unaudited trades in 2025.",
     highlightMint: true,
   },
   {
     target: 28,
-    label: "trades a $10 account survives",
-    detail: `At the $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} minimum stake floor with zero wins.`,
+    label: "days to account liquidation",
+    detail: `A $10 account survives 28 flat losses at $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}; martingale wipes it in 5.`,
   },
   {
-    target: GOVERNOR_SPEC.max_ladder_steps,
-    label: "steps martingale can't complete",
-    detail: `A 2× ladder demands $${GOVERNOR_SPEC.martingale_total_risk_usd.toFixed(2)} by step ${GOVERNOR_SPEC.max_ladder_steps}.`,
+    prefix: "$",
+    target: GOVERNOR_SPEC.martingale_total_risk_usd,
+    label: "5-step 2× martingale risk",
+    detail: `A 2× ladder demands $${GOVERNOR_SPEC.martingale_total_risk_usd.toFixed(2)} on a $10 account (complete liquidation on step 5).`,
   },
   {
-    target: 40,
-    suffix: "%",
-    label: "of revenue funds this",
-    detail: "Monthly Deriv Options commission keeps every tool free.",
+    prefix: "$",
+    target: 0,
+    label: "100% free & open-source",
+    detail: "No VIP signals, no course sales, zero subscriptions. Free forever under MIT.",
   },
 ];
 
@@ -69,15 +70,16 @@ export function StatRow({ stats = DEFAULT_HOME_STATS }: { stats?: StatCell[] }) 
                   target={cell.target}
                   prefix={cell.prefix}
                   suffix={cell.suffix}
-                  durationMs={500}
-                />{" "}
-                <span className="type-h3 text-[var(--text)] font-medium break-words whitespace-normal">
+                />
+              </p>
+              <div>
+                <p className="type-caption text-[var(--text-45)] m-0 font-medium">
                   {cell.label}
-                </span>
-              </p>
-              <p className="type-small text-[var(--text-70)] m-0 break-words whitespace-normal">
-                {cell.detail}
-              </p>
+                </p>
+                <p className="type-detail text-[var(--text-45)] m-0 mt-0.5 line-clamp-2">
+                  {cell.detail}
+                </p>
+              </div>
             </div>
           );
         })}
