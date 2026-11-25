@@ -192,9 +192,6 @@ export default function ResearchPage() {
               <span className="type-h2 m-0 text-[var(--mint-text)] font-mono">
                 {formatUsdSigned(totals.totalNetUsd)}
               </span>
-              <span className="type-micro text-[var(--text-45)] font-mono">
-                {formatNairaSigned(totals.totalNetNaira)}
-              </span>
             </div>
 
             <div className="surface-card p-5 rounded-xl flex flex-col gap-1">

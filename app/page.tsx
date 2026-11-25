@@ -12,14 +12,14 @@ import { Accordion, type AccordionItem } from "@/components/accordion";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import {
   TRACK_RECORD_WEEKS,
-  formatNairaSigned,
+  formatUsdSigned,
 } from "@/lib/track-record";
 import { DERIV_AFFILIATE_URL, buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "SoftPip — Trade with rules, not feelings.",
   description:
-    "In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start. It scales from there.",
+    "In 2025 I lost ₦32,450,000 (≈$21,600) trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start. It scales from there.",
   path: "/",
 });
 
@@ -43,7 +43,7 @@ const WORKFLOW_STEPS = [
   {
     number: "03",
     title: "Fund $10 on Deriv",
-    body: `Open a segregated options account with $10 (~₦15,000) using our verified partner link. Risk no more than $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} per contract.`,
+    body: `Open a segregated options account with $10 (≈₦15,000) using our verified partner link. Risk no more than $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)} per contract.`,
     ctaLabel: "Open $10 account →",
     ctaHref: DERIV_AFFILIATE_URL,
     external: true,
@@ -105,7 +105,7 @@ const FAQ_ITEMS: AccordionItem[] = [
     question: "Why start at $10?",
     answer: (
       <p className="m-0">
-        Because ₦32M taught me that scaling an untested trading system before mastering risk of ruin is financial suicide. A $10 deposit (~₦15,000) provides genuine psychological skin in the game while capping your absolute downside at a lunch bill. Deriv allows $0.35 minimum stakes on Volatility 75 index options, which gives you exactly 28 trades to test execution discipline without risking your savings. Ten dollars is the smallest size at which the rules can be tested honestly. It is the entry point, not the ceiling — every limit scales by percentage from there.
+        Because ₦32M taught me that scaling an untested trading system before mastering risk of ruin is financial suicide. A $10 deposit (≈₦15,000) provides genuine psychological skin in the game while capping your absolute downside at a lunch bill. Deriv allows $0.35 minimum stakes on Volatility 75 index options, which gives you exactly 28 trades to test execution discipline without risking your savings. Ten dollars is the smallest size at which the rules can be tested honestly. It is the entry point, not the ceiling — every limit scales by percentage from there.
       </p>
     ),
   },
@@ -169,7 +169,7 @@ export default function HomePage() {
                 <HeroHeadline />
 
                 <p className="type-body text-[var(--text-70)] m-0 max-w-[56ch]">
-                  In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start. It scales from there.
+                  In 2025 I lost ₦32,450,000 <span className="text-[var(--text-45)]">(≈$21,600)</span> trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start. It scales from there.
                 </p>
 
                 {/* Rotating Tagline */}
@@ -533,7 +533,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-[var(--rule)] rounded-xl overflow-hidden divide-y sm:divide-y-0 divide-[var(--rule)] bg-[var(--navy)]">
             {TRACK_RECORD_WEEKS.map((item) => {
-              const isPositive = item.netNaira >= 0;
+              const isPositive = item.netUsd >= 0;
               return (
                 <div
                   key={item.id}
@@ -553,7 +553,7 @@ export default function HomePage() {
                         isPositive ? "text-[var(--mint-text)]" : "text-[var(--rust)]"
                       }`}
                     >
-                      {formatNairaSigned(item.netNaira)}
+                      {formatUsdSigned(item.netUsd)}
                     </p>
                   </div>
 

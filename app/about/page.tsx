@@ -69,7 +69,7 @@ export default function AboutPage() {
               That&apos;s long enough to have a method, and long enough to know a method isn&apos;t a system. Venture building, risk architecture and positioning took up the other three years, for founders and public figures across Nigeria. Two hundred operators protected is a number I can point at. The lesson that survived all of it was the one I ignored in my own trading: a decision without a system is just a mood.
             </p>
             <p className="m-0">
-              In 2025 that cost me ₦32,450,000 across ten months. Not one bad call. A ratchet on position size, stops I moved, and a bot I never audited.
+              In 2025 that cost me ₦32,450,000 <span className="text-[var(--text-45)]">(≈$21,600)</span> across ten months. Not one bad call. A ratchet on position size, stops I moved, and a bot I never audited.
             </p>
             <p className="m-0 text-[var(--mint-text)] font-medium">
               So I wrote the rules down, put them in code, and gave both away. That&apos;s SoftPip.

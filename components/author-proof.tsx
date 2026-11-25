@@ -34,7 +34,7 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
         </div>
 
         <p className="type-body text-[var(--text-70)] m-0 text-sm leading-relaxed max-w-[60ch]">
-          I&apos;m Harrison Ekuetafia Oghenerioborue. Six years trading synthetic indices, three of them building risk systems and positioning for founders and public figures. In 2025 I lost ₦32,450,000 across ten months. The Enforcer is what I built so the same account couldn&apos;t happen twice.
+          I&apos;m Harrison Ekuetafia Oghenerioborue. Six years trading synthetic indices, three of them building risk systems and positioning for founders and public figures. In 2025 I lost ₦32,450,000 <span className="text-[var(--text-45)]">(≈$21,600)</span> across ten months. The Enforcer is what I built so the same account couldn&apos;t happen twice.
         </p>
 
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-1 text-xs font-mono">

@@ -26,7 +26,7 @@ const FAQ_ITEMS: AccordionItem[] = [
     question: "Why start at $10?",
     answer: (
       <p className="m-0">
-        Because ₦32M taught me that scaling an untested trading system before mastering risk of ruin is financial suicide. A $10 deposit (~₦15,000) provides genuine psychological skin in the game while capping your absolute downside at a lunch bill. Deriv allows $0.35 minimum stakes on Volatility 75 index options, which gives you exactly 28 trades to test execution discipline without risking your savings. Ten dollars is the smallest size at which the rules can be tested honestly. It is the entry point, not the ceiling — every limit scales by percentage from there.
+        Because ₦32M taught me that scaling an untested trading system before mastering risk of ruin is financial suicide. A $10 deposit (≈₦15,000) provides genuine psychological skin in the game while capping your absolute downside at a lunch bill. Deriv allows $0.35 minimum stakes on Volatility 75 index options, which gives you exactly 28 trades to test execution discipline without risking your savings. Ten dollars is the smallest size at which the rules can be tested honestly. It is the entry point, not the ceiling — every limit scales by percentage from there.
       </p>
     ),
   },

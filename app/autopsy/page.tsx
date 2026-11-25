@@ -126,7 +126,7 @@ export default async function AutopsyPage() {
           <div className="inline-flex items-center gap-2.5">
             <span className="w-2.5 h-2.5 rounded-full bg-[var(--rust)]" aria-hidden="true" />
             <span className="type-micro uppercase text-[var(--rust)] tracking-wider">
-              Forensic Report · ₦32,450,000 Loss
+              Forensic Report · ₦32,450,000 <span className="text-[var(--text-45)]">(≈$21,600)</span> Loss
             </span>
           </div>
 
@@ -134,6 +134,10 @@ export default async function AutopsyPage() {
 
           <p className="type-body text-[var(--text-70)] m-0 prose-col">
             Every position, every mistake, dates and amounts. Eight pages. Free.
+          </p>
+
+          <p className="type-micro text-[var(--text-45)] m-0">
+            Converted at ₦1,500 to the dollar.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-1 type-micro text-[var(--text-45)]">

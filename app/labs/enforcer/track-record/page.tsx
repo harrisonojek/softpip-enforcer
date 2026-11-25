@@ -70,7 +70,6 @@ export default function TrackRecordPage() {
                   <th className="px-5 py-4 type-micro uppercase font-medium text-[var(--text-70)]">Instrument</th>
                   <th className="px-5 py-4 type-micro uppercase font-medium text-[var(--text-70)] text-right">Trades</th>
                   <th className="px-5 py-4 type-micro uppercase font-medium text-[var(--text-70)] text-right">Net (USD)</th>
-                  <th className="px-5 py-4 type-micro uppercase font-medium text-[var(--text-70)] text-right">Net (NGN)</th>
                   <th className="px-5 py-4 type-micro uppercase font-medium text-[var(--text-70)] text-right">Max DD</th>
                   <th className="px-5 py-4 type-micro uppercase font-medium text-[var(--text-70)]">Notes</th>
                 </tr>
@@ -101,9 +100,6 @@ export default function TrackRecordPage() {
                       >
                         {formatUsdSigned(w.netUsd)}
                       </td>
-                      <td className="px-5 py-4 type-small text-[var(--text-45)] tabular-nums text-right font-mono whitespace-nowrap">
-                        {formatNairaSigned(w.netNaira)}
-                      </td>
                       <td className="px-5 py-4 type-small text-[var(--text-70)] tabular-nums text-right font-mono">
                         {w.maxDrawdownPct.toFixed(1)}%
                       </td>
@@ -128,9 +124,6 @@ export default function TrackRecordPage() {
                     }`}
                   >
                     {formatUsdSigned(totals.totalNetUsd)}
-                  </td>
-                  <td className="px-5 py-4 tabular-nums text-right font-mono text-[var(--text-45)] whitespace-nowrap">
-                    {formatNairaSigned(totals.totalNetNaira)}
                   </td>
                   <td className="px-5 py-4 tabular-nums text-right font-mono text-[var(--rust)]">
                     {totals.worstDrawdownPct.toFixed(1)}%
