@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { GITHUB_REPO_URL } from "@/lib/seo";
+import { CONTACT_EMAIL } from "@/lib/seo";
 
 export function AuthorProofBlock({ className = "" }: { className?: string }) {
   return (
@@ -10,11 +10,12 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
       <div className="relative shrink-0 flex flex-col items-center">
         <div className="w-[96px] h-[96px] rounded-[22%] overflow-hidden border-2 border-[var(--mint)] bg-[var(--void)] relative">
           <Image
-            src="/images/author-harrison.png"
+            src="/images/author-face.png"
             alt=""
             width={96}
             height={96}
             className="w-full h-full object-cover"
+            style={{ objectPosition: "50% 16%" }}
           />
         </div>
         <span className="absolute -bottom-1 -right-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-[var(--void)] border border-[var(--rule)] text-[var(--text-45)]">
@@ -28,7 +29,7 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
             Harrison Ekuetafia Oghenerioborue
           </h3>
           <p className="text-xs font-mono text-[var(--mint-text)] m-0 mt-0.5">
-            Creator of SoftPip &amp; The Enforcer · Lagos, Nigeria
+            Founder, SoftPip · FCT Abuja, Nigeria
           </p>
         </div>
 
@@ -36,22 +37,23 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
           I&apos;m Harrison Ekuetafia Oghenerioborue. Six years trading synthetic indices, three of them building risk systems and positioning for founders and public figures. In 2025 I lost ₦32,450,000 across ten months. The Enforcer is what I built so the same account couldn&apos;t happen twice.
         </p>
 
-        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-1 text-xs font-mono">
+        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1 type-small text-[var(--text-70)] font-normal">
           <a
-            href={GITHUB_REPO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[var(--mint-text)] hover:underline inline-flex items-center gap-1.5"
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="text-[var(--text-70)] hover:text-[var(--text)] transition-colors no-underline font-normal"
           >
-            GitHub (@harrisonojek) →
+            {CONTACT_EMAIL}
           </a>
+          <span className="text-[var(--text-45)] select-none" aria-hidden="true">
+            ·
+          </span>
           <a
             href="https://t.me/softpip_support"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--text-70)] hover:text-[var(--text)] transition-colors inline-flex items-center gap-1.5"
+            className="text-[var(--text-70)] hover:text-[var(--text)] transition-colors no-underline font-normal"
           >
-            Telegram (@softpip_support)
+            Telegram @softpip_support
           </a>
         </div>
       </div>

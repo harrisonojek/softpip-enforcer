@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { AuthorProofBlock } from "@/components/author-proof";
-import { StatusLine } from "@/components/status-line";
 import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL } from "@/lib/seo";
 
@@ -92,10 +91,6 @@ export default function AboutPage() {
               <p className="m-0 text-[var(--mint-text)] font-medium">
                 So I wrote the rules down, put them in code, and gave both away. That&apos;s SoftPip.
               </p>
-            </div>
-
-            <div className="pt-2">
-              <StatusLine className="mx-0" />
             </div>
           </div>
         </Reveal>
