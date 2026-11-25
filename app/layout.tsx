@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { Intro } from "@/components/intro";
 import { SITE_NAME, SITE_URL, CONTACT_EMAIL, INSTAGRAM_URL } from "@/lib/seo";
 import "./globals.css";
 
@@ -82,6 +83,12 @@ export default function RootLayout({
   return (
     <html lang="en-NG">
       <body className="bg-[var(--void)] text-[var(--text)] antialiased">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem('softpip_intro')){document.documentElement.classList.add('has-intro');}}catch(e){}`,
+          }}
+        />
+        <Intro />
         <a href="#main" className="skip-link">
           Skip to main content
         </a>

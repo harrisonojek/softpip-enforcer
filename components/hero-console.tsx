@@ -207,8 +207,8 @@ export function HeroConsole() {
         </div>
 
         {/* Bottom-left micro footnote */}
-        <div className="pt-1 text-[10px] text-[var(--text-45)] font-mono">
-          Sample session — scripted, not live data.
+        <div className="pt-1 type-micro text-[var(--text-45)] font-mono">
+          Sample session
         </div>
       </div>
     </div>
