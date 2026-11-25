@@ -156,33 +156,33 @@ export default function HomePage() {
         <div className="container-shell relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left Column: Eyebrow, Headline, Sub, Rotating Tagline, CTAs */}
-            <div className="lg:col-span-7 flex flex-col items-start gap-6">
-              <div className="flex items-center gap-3">
+            <div className="lg:col-span-7 flex flex-col items-start">
+              {/* Top block: Mark (28px) -> 10px -> Tagline -> 20px -> Headline */}
+              <div className="flex flex-col items-start gap-[10px] pb-5">
                 <IconMark size={28} />
-                <div className="flex items-center gap-2.5">
-                  <span className="w-6 h-px bg-[var(--mint)] shrink-0" aria-hidden="true" />
-                  <span className="font-mono type-micro text-[var(--mint-text)] tracking-wider">
-                    No broker. No signals. No paywall.
-                  </span>
-                </div>
+                <span className="font-mono type-micro text-[var(--mint-text)] tracking-wider">
+                  No broker. No signals. No paywall.
+                </span>
               </div>
 
-              <HeroHeadline />
+              <div className="flex flex-col items-start gap-6">
+                <HeroHeadline />
 
-              <p className="type-body text-[var(--text-70)] m-0 max-w-[56ch]">
-                In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start.
-              </p>
+                <p className="type-body text-[var(--text-70)] m-0 max-w-[56ch]">
+                  In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start.
+                </p>
 
-              {/* Rotating Tagline */}
-              <RotatingTagline />
+                {/* Rotating Tagline */}
+                <RotatingTagline />
 
-              <div className="flex flex-wrap items-center gap-3.5 pt-2">
-                <Link href="/autopsy" className="btn-mint">
-                  Start with the autopsy
-                </Link>
-                <Link href="/labs/enforcer" className="btn-ghost">
-                  See the Enforcer
-                </Link>
+                <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                  <Link href="/autopsy" className="btn-mint">
+                    Start with the autopsy
+                  </Link>
+                  <Link href="/labs/enforcer" className="btn-ghost">
+                    See the Enforcer
+                  </Link>
+                </div>
               </div>
             </div>
 
