@@ -19,7 +19,7 @@ import { DERIV_AFFILIATE_URL, buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "SoftPip — Trade with rules, not feelings.",
   description:
-    "In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start.",
+    "In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start. It scales from there.",
   path: "/",
 });
 
@@ -102,10 +102,10 @@ const FAQ_ITEMS: AccordionItem[] = [
   },
   {
     id: "why-10-dollars",
-    question: "Why $10?",
+    question: "Why start at $10?",
     answer: (
       <p className="m-0">
-        Because ₦32M taught me that scaling an untested trading system before mastering risk of ruin is financial suicide. A $10 deposit (~₦15,000) provides genuine psychological skin in the game while capping your absolute downside at a lunch bill. Deriv allows $0.35 minimum stakes on Volatility 75 index options, which gives you exactly 28 trades to test execution discipline without risking your savings.
+        Because ₦32M taught me that scaling an untested trading system before mastering risk of ruin is financial suicide. A $10 deposit (~₦15,000) provides genuine psychological skin in the game while capping your absolute downside at a lunch bill. Deriv allows $0.35 minimum stakes on Volatility 75 index options, which gives you exactly 28 trades to test execution discipline without risking your savings. Ten dollars is the smallest size at which the rules can be tested honestly. It is the entry point, not the ceiling — every limit scales by percentage from there.
       </p>
     ),
   },
@@ -169,7 +169,7 @@ export default function HomePage() {
                 <HeroHeadline />
 
                 <p className="type-body text-[var(--text-70)] m-0 max-w-[56ch]">
-                  In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start.
+                  In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start. It scales from there.
                 </p>
 
                 {/* Rotating Tagline */}
@@ -205,16 +205,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. BENTO: BUILT FOR SMALL ACCOUNTS */}
+      {/* 5. BENTO: LIMITS THAT SCALE */}
       <section id="enforcer" className="scroll-mt-14 section-pad border-b border-[var(--rule)]">
         <div className="container-shell flex flex-col gap-10">
           <Reveal className="flex flex-col gap-3">
             <span className="font-mono text-xs uppercase tracking-widest text-[var(--mint-text)]">
-              | BUILT FOR SMALL ACCOUNTS
+              | LIMITS THAT SCALE
             </span>
-            <h2 className="type-h2 m-0">Three hard execution limits in code.</h2>
+            <h2 className="type-h2 m-0">Three hard limits, enforced at any size.</h2>
             <p className="type-body text-[var(--text-70)] m-0 prose-col">
-              Engineered specifically for small accounts where a single emotional error wipes out entire balances.
+              Every limit is a percentage of equity with a hard floor beneath it. On $10 the floor is $0.35 a trade. On $1,000 it is $10. The governor does not change with the balance.
             </p>
           </Reveal>
 
@@ -230,7 +230,7 @@ export default function HomePage() {
                   ${GOVERNOR_SPEC.daily_loss_limit_floor_usd.toFixed(2)}
                 </div>
                 <p className="type-small text-[var(--text-70)] m-0 leading-relaxed">
-                  Enforced in code. Capped at 10% equity or a hard $1.00 floor on a $10 account. Once triggered, execution halts permanently for the day.
+                  Enforced in code. Capped at 10% equity with a hard $1.00 floor at minimum balance. Once triggered, execution halts permanently for the day.
                 </p>
               </div>
               <div className="font-mono text-[11px] text-[var(--text-45)] pt-4 border-t border-[var(--rule)]">
@@ -404,7 +404,7 @@ export default function HomePage() {
               </span>
               <h2 className="type-h2 m-0">28 trades vs 5 trades to extinction.</h2>
               <p className="type-body text-[var(--text-70)] m-0 prose-col">
-                Why a $10 account survives 28 systematic attempts under flat $0.35 stakes, but dies in under 90 seconds under standard Martingale doubling.
+                An illustration of the floor: at $10 minimum equity, flat $0.35 stakes survive 28 consecutive losses, while standard Martingale doubling liquidates the balance in under 90 seconds.
               </p>
             </div>
             <Link

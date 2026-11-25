@@ -92,7 +92,7 @@ export default async function AcademyPage() {
                 The Capital Scaling Ladder: $10 to $1,000 →
               </h2>
               <p className="type-small text-[var(--text-70)] m-0 prose-col">
-                A mathematical progression model for small accounts: 30-trade batches, mechanical drawdown floors, and graduation criteria that protect capital as balance increases.
+                A mathematical progression model that scales from $10 to $1,000+: 30-trade batches, mechanical drawdown floors, and graduation criteria that protect capital as balance increases.
               </p>
             </div>
             <div className="flex items-center gap-2 text-[var(--mint-text)] group-hover:translate-x-1 transition-transform shrink-0 font-medium type-small">

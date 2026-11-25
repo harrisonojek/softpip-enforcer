@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | SoftPip",
   },
   description:
-    "In 2025 I lost ₦32M trading. The full autopsy, ten-module curriculum, and open-source risk governor bot are free. Start with a $10 account.",
+    "In 2025 I lost ₦32M trading. The full autopsy, ten-module curriculum, and open-source risk governor bot are free. Start with a $10 account. It scales from there.",
   alternates: {
     canonical: SITE_URL,
   },

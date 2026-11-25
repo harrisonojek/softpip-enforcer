@@ -8,7 +8,7 @@ import { buildMetadata, DERIV_AFFILIATE_URL, GITHUB_REPO_URL } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "Deriv Bot: The Free Open-Source Risk Governor Alternative — SoftPip",
   description:
-    "Stop buying scam Telegram Martingale bots that blow your account. The Enforcer is a free, MIT-licensed Python risk governor built for $10 Deriv accounts.",
+    "Stop buying scam Telegram Martingale bots that blow your account. The Enforcer is a free, MIT-licensed Python risk governor. $10 to $10,000, same rules.",
   path: "/labs/deriv-bot",
 });
 

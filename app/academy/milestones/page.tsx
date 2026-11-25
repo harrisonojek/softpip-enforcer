@@ -6,7 +6,7 @@ import { buildMetadata, DERIV_AFFILIATE_URL } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "The $10 Ladder — Account Milestones | SoftPip",
   description:
-    "A $10 account dies in about 28 trades at minimum stake. The ladder gets you past that. Four operational rungs with unlocks and honest failure notes.",
+    "At the $10 floor, flat minimum stakes allow about 28 trades before exhaustion. The ladder gets you past that. Four operational rungs with unlocks and honest failure notes.",
   path: "/academy/milestones",
 });
 
@@ -77,7 +77,7 @@ export default function MilestonesPage() {
           <h1 className="type-h1 m-0">The $10 ladder.</h1>
 
           <p className="type-body text-[var(--text-70)] m-0 prose-col">
-            A $10 account dies in about 28 trades at minimum stake. The ladder gets you past that.
+            At the $10 floor, flat minimum stakes allow about 28 trades before exhaustion. The ladder gets you past that.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">

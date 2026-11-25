@@ -58,7 +58,7 @@ const RESEARCH_PAPERS: readonly ResearchPaper[] = [
     status: "planned",
     title: "Asymmetric Ruin Dynamics: 1.3× Capped Ladders vs 2.0× Martingale Doubling",
     summary:
-      "A mathematical proof contrasting geometric stake escalation with capped progression slopes. Proves that surviving small accounts require hard-capped linear sequences under 35% total risk.",
+      "A mathematical proof contrasting geometric stake escalation with capped progression slopes. Proves that surviving accounts require hard-capped linear sequences under 35% total risk.",
     tag: "Risk Modeling",
   },
 ];

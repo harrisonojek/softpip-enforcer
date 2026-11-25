@@ -22,8 +22,8 @@ const THREE_HOME_STATS: StatCell[] = [
   },
   {
     target: 28,
-    label: "trades a $10 account survives",
-    detail: `A $10 account survives 28 flat losses at $${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}; martingale wipes it in 5.`,
+    label: "floor trades at minimum equity ($10)",
+    detail: `At the $10 floor, flat minimum stakes survive 28 losses; martingale wipes it in 5.`,
   },
   {
     prefix: "$",

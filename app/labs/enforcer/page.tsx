@@ -11,7 +11,7 @@ import { buildMetadata, DERIV_AFFILIATE_URL, GITHUB_REPO_URL, SITE_URL } from "@
 export const metadata = buildMetadata({
   title: "The Enforcer — Open Source Risk Governor | SoftPip",
   description:
-    "Most bots optimise entries. This one optimises survival. Open source, MIT, free risk governor for $10 Deriv accounts.",
+    "Most bots optimise entries. This one optimises survival. Open-source risk governor. $10 to $10,000, same rules.",
   path: "/labs/enforcer",
 });
 
@@ -104,7 +104,7 @@ const softwareJsonLd = {
     priceCurrency: "USD",
   },
   description:
-    "Open-source risk governor and trade executor for Deriv synthetic index accounts, designed for $10 account survival.",
+    "Open-source risk governor and trade executor for Deriv synthetic index accounts. $10 to $10,000, same rules.",
   url: `${SITE_URL}/labs/enforcer`,
 };
 
@@ -131,7 +131,7 @@ export default function BotPage() {
           <h1 className="type-h1 m-0">The Enforcer.</h1>
 
           <p className="type-body text-[var(--text-70)] m-0 prose-col">
-            Most bots optimise entries. This one optimises survival. Open source, MIT, free.
+            Open-source risk governor. $10 to $10,000, same rules.
           </p>
 
           {/* Status Banner */}
