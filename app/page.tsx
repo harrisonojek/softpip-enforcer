@@ -5,6 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { StatusLine } from "@/components/status-line";
 import { EquityRiskTable } from "@/components/equity-risk-table";
 import { HeroBloom, HeroHeadline } from "@/components/hero-headline";
+import { HeroConsole } from "@/components/hero-console";
 import { AffiliateLink } from "@/components/affiliate-link";
 import { AffiliateDisclosure } from "@/components/affiliate-disclosure";
 import { Accordion, type AccordionItem } from "@/components/accordion";
@@ -168,7 +169,7 @@ export default function HomePage() {
               <div className="flex items-center gap-3">
                 <IconMark size={28} />
                 <span className="font-mono text-xs uppercase tracking-widest text-[var(--mint-text)]">
-                  | INCIDENT REPORT
+                  | RISK TOOLING FOR $10 ACCOUNTS
                 </span>
               </div>
 
@@ -188,103 +189,9 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Column: CSS-built Enforcer Console Frame */}
+            {/* Right Column: Hero Console with Liveness */}
             <div className="lg:col-span-5 w-full">
-              <div className="relative group">
-                {/* Radial Mint Glow behind console */}
-                <div
-                  aria-hidden="true"
-                  className="absolute -inset-4 bg-[radial-gradient(circle_at_60%_30%,rgba(122,243,198,0.14)_0%,transparent_70%)] rounded-2xl blur-xl pointer-events-none"
-                />
-
-                <div className="relative rounded-xl border border-[var(--rule)] bg-[var(--navy)]/90 backdrop-blur-md overflow-hidden shadow-2xl">
-                  {/* Console Top Header */}
-                  <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--rule)] bg-[var(--slate)]/80">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[var(--rust)]/80" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[var(--mint)]/80" />
-                      <span className="font-mono text-[11px] text-[var(--text-45)] ml-2">
-                        enforcer.py — v0.1.0
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5 font-mono text-[10px] text-[var(--mint-text)] px-2 py-0.5 rounded-full border border-[var(--mint)]/30 bg-[var(--mint)]/10">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--mint)] animate-pulse" />
-                      <span>ACTIVE</span>
-                    </div>
-                  </div>
-
-                  {/* Static Spec Values Grid */}
-                  <div className="p-4 sm:p-5 flex flex-col gap-4 font-mono">
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="p-3 rounded-lg border border-[var(--rule)] bg-[var(--void)]/60 flex flex-col gap-1">
-                        <span className="text-[10px] text-[var(--text-45)] uppercase tracking-wider">
-                          Daily Loss Floor
-                        </span>
-                        <span className="text-base font-semibold text-[var(--text)]">
-                          ${GOVERNOR_SPEC.daily_loss_limit_floor_usd.toFixed(2)}
-                        </span>
-                        <span className="text-[10px] text-[var(--mint-text)]">
-                          10% equity ceiling
-                        </span>
-                      </div>
-
-                      <div className="p-3 rounded-lg border border-[var(--rule)] bg-[var(--void)]/60 flex flex-col gap-1">
-                        <span className="text-[10px] text-[var(--text-45)] uppercase tracking-wider">
-                          Base Stake
-                        </span>
-                        <span className="text-base font-semibold text-[var(--text)]">
-                          ${GOVERNOR_SPEC.base_stake_usd.toFixed(2)}
-                        </span>
-                        <span className="text-[10px] text-[var(--text-70)]">
-                          Floor contract size
-                        </span>
-                      </div>
-
-                      <div className="p-3 rounded-lg border border-[var(--rule)] bg-[var(--void)]/60 flex flex-col gap-1">
-                        <span className="text-[10px] text-[var(--text-45)] uppercase tracking-wider">
-                          Ladder Step
-                        </span>
-                        <span className="text-base font-semibold text-[var(--text)]">
-                          Step 1 of {GOVERNOR_SPEC.max_ladder_steps}
-                        </span>
-                        <span className="text-[10px] text-[var(--text-70)]">
-                          {GOVERNOR_SPEC.multiplier}× geometric
-                        </span>
-                      </div>
-
-                      <div className="p-3 rounded-lg border border-[var(--rule)] bg-[var(--void)]/60 flex flex-col gap-1">
-                        <span className="text-[10px] text-[var(--text-45)] uppercase tracking-wider">
-                          Cool-Off State
-                        </span>
-                        <span className="text-base font-semibold text-[var(--text)]">
-                          {Math.round(GOVERNOR_SPEC.cool_off_seconds / 60)}m Locked
-                        </span>
-                        <span className="text-[10px] text-[var(--mint-text)]">
-                          {GOVERNOR_SPEC.max_consecutive_losses} losses trigger
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Terminal Stream Feed */}
-                    <div className="p-3 rounded-lg border border-[var(--rule)] bg-[var(--void)] text-[11px] leading-relaxed flex flex-col gap-1 font-mono text-[var(--text-70)]">
-                      <div className="flex items-center justify-between text-[10px] text-[var(--text-45)] pb-1 border-b border-[var(--rule)]">
-                        <span>WS_FEED: wss://ws.derivws.com</span>
-                        <span className="text-[var(--mint-text)]">200 OK</span>
-                      </div>
-                      <p className="m-0 text-[var(--text-45)]">
-                        [10:14:02] <span className="text-[var(--mint-text)]">AUTH_OK</span> token: live_options_segregated
-                      </p>
-                      <p className="m-0 text-[var(--text-45)]">
-                        [10:14:03] <span className="text-[var(--mint-text)]">SPEC_LOCK</span> floor=$1.00 · multiplier=1.3x
-                      </p>
-                      <p className="m-0 text-[var(--text-45)]">
-                        [10:14:05] <span className="text-[var(--text)]">GOVERNOR</span> tilt breaker armed (15m lockout)
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <HeroConsole />
             </div>
           </div>
         </div>
@@ -506,9 +413,9 @@ export default function HomePage() {
 
                     {/* Summary row */}
                     <div className="pt-3 border-t border-[var(--rule)] flex items-center justify-between">
-                      <span className="text-[11px] text-[var(--text-45)] uppercase">Cumulative Loss</span>
+                      <span className="text-[11px] text-[var(--text-45)] uppercase">Cascade Total</span>
                       <span className="text-base font-semibold text-[var(--rust)] tabular-nums">
-                        -₦32,450,000.00
+                        -$775.00 USD
                       </span>
                     </div>
                   </div>
