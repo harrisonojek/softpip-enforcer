@@ -262,11 +262,11 @@ html.has-intro #softpip-intro {
 }
 
 @keyframes introOverlay {
-  0%, 82.05% {
+  0%, 82.05% { /* 0 - 1600ms */
     opacity: 1;
     visibility: visible;
   }
-  100% {
+  100% { /* 1950ms */
     opacity: 0;
     visibility: hidden;
   }
@@ -277,41 +277,53 @@ html.has-intro #softpip-intro {
     opacity: 0;
     transform: scale(0.94);
   }
-  23.08% {
+  23.08% { /* 450ms */
     opacity: 1;
     transform: scale(1);
   }
-  56.41% {
-    opacity: 0;
+  82.05% { /* 1600ms */
+    opacity: 1;
     transform: scale(1);
   }
-  100% {
+  100% { /* 1950ms - whole lockup fades out together with overlay */
     opacity: 0;
     transform: scale(1);
   }
 }
 
 @keyframes introWordmark {
-  0%, 23.08% {
+  0% {
     opacity: 0;
     transform: translateX(-10px);
     clip-path: inset(0 100% 0 0);
     -webkit-clip-path: inset(0 100% 0 0);
   }
-  56.41% {
+  23.07% {
+    opacity: 0;
+    transform: translateX(-10px);
+    clip-path: inset(0 100% 0 0);
+    -webkit-clip-path: inset(0 100% 0 0);
+  }
+  23.08% { /* 450ms - Phase 2 begins: opacity 1 throughout */
+    opacity: 1;
+    transform: translateX(-10px);
+    clip-path: inset(0 100% 0 0);
+    -webkit-clip-path: inset(0 100% 0 0);
+  }
+  56.41% { /* 1100ms - Phase 2 ends: wordmark fully revealed */
     opacity: 1;
     transform: translateX(0);
     clip-path: inset(0 0 0 0);
     -webkit-clip-path: inset(0 0 0 0);
   }
-  82.05% {
+  82.05% { /* 1600ms - Phase 3 hold ends: both at full opacity */
     opacity: 1;
     transform: translateX(0);
     clip-path: inset(0 0 0 0);
     -webkit-clip-path: inset(0 0 0 0);
   }
-  100% {
-    opacity: 1;
+  100% { /* 1950ms - Phase 4: whole lockup fades out together with overlay */
+    opacity: 0;
     transform: translateX(0);
     clip-path: inset(0 0 0 0);
     -webkit-clip-path: inset(0 0 0 0);
@@ -320,26 +332,34 @@ html.has-intro #softpip-intro {
 
 @media (prefers-reduced-motion: reduce) {
   .intro-overlay {
-    animation: introOverlayReduced 300ms ease-out forwards !important;
+    animation: introOverlayReduced 1200ms ease-out forwards !important;
   }
   .intro-mark {
-    animation: none !important;
-    opacity: 0 !important;
+    animation: introReducedAppear 300ms ease-out forwards !important;
   }
   .intro-wordmark {
-    animation: none !important;
-    opacity: 1 !important;
+    animation: introReducedAppear 300ms ease-out forwards !important;
     transform: none !important;
     clip-path: none !important;
     -webkit-clip-path: none !important;
   }
 }
 
-@keyframes introOverlayReduced {
+@keyframes introReducedAppear {
   0% {
-    opacity: 1;
+    opacity: 0;
   }
   100% {
+    opacity: 1;
+  }
+}
+
+@keyframes introOverlayReduced {
+  0%, 75% { /* 0 - 900ms */
+    opacity: 1;
+    visibility: visible;
+  }
+  100% { /* 900 - 1200ms */
     opacity: 0;
     visibility: hidden;
   }
