@@ -2,10 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { IconMark } from "@/components/nav";
 import { Reveal } from "@/components/reveal";
-import { StatusLine } from "@/components/status-line";
 import { EquityRiskTable } from "@/components/equity-risk-table";
 import { HeroBloom, HeroHeadline } from "@/components/hero-headline";
 import { HeroConsole } from "@/components/hero-console";
+import { RotatingTagline } from "@/components/rotating-tagline";
 import { AffiliateLink } from "@/components/affiliate-link";
 import { AffiliateDisclosure } from "@/components/affiliate-disclosure";
 import { Accordion, type AccordionItem } from "@/components/accordion";
@@ -22,15 +22,6 @@ export const metadata = buildMetadata({
     "In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start.",
   path: "/",
 });
-
-const ANCHOR_LINKS = [
-  { label: "Overview", href: "#overview" },
-  { label: "Autopsy", href: "#autopsy" },
-  { label: "Enforcer", href: "#enforcer" },
-  { label: "Ledger", href: "#ledger" },
-  { label: "Pillars", href: "#pillars" },
-  { label: "FAQ", href: "#faq" },
-];
 
 const WORKFLOW_STEPS = [
   {
@@ -160,17 +151,20 @@ export default function HomePage() {
   return (
     <div className="w-full">
       {/* 1. HERO SECTION */}
-      <section className="relative isolate overflow-hidden border-b border-[var(--rule)] mint-glow pt-12 pb-16 lg:py-24">
+      <section className="relative isolate overflow-hidden border-b border-[var(--rule)] mint-glow pt-12 pb-[90px] lg:pt-24 lg:pb-[135px]">
         <HeroBloom />
         <div className="container-shell relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            {/* Left Column: Eyebrow, Headline, Sub, CTAs */}
+            {/* Left Column: Eyebrow, Headline, Sub, Rotating Tagline, CTAs */}
             <div className="lg:col-span-7 flex flex-col items-start gap-6">
               <div className="flex items-center gap-3">
                 <IconMark size={28} />
-                <span className="font-mono text-xs uppercase tracking-widest text-[var(--mint-text)]">
-                  | RISK TOOLING FOR $10 ACCOUNTS
-                </span>
+                <div className="flex items-center gap-2.5">
+                  <span className="w-6 h-px bg-[var(--mint)] shrink-0" aria-hidden="true" />
+                  <span className="font-mono type-micro text-[var(--mint-text)] tracking-wider">
+                    No broker. No signals. No paywall.
+                  </span>
+                </div>
               </div>
 
               <HeroHeadline />
@@ -178,6 +172,9 @@ export default function HomePage() {
               <p className="type-body text-[var(--text-70)] m-0 max-w-[56ch]">
                 In 2025 I lost ₦32.45M trading. The full autopsy is free. So is the ten-module curriculum and the risk bot. You need $10 to start.
               </p>
+
+              {/* Rotating Tagline */}
+              <RotatingTagline />
 
               <div className="flex flex-wrap items-center gap-3.5 pt-2">
                 <Link href="/autopsy" className="btn-mint">
@@ -194,35 +191,6 @@ export default function HomePage() {
               <HeroConsole />
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* 2. ANCHOR ROW */}
-      <nav
-        aria-label="Section shortcuts"
-        className="border-b border-[var(--rule)] bg-[var(--navy)]/80 backdrop-blur-md sticky top-0 z-30"
-      >
-        <div className="container-shell flex items-center justify-center overflow-x-auto py-3.5">
-          <div className="flex items-center gap-3 sm:gap-6 text-xs font-mono tracking-wider uppercase whitespace-nowrap">
-            {ANCHOR_LINKS.map((link, idx) => (
-              <React.Fragment key={link.href}>
-                {idx > 0 && <span className="text-[var(--text-45)] select-none">·</span>}
-                <a
-                  href={link.href}
-                  className="text-[var(--text-70)] hover:text-[var(--mint-text)] transition-colors py-1"
-                >
-                  {link.label}
-                </a>
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-      </nav>
-
-      {/* 3. STATUS LINE */}
-      <section className="py-5 border-b border-[var(--rule)] bg-[var(--slate)]/40">
-        <div className="container-shell flex justify-center">
-          <StatusLine />
         </div>
       </section>
 
