@@ -18,9 +18,6 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
             className="w-full h-full object-cover"
           />
         </div>
-        <span className="text-[10px] font-mono text-[var(--text-45)] mt-1.5 text-center">
-          placeholder
-        </span>
         <span className="absolute -bottom-1 -right-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-[var(--void)] border border-[var(--rule)] text-[var(--text-45)]">
           Author
         </span>
@@ -29,7 +26,7 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
       <div className="flex flex-col gap-3 text-center sm:text-left">
         <div>
           <h3 className="type-h3 m-0 text-[var(--foreground)] font-semibold">
-            Oghenerioborue Harrison Ekuetafia
+            Harrison Ekuetafia Oghenerioborue
           </h3>
           <p className="text-xs font-mono text-[var(--mint-text)] m-0 mt-0.5">
             Creator of SoftPip &amp; The Enforcer · Lagos, Nigeria
@@ -37,7 +34,7 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
         </div>
 
         <p className="type-body text-[var(--text-70)] m-0 text-sm leading-relaxed max-w-[60ch]">
-          Software engineer and synthetic indices researcher. After documenting a ₦32,450,000 personal loss across eight months of discretionary options trading in 2025, Harrison designed and released The Enforcer as an open-source risk governor to mechanically enforce position sizing and loss limits.
+          I&apos;m Harrison Ekuetafia Oghenerioborue. Six years trading synthetic indices, three of them building risk systems and positioning for founders and public figures. In 2025 I lost ₦32,450,000 across ten months. The Enforcer is what I built so the same account couldn&apos;t happen twice.
         </p>
 
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-1 text-xs font-mono">
@@ -57,9 +54,6 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
           >
             Telegram (@softpip_support)
           </a>
-          <span className="text-[var(--text-45)] text-[10px]">
-            [Photo: PLACEHOLDER — confirm headshot]
-          </span>
         </div>
       </div>
     </div>

@@ -61,13 +61,20 @@ export default function AboutPage() {
 
           <h1 className="type-h1 m-0">The engineer behind the autopsy.</h1>
 
-          <p className="type-body text-[var(--mint-text)] font-medium m-0">
-            Markets move. Knowledge evolves. Discipline remains.
-          </p>
-
-          <p className="type-body text-[var(--text-70)] m-0 prose-col">
-            My name is Oghenerioborue Harrison Ekuetafia. In 2025 I lost ₦32,450,000 trading synthetic index derivatives. Here is what happened, what survived, and why every tool I build is free.
-          </p>
+          <div className="flex flex-col gap-4 type-body text-[var(--text-70)] prose-col leading-relaxed">
+            <p className="m-0 text-[var(--text)] font-medium">
+              I&apos;m Harrison Ekuetafia Oghenerioborue. I&apos;ve traded synthetic indices for six years.
+            </p>
+            <p className="m-0">
+              That&apos;s long enough to have a method, and long enough to know a method isn&apos;t a system. Venture building, risk architecture and positioning took up the other three years, for founders and public figures across Nigeria. Two hundred operators protected is a number I can point at. The lesson that survived all of it was the one I ignored in my own trading: a decision without a system is just a mood.
+            </p>
+            <p className="m-0">
+              In 2025 that cost me ₦32,450,000 across ten months. Not one bad call. A ratchet on position size, stops I moved, and a bot I never audited.
+            </p>
+            <p className="m-0 text-[var(--mint-text)] font-medium">
+              So I wrote the rules down, put them in code, and gave both away. That&apos;s SoftPip.
+            </p>
+          </div>
 
           <div className="pt-2">
             <StatusLine className="mx-0" />
