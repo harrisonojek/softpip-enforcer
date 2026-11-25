@@ -34,6 +34,8 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
+  authors: [{ name: "Harrison Ekuetafia Oghenerioborue" }],
+  creator: "Harrison Ekuetafia Oghenerioborue",
   openGraph: {
     title: "SoftPip — Trade with rules, not feelings.",
     description:
@@ -68,7 +70,7 @@ const organizationJsonLd = {
   email: CONTACT_EMAIL,
   founder: {
     "@type": "Person",
-    name: "Oghenerioborue Harrison Ekuetafia",
+    name: "Harrison Ekuetafia Oghenerioborue",
   },
   sameAs: [INSTAGRAM_URL],
   description:

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { ScrollProgress } from "@/components/scroll-progress";
@@ -8,9 +9,9 @@ import { GOVERNOR_SPEC } from "@/lib/governor-spec";
 import { buildMetadata, DERIV_AFFILIATE_URL } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "About Harrison Ekuetafia & SoftPip — Trade with Rules",
+  title: "About Harrison Ekuetafia Oghenerioborue & SoftPip — Trade with Rules",
   description:
-    "Oghenerioborue Harrison Ekuetafia built SoftPip after losing ₦32M trading in 2025. Read the story of what happened, what survived, and why every tool is free.",
+    "Harrison Ekuetafia Oghenerioborue built SoftPip after losing ₦32,450,000 trading in 2025. Read the story of what happened, what survived, and why every tool is free.",
   path: "/about",
 });
 
@@ -50,34 +51,52 @@ export default function AboutPage() {
     <div className="section-pad min-h-screen">
       <ScrollProgress />
       <div className="container-shell flex flex-col gap-12">
-        {/* Header */}
-        <Reveal className="flex flex-col gap-5 max-w-[800px]">
-          <div className="inline-flex items-center gap-2.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[var(--mint)]" aria-hidden="true" />
-            <span className="type-micro uppercase text-[var(--mint-text)] tracking-wider">
-              Background · Founder & Architecture
-            </span>
+        {/* Header Hero Section: Left column portrait on desktop, full width above text on mobile */}
+        <Reveal className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+          {/* Portrait Left */}
+          <div className="w-full max-w-[420px] shrink-0">
+            <div className="relative aspect-[4/5] w-full rounded-[20px] overflow-hidden border border-[var(--border)] bg-[var(--surface)]">
+              <Image
+                src="/images/about-portrait.png"
+                alt="Harrison Ekuetafia Oghenerioborue, photographed against a plain background."
+                width={800}
+                height={1000}
+                priority
+                className="w-full h-full object-cover"
+                style={{ objectPosition: "50% 22%" }}
+              />
+            </div>
           </div>
 
-          <h1 className="type-h1 m-0">The engineer behind the autopsy.</h1>
+          {/* Right Column: Bio Narrative */}
+          <div className="flex flex-col gap-5 max-w-[700px]">
+            <div className="inline-flex items-center gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-[var(--mint)]" aria-hidden="true" />
+              <span className="type-micro uppercase text-[var(--mint-text)] tracking-wider">
+                Background · Founder &amp; Architecture
+              </span>
+            </div>
 
-          <div className="flex flex-col gap-4 type-body text-[var(--text-70)] prose-col leading-relaxed">
-            <p className="m-0 text-[var(--text)] font-medium">
-              I&apos;m Harrison Ekuetafia Oghenerioborue. I&apos;ve traded synthetic indices for six years.
-            </p>
-            <p className="m-0">
-              That&apos;s long enough to have a method, and long enough to know a method isn&apos;t a system. Venture building, risk architecture and positioning took up the other three years, for founders and public figures across Nigeria. Two hundred operators protected is a number I can point at. The lesson that survived all of it was the one I ignored in my own trading: a decision without a system is just a mood.
-            </p>
-            <p className="m-0">
-              In 2025 that cost me ₦32,450,000 <span className="text-[var(--text-45)]">(≈$21,600)</span> across ten months. Not one bad call. A ratchet on position size, stops I moved, and a bot I never audited.
-            </p>
-            <p className="m-0 text-[var(--mint-text)] font-medium">
-              So I wrote the rules down, put them in code, and gave both away. That&apos;s SoftPip.
-            </p>
-          </div>
+            <h1 className="type-h1 m-0">The engineer behind the autopsy.</h1>
 
-          <div className="pt-2">
-            <StatusLine className="mx-0" />
+            <div className="flex flex-col gap-4 type-body text-[var(--text-70)] prose-col leading-relaxed">
+              <p className="m-0 text-[var(--text)] font-medium">
+                I&apos;m Harrison Ekuetafia Oghenerioborue. I&apos;ve traded synthetic indices for six years.
+              </p>
+              <p className="m-0">
+                That&apos;s long enough to have a method, and long enough to know a method isn&apos;t a system. Venture building, risk architecture and positioning took up the other three years, for founders and public figures across Nigeria. Two hundred operators protected is a number I can point at. The lesson that survived all of it was the one I ignored in my own trading: a decision without a system is just a mood.
+              </p>
+              <p className="m-0">
+                In 2025 that cost me ₦32,450,000 <span className="text-[var(--text-45)]">(≈$21,600)</span> across ten months. Not one bad call. A ratchet on position size, stops I moved, and a bot I never audited.
+              </p>
+              <p className="m-0 text-[var(--mint-text)] font-medium">
+                So I wrote the rules down, put them in code, and gave both away. That&apos;s SoftPip.
+              </p>
+            </div>
+
+            <div className="pt-2">
+              <StatusLine className="mx-0" />
+            </div>
           </div>
         </Reveal>
 
@@ -189,7 +208,7 @@ export default function AboutPage() {
         <Reveal delayMs={160} className="surface-card p-8 sm:p-10 rounded-2xl flex flex-col gap-6 max-w-[800px] border border-[var(--border)]">
           <div className="flex flex-col gap-2">
             <span className="type-micro uppercase text-[var(--rust)] font-semibold tracking-wider">
-              Boundaries & Scope
+              Boundaries &amp; Scope
             </span>
             <h2 className="type-h2 m-0 text-[var(--text)]">
               What SoftPip will not do yet

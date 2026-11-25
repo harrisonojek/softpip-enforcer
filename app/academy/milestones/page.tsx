@@ -40,7 +40,7 @@ const MILESTONE_RUNGS = [
     title: "Reach $100 → 1-on-1 review",
     target: "Cross the $100 milestone while maintaining an execution compliance ratio of 100%.",
     unlocks: [
-      "30-minute direct trade journal audit with Oghenerioborue Harrison Ekuetafia",
+      "30-minute direct trade journal audit with Harrison Ekuetafia Oghenerioborue",
       "Custom risk governor parameter tuning for multi-session execution",
       "Early invitation to become a SoftPip Master Partner affiliate",
     ],

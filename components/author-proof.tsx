@@ -7,14 +7,13 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
     <div
       className={`p-6 sm:p-8 rounded-2xl border border-[var(--border)] bg-[var(--surface)] flex flex-col sm:flex-row items-center sm:items-start gap-6 ${className}`}
     >
-      {/* TODO(phase-1): Replace placeholder headshot with verified portrait of Oghenerioborue Harrison Ekuetafia */}
       <div className="relative shrink-0 flex flex-col items-center">
-        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-[var(--mint)] bg-[var(--void)] relative">
+        <div className="w-[96px] h-[96px] rounded-[22%] overflow-hidden border-2 border-[var(--mint)] bg-[var(--void)] relative">
           <Image
-            src="/author/harrison.jpg"
-            alt="Oghenerioborue Harrison Ekuetafia"
-            width={112}
-            height={112}
+            src="/images/author-harrison.png"
+            alt=""
+            width={96}
+            height={96}
             className="w-full h-full object-cover"
           />
         </div>
@@ -34,7 +33,7 @@ export function AuthorProofBlock({ className = "" }: { className?: string }) {
         </div>
 
         <p className="type-body text-[var(--text-70)] m-0 text-sm leading-relaxed max-w-[60ch]">
-          I&apos;m Harrison Ekuetafia Oghenerioborue. Six years trading synthetic indices, three of them building risk systems and positioning for founders and public figures. In 2025 I lost ₦32,450,000 <span className="text-[var(--text-45)]">(≈$21,600)</span> across ten months. The Enforcer is what I built so the same account couldn&apos;t happen twice.
+          I&apos;m Harrison Ekuetafia Oghenerioborue. Six years trading synthetic indices, three of them building risk systems and positioning for founders and public figures. In 2025 I lost ₦32,450,000 across ten months. The Enforcer is what I built so the same account couldn&apos;t happen twice.
         </p>
 
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-1 text-xs font-mono">

@@ -79,7 +79,7 @@ export default function RiskPage() {
           <Reveal delayMs={140} className="flex flex-col gap-4">
             <h2 className="type-h3 text-[var(--text)] m-0">Open-Source Code & No Liability</h2>
             <p className="type-small text-[var(--text-70)] m-0 leading-relaxed">
-              The Enforcer software (<code>governor.py</code>) is provided under the MIT License on an &ldquo;as is&rdquo; basis, without warranty of any kind, express or implied. Under no circumstances shall Oghenerioborue Harrison Ekuetafia or SoftPip contributors be liable for any claims, financial damages, network latency drops, Deriv API outages, or monetary losses arising from the use or execution of this repository.
+              The Enforcer software (<code>governor.py</code>) is provided under the MIT License on an &ldquo;as is&rdquo; basis, without warranty of any kind, express or implied. Under no circumstances shall Harrison Ekuetafia Oghenerioborue or SoftPip contributors be liable for any claims, financial damages, network latency drops, Deriv API outages, or monetary losses arising from the use or execution of this repository.
             </p>
           </Reveal>
 

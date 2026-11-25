@@ -56,7 +56,7 @@ export function Footer() {
             </Link>
             <p className="type-small text-[var(--text-70)] m-0 max-w-[34ch]">
               Free trading-education platform and open-source risk tool, built
-              by Oghenerioborue Harrison Ekuetafia after losing ₦32M trading in
+              by Harrison Ekuetafia Oghenerioborue after losing ₦32M trading in
               2025.
             </p>
             <div className="pt-1">

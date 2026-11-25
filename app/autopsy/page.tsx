@@ -141,7 +141,7 @@ export default async function AutopsyPage() {
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-1 type-micro text-[var(--text-45)]">
-            <span>Author: Oghenerioborue Harrison Ekuetafia</span>
+            <span>Author: Harrison Ekuetafia Oghenerioborue</span>
             <span>·</span>
             <span>Recorded: October 2025</span>
             <span>·</span>

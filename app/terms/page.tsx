@@ -47,7 +47,7 @@ export default function TermsPage() {
               All content provided on SoftPip—including the ₦32M autopsy report, the ten-module curriculum, risk ladder calculators, and software documentation—is published strictly for educational, informational, and software engineering purposes.
             </p>
             <p className="m-0">
-              SoftPip and its founder, Oghenerioborue Harrison Ekuetafia, are not licensed financial advisors, brokers, dealers, or asset managers under the Nigerian Securities and Exchange Commission (SEC), the UK Financial Conduct Authority (FCA), or any other regulatory jurisdiction. Nothing on this website constitutes investment advice, financial planning, or a recommendation to purchase or sell any derivative contract.
+              SoftPip and its founder, Harrison Ekuetafia Oghenerioborue, are not licensed financial advisors, brokers, dealers, or asset managers under the Nigerian Securities and Exchange Commission (SEC), the UK Financial Conduct Authority (FCA), or any other regulatory jurisdiction. Nothing on this website constitutes investment advice, financial planning, or a recommendation to purchase or sell any derivative contract.
             </p>
           </Reveal>
 
@@ -79,7 +79,7 @@ export default function TermsPage() {
           <Reveal delayMs={160} className="flex flex-col gap-3">
             <h2 className="type-h3 text-[var(--text)] m-0">5. Limitation of Liability</h2>
             <p className="m-0">
-              Under no legal theory (whether in contract, tort, negligence, or strict liability) shall SoftPip, Oghenerioborue Harrison Ekuetafia, or contributors be held liable to you or any third party for any direct, indirect, consequential, exemplary, incidental, or punitive damages—including financial trading losses, lost profits, margin liquidation, loss of data, internet connectivity drops, or Deriv platform service disruptions—resulting from your reliance on this site or execution of its software.
+              Under no legal theory (whether in contract, tort, negligence, or strict liability) shall SoftPip, Harrison Ekuetafia Oghenerioborue, or contributors be held liable to you or any third party for any direct, indirect, consequential, exemplary, incidental, or punitive damages—including financial trading losses, lost profits, margin liquidation, loss of data, internet connectivity drops, or Deriv platform service disruptions—resulting from your reliance on this site or execution of its software.
             </p>
           </Reveal>
 
